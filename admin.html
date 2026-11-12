@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>MK Style — AI Beheer &amp; Social Autopilot</title>
+  <link rel="icon" type="image/jpeg" href="./assets/images/logo-circle.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <style>
+    .admin-wrap {
+      padding: 36px 0 80px;
+    }
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+    .panel-gold {
+      border-color: var(--border-gold);
+      background: linear-gradient(160deg, #161920 0%, #1a1711 100%);
+    }
+    .panel h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-sub {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    .prompt-box {
+      position: relative;
+      margin-bottom: 14px;
+    }
+    .prompt-textarea {
+      width: 100%;
+      min-height: 108px;
+      background: #0c0e12;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px 56px 16px 16px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .prompt-textarea:focus {
+      border-color: var(--gold);
+    }
+    .mic-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--gold-bright);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+    }
+    .mic-btn.is-listening {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: #ef4444;
+      color: #fca5a5;
+      animation: pulseDot 1.2s infinite;
+    }
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.18s ease;
+    }
+    .chip-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold-bright);
+      background: var(--gold-glow);
+    }
+    .ai-response-box {
+      display: none;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      font-size: 0.92rem;
+    }
+    .ai-response-box.is-visible {
+      display: block;
+    }
+    .social-preview-card {
+      background: #0c0e12;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .social-preview-head {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .social-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .social-author img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .social-preview-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .social-caption-area {
+      width: 100%;
+      min-height: 135px;
+      border: 0;
+      background: transparent;
+      color: var(--text-primary);
+      padding: 14px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      resize: vertical;
+      outline: none;
+    }
+    .photo-picker {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .photo-thumb {
+      width: 62px;
+      height: 62px;
+      border-radius: 10px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.65;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .photo-thumb.is-active {
+      border-color: var(--gold);
+      opacity: 1;
+    }
+    .field-row {
+      margin-bottom: 14px;
+    }
+    .field-row label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+    }
+    .input-text {
+      width: 100%;
+      background: #0c0e12;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 13px;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-family: var(--font-sans);
+    }
+    .pin-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(6, 7, 9, 0.92);
+      backdrop-filter: blur(14px);
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+    .pin-modal.is-hidden {
+      display: none;
+    }
+    .pin-card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      text-align: center;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 120;
+      background: #14291b;
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      color: #bbf7d0;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: none;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.5);
+    }
+    .toast.is-visible {
+      display: block;
+      animation: slideDown 0.25s ease-out;
+    }
+    @media (max-width: 920px) {
+      .admin-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Simple Demo PIN Gate -->
+  <div id="pin-modal" class="pin-modal">
+    <div class="pin-card">
+      <img src="./assets/images/logo-white.png" alt="MK 38 Style" style="width: 64px; height: 64px; margin: 0 auto 14px;" />
+      <h1 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 6px;">MK Style AI Beheer</h1>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">
+        Beveiligde beheerpagina voor Murat.<br />
+        <span style="color: var(--gold-bright); font-family: var(--font-mono); font-size: 0.82rem;">Demo-code: 3824</span>
+      </p>
+      <form id="pin-form">
+        <input id="pin-input" type="password" inputmode="numeric" value="3824" class="input-text" style="text-align: center; font-family: var(--font-mono); font-size: 1.25rem; letter-spacing: 0.25em; margin-bottom: 14px;" aria-label="Pincode" />
+        <button type="submit" class="btn btn-gold" style="width: 100%;">Ontgrendel Dashboard</button>
+      </form>
+      <a href="./index.html" style="display: inline-block; margin-top: 16px; font-size: 0.85rem; color: var(--text-muted);">&larr; Terug naar de website</a>
+    </div>
+  </div>
+
+  <!-- Top Bar -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="./index.html" class="brand">
+        <img src="./assets/images/logo-white.png" alt="MK Style" class="brand-logo" width="44" height="44" />
+        <div class="brand-text">
+          <span class="brand-title">MK Style AI Studio</span>
+          <span class="brand-sub">Website &amp; Social Beheer</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="./index.html" target="_blank" class="btn btn-outline btn-sm">
+          &#8599; Bekijk Live Website
+        </a>
+        <button id="reset-all-btn" type="button" class="btn btn-outline btn-sm" title="Zet standaard uren terug">
+          Standaardinstellingen
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container admin-wrap">
+    <div class="admin-grid">
+      <!-- Left Column: AI Command + Live Website State -->
+      <div>
+        <section class="panel panel-gold">
+          <h2>&#10024; Praat tegen je MK Style AI Assistent</h2>
+          <p class="panel-sub">
+            Typ of spreek in gewoon Nederlands wat je wil aanpassen (feestdag, verlof, andere uren of een actie). De AI past meteen je website aan én schrijft je Facebook &amp; Instagram bericht klaar.
+          </p>
+
+          <div class="prompt-box">
+            <textarea id="ai-prompt" class="prompt-textarea" placeholder="Bijv: 'Donderdag zijn we gesloten wegens feestdag, vrijdag staan we terug klaar vanaf 9u30!'"></textarea>
+            <button id="mic-btn" type="button" class="mic-btn" title="Spreek in (Nederlands)">&#127908;</button>
+          </div>
+
+          <div class="chips-wrap">
+            <button type="button" class="chip-btn" data-prompt="Donderdag zijn we gesloten wegens een feestdag. Vrijdag terug open vanaf 09:30 zonder afspraak!">
+              &#128197; Feestdag donderdag gesloten
+            </button>
+            <button type="button" class="chip-btn" data-prompt="Wij zijn in jaarlijks verlof van 10 augustus t/m 20 augustus. Vanaf 21 augustus staan we weer fris klaar!">
+              &#9728;&#65039; Jaarlijks verlof instellen
+            </button>
+            <button type="button" class="chip-btn" data-prompt="Zaterdag zijn we extra vroeg open van 08:30 tot 18:00! Spring gerust binnen.">
+              &#9200; Zaterdag 08:30 – 18:00
+            </button>
+            <button type="button" class="chip-btn" data-prompt="Zet alles terug op de normale openingsuren en verwijder de melding bovenaan.">
+              &#9989; Normale uren herstellen
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+            <button id="run-ai-btn" type="button" class="btn btn-gold">
+              &#9889; Verwerk met AI &amp; Pas Website Aan
+            </button>
+            <details style="font-size: 0.82rem; color: var(--text-muted);">
+              <summary style="cursor: pointer;">Optioneel: Live Gemini API Sleutel</summary>
+              <div style="margin-top: 8px; display: flex; gap: 8px;">
+                <input id="gemini-key-input" type="password" class="input-text" placeholder="AIzaSy... (leeg = ingebouwde NL AI)" style="max-width: 260px; padding: 6px 10px; font-size: 0.8rem;" />
+              </div>
+            </details>
+          </div>
+
+          <div id="ai-summary" class="ai-response-box" role="status"></div>
+        </section>
+
+        <!-- Manual Quick Controls -->
+        <section class="panel">
+          <h2>&#9881;&#65039; Huidige Website Status &amp; Uren</h2>
+          <p class="panel-sub">
+            Elke wijziging is direct zichtbaar op de openstaande website-tab (ideaal om live te tonen).
+          </p>
+
+          <div class="field-row">
+            <label for="manual-banner-text">Melding bovenaan de website (leeg = verborgen)</label>
+            <input id="manual-banner-text" type="text" class="input-text" placeholder="Bijv. Opgelet: Donderdag gesloten wegens feestdag." />
+          </div>
+
+          <div class="field-row" style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-bottom: 18px;">
+            <label style="display: inline-flex; align-items: center; gap: 8px; margin: 0; cursor: pointer; color: var(--text-primary);">
+              <input id="manual-banner-active" type="checkbox" /> Toon melding op website
+            </label>
+            <label style="display: inline-flex; align-items: center; gap: 8px; margin: 0; cursor: pointer; color: #fca5a5;">
+              <input id="manual-force-closed" type="checkbox" /> Zet status vandaag op "TIJDELIJK GESLOTEN"
+            </label>
+          </div>
+
+          <div id="admin-hours-editor" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button id="save-manual-btn" type="button" class="btn btn-outline btn-sm">
+              Wijzigingen Opslaan
+            </button>
+            <button id="export-json-btn" type="button" class="btn btn-outline btn-sm">
+              &#128190; Download site-config.json
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Automatic Facebook & Instagram Post Studio -->
+      <div>
+        <section class="panel">
+          <h2>&#128241; Automatische Facebook &amp; Instagram Post</h2>
+          <p class="panel-sub">
+            Zodra je iets tegen de AI zegt, schrijft hij meteen een passende post voor <strong>Facebook (MK Style)</strong> en <strong>Instagram (@mkstyle.38)</strong>.
+          </p>
+
+          <label style="display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600;">
+            Kies foto voor bij het bericht:
+          </label>
+          <div id="photo-picker" class="photo-picker">
+            <img src="./assets/images/interior-hex-lights.jpg" alt="Interieur" class="photo-thumb is-active" data-src="./assets/images/interior-hex-lights.jpg" />
+            <img src="./assets/images/storefront-cover.jpg" alt="Voorgevel" class="photo-thumb" data-src="./assets/images/storefront-cover.jpg" />
+            <img src="./assets/images/murat-salon.jpg" alt="Murat in salon" class="photo-thumb" data-src="./assets/images/murat-salon.jpg" />
+            <img src="./assets/images/opening-poster.jpg" alt="MK Style Poster" class="photo-thumb" data-src="./assets/images/opening-poster.jpg" />
+            <img src="./assets/images/products-grooming.jpg" alt="Producten" class="photo-thumb" data-src="./assets/images/products-grooming.jpg" />
+          </div>
+
+          <div class="social-preview-card">
+            <div class="social-preview-head">
+              <div class="social-author">
+                <img src="./assets/images/logo-circle.jpg" alt="MK Style" />
+                <div>
+                  <div>MK Style &bull; @mkstyle.38</div>
+                  <div style="font-size: 0.73rem; color: var(--text-muted); font-weight: 500;">Sint-Gertrudisplein 24, Bilzen-Hoeselt</div>
+                </div>
+              </div>
+              <span style="font-size: 0.72rem; color: var(--gold-bright); border: 1px solid var(--border-gold); padding: 2px 8px; border-radius: 999px;">FB + IG</span>
+            </div>
+            <img id="social-preview-img" src="./assets/images/interior-hex-lights.jpg" alt="Voorbeeld post afbeelding" class="social-preview-img" />
+            <textarea id="social-caption" class="social-caption-area">💈 Altijd strak in stijl bij MK Style!
+
+Spring van dinsdag t/m zaterdag gewoon binnen ZONDER AFSPRAAK in ons vernieuwd kapsalon.
+
+📍 Sint-Gertrudisplein 24, 3740 Beverst (Bilzen-Hoeselt)
+✂️ Heren- & kindersnit • Baard scheren
+📞 0484 07 39 08
+
+#MKStyle #MK38Style #BarbierBilzen #KapperBilzen #Beverst #BilzenHoeselt #ZonderAfspraak #Herenkapper</textarea>
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
+            <button id="copy-caption-btn" type="button" class="btn btn-gold btn-sm">
+              &#128203; Kopieer Tekst
+            </button>
+            <button id="publish-webhook-btn" type="button" class="btn btn-outline btn-sm">
+              &#128640; Publiceer naar FB &amp; IG (Webhook)
+            </button>
+          </div>
+
+          <details style="font-size: 0.83rem; color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: 14px;">
+            <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">
+              Hoe werkt automatisch posten naar Facebook &amp; Instagram?
+            </summary>
+            <div style="margin-top: 10px; line-height: 1.6;">
+              <p style="margin-bottom: 10px;">
+                Koppel gratis een <strong>Make.com</strong> of <strong>n8n</strong> webhook aan Murat zijn Meta Business Suite (Facebookpagina + Instagram Business account <code>@mkstyle.38</code>). Eén klik hierboven stuurt de tekst en foto rechtstreeks door naar beide kanalen!
+              </p>
+              <label for="webhook-url" style="font-size: 0.76rem;">Make.com / n8n Webhook URL (optioneel):</label>
+              <input id="webhook-url" type="url" class="input-text" placeholder="https://hook.eu2.make.com/..." style="margin-top: 4px; font-size: 0.82rem;" />
+            </div>
+          </details>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="./assets/js/admin.js"></script>
+</body>
+</html>

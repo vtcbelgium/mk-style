@@ -1,0 +1,87 @@
+{
+  "shopName": "MK Style",
+  "brandMark": "MK 38 STYLE",
+  "ownerName": "Murat",
+  "tagline": "Strak in stijl. 100% zonder afspraak.",
+  "walkInOnly": true,
+  "phoneDisplay": "0484 07 39 08",
+  "phoneTel": "+32484073908",
+  "whatsappUrl": "https://wa.me/32484073908",
+  "address": {
+    "street": "Sint-Gertrudisplein 24",
+    "postalCode": "3740",
+    "locality": "Beverst",
+    "municipality": "Bilzen-Hoeselt",
+    "region": "Limburg",
+    "country": "BE",
+    "mapsQuery": "https://www.google.com/maps/search/?api=1&query=Sint-Gertrudisplein+24,+3740+Beverst,+Bilzen-Hoeselt",
+    "wazeUrl": "https://waze.com/ul?ll=50.8911586,5.4744756&navigate=yes",
+    "lat": 50.8911586,
+    "lng": 5.4744756
+  },
+  "socials": {
+    "facebook": "https://www.facebook.com/p/MK-Style-61588435168843/",
+    "instagram": "https://www.instagram.com/mkstyle.38/",
+    "instagramHandle": "@mkstyle.38"
+  },
+  "announcement": {
+    "active": false,
+    "type": "info",
+    "text": "",
+    "forceClosedToday": false,
+    "updatedAt": "2026-11-12T20:30:00+01:00"
+  },
+  "hours": {
+    "monday": { "label": "Maandag", "closed": true, "shifts": [], "note": "" },
+    "tuesday": { "label": "Dinsdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
+    "wednesday": { "label": "Woensdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
+    "thursday": { "label": "Donderdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
+    "friday": { "label": "Vrijdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
+    "saturday": { "label": "Zaterdag", "closed": false, "shifts": [["09:00", "17:00"]], "note": "Doorlopend open" },
+    "sunday": { "label": "Zondag", "closed": true, "shifts": [], "note": "" }
+  },
+  "services": [
+    {
+      "id": "knip",
+      "name": "Herenknipbeurt",
+      "desc": "Persoonlijk advies, strakke fade of klassieke snit, inclusief afwerking & styling.",
+      "price": "€25",
+      "tag": "Populair"
+    },
+    {
+      "id": "knip-baard",
+      "name": "Knippen & Baard",
+      "desc": "Volledige verzorging: strakke snit gecombineerd met baard trimmen en scherp aflijnen.",
+      "price": "€40",
+      "tag": "Compleet"
+    },
+    {
+      "id": "baard",
+      "name": "Baard Scheren / Trimmen",
+      "desc": "Vakkundig modelleren, contouren scheren met mes en verzorgende baardolie.",
+      "price": "€15",
+      "tag": ""
+    },
+    {
+      "id": "kids",
+      "name": "Kindersnit (t/m 12 jaar)",
+      "desc": "Geduldig en vlot geknipt voor jongens t/m 12 jaar — altijd welkom zonder afspraak.",
+      "price": "€20",
+      "tag": ""
+    },
+    {
+      "id": "tondeuse",
+      "name": "Tondeusesnit / Bros",
+      "desc": "Strakke buzzcut of bros op één of meerdere lengtes, netjes afgelijnd in de nek.",
+      "price": "€20",
+      "tag": ""
+    },
+    {
+      "id": "was-style",
+      "name": "Knippen, Wassen & Stylen",
+      "desc": "Verfrissende wasbeurt, hoofdhuidmassage, knipbeurt en premium afwerking.",
+      "price": "€30",
+      "tag": ""
+    }
+  ]
+}
