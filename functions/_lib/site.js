@@ -8,12 +8,12 @@ export class InputError extends Error {
 const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const obj = (v) => !!v && typeof v === 'object' && !Array.isArray(v);
 const text = (v, max) => typeof v === 'string' && v.length <= max && !/[<>]/.test(v);
-const time = (v) => typeof v === 'string' && /^([01]\\d|2[0-3]):[0-5]\\d$/.test(v);
+const time = (v) => typeof v === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(v);
 const minutes = (v) => Number(v.slice(0,2)) * 60 + Number(v.slice(3));
-const price = (v) => typeof v === 'string' && /^€\\s?(?:[1-9]\\d{0,2}|0)(?:[,.]\\d{2})?$/.test(v);
+const price = (v) => typeof v === 'string' && /^€\s?(?:[1-9]\d{0,2}|0)(?:[,.]\d{2})?$/.test(v);
 const fail = (m) => { throw new InputError(m); };
 export const isIsoDate = (value) => {
-  if (typeof value !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}$/.test(value)) return false;
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
   const d = new Date(value + 'T00:00:00.000Z');
   return !Number.isNaN(d.getTime()) && d.toISOString().slice(0,10) === value;
 };
