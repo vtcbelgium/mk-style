@@ -20,6 +20,8 @@ jobs:
           done
       - name: Run validation regression tests
         run: npm test
+      - name: Validate public client profile JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('config/client-profile.json', 'utf8'))"
       - name: Build static site
         run: npm run build
       - name: Prohibit legacy demo credentials in published files
@@ -32,3 +34,4 @@ jobs:
           test -f dist/admin.html
           test ! -e dist/assets/js/admin.js
           test ! -d dist/migrations
+          test ! -e dist/config/client-profile.json
