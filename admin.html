@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>MK Style — AI Beheer &amp; Social Autopilot</title>
+  <title>MK Style — Beveiligd Beheer</title>
   <link rel="icon" type="image/jpeg" href="./assets/images/logo-circle.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -256,23 +256,7 @@
 </head>
 <body>
 
-  <!-- Simple Demo PIN Gate -->
-  <div id="pin-modal" class="pin-modal">
-    <div class="pin-card">
-      <img src="./assets/images/logo-white.png" alt="MK 38 Style" style="width: 64px; height: 64px; margin: 0 auto 14px;" />
-      <h1 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 6px;">MK Style AI Beheer</h1>
-      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px;">
-        Beveiligde beheerpagina voor Murat.<br />
-        <span style="color: var(--gold-bright); font-family: var(--font-mono); font-size: 0.82rem;">Demo-code: 3824</span>
-      </p>
-      <form id="pin-form">
-        <input id="pin-input" type="password" inputmode="numeric" value="3824" class="input-text" style="text-align: center; font-family: var(--font-mono); font-size: 1.25rem; letter-spacing: 0.25em; margin-bottom: 14px;" aria-label="Pincode" />
-        <button type="submit" class="btn btn-gold" style="width: 100%;">Ontgrendel Dashboard</button>
-      </form>
-      <a href="./index.html" style="display: inline-block; margin-top: 16px; font-size: 0.85rem; color: var(--text-muted);">&larr; Terug naar de website</a>
-    </div>
-  </div>
-
+  <!-- Protected by Cloudflare Access plus server-side JWT verification. -->
   <!-- Top Bar -->
   <header class="navbar">
     <div class="container nav-inner">
@@ -289,7 +273,7 @@
           &#8599; Bekijk Live Website
         </a>
         <button id="reset-all-btn" type="button" class="btn btn-outline btn-sm" title="Zet standaard uren terug">
-          Standaardinstellingen
+          Herlaad Gegevens
         </button>
       </div>
     </div>
@@ -302,7 +286,7 @@
         <section class="panel panel-gold">
           <h2>&#10024; Praat tegen je MK Style AI Assistent</h2>
           <p class="panel-sub">
-            Typ of spreek in gewoon Nederlands wat je wil aanpassen (feestdag, verlof, andere uren of een actie). De AI past meteen je website aan én schrijft je Facebook &amp; Instagram bericht klaar.
+            Typ of spreek in gewoon Nederlands wat je wil aanpassen (feestdag, verlof, andere uren of een actie). De AI maakt een voorstel. Alleen jij kunt dit bevestigen. Sociale berichten blijven concepten.
           </p>
 
           <div class="prompt-box">
@@ -327,24 +311,20 @@
 
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
             <button id="run-ai-btn" type="button" class="btn btn-gold">
-              &#9889; Verwerk met AI &amp; Pas Website Aan
+              &#9889; Maak AI-voorstel
             </button>
-            <details style="font-size: 0.82rem; color: var(--text-muted);">
-              <summary style="cursor: pointer;">Optioneel: Live Gemini API Sleutel</summary>
-              <div style="margin-top: 8px; display: flex; gap: 8px;">
-                <input id="gemini-key-input" type="password" class="input-text" placeholder="AIzaSy... (leeg = ingebouwde NL AI)" style="max-width: 260px; padding: 6px 10px; font-size: 0.8rem;" />
-              </div>
-            </details>
+            
           </div>
 
           <div id="ai-summary" class="ai-response-box" role="status"></div>
+          <div id="pending-ai" class="panel" style="display:none;margin-top:14px;" role="region" aria-label="AI voorstel"></div>
         </section>
 
         <!-- Manual Quick Controls -->
         <section class="panel">
           <h2>&#9881;&#65039; Huidige Website Status &amp; Uren</h2>
           <p class="panel-sub">
-            Elke wijziging is direct zichtbaar op de openstaande website-tab (ideaal om live te tonen).
+            De server bewaart je wijzigingen voor alle bezoekers. Controleer ze altijd zorgvuldig.
           </p>
 
           <div class="field-row">
@@ -356,9 +336,7 @@
             <label style="display: inline-flex; align-items: center; gap: 8px; margin: 0; cursor: pointer; color: var(--text-primary);">
               <input id="manual-banner-active" type="checkbox" /> Toon melding op website
             </label>
-            <label style="display: inline-flex; align-items: center; gap: 8px; margin: 0; cursor: pointer; color: #fca5a5;">
-              <input id="manual-force-closed" type="checkbox" /> Zet status vandaag op "TIJDELIJK GESLOTEN"
-            </label>
+            
           </div>
 
           <div id="admin-hours-editor" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px;"></div>
@@ -420,23 +398,8 @@ Spring van dinsdag t/m zaterdag gewoon binnen ZONDER AFSPRAAK in ons vernieuwd k
             <button id="copy-caption-btn" type="button" class="btn btn-gold btn-sm">
               &#128203; Kopieer Tekst
             </button>
-            <button id="publish-webhook-btn" type="button" class="btn btn-outline btn-sm">
-              &#128640; Publiceer naar FB &amp; IG (Webhook)
-            </button>
           </div>
-
-          <details style="font-size: 0.83rem; color: var(--text-secondary); border-top: 1px solid var(--border-subtle); padding-top: 14px;">
-            <summary style="cursor: pointer; font-weight: 600; color: var(--text-primary);">
-              Hoe werkt automatisch posten naar Facebook &amp; Instagram?
-            </summary>
-            <div style="margin-top: 10px; line-height: 1.6;">
-              <p style="margin-bottom: 10px;">
-                Koppel gratis een <strong>Make.com</strong> of <strong>n8n</strong> webhook aan Murat zijn Meta Business Suite (Facebookpagina + Instagram Business account <code>@mkstyle.38</code>). Eén klik hierboven stuurt de tekst en foto rechtstreeks door naar beide kanalen!
-              </p>
-              <label for="webhook-url" style="font-size: 0.76rem;">Make.com / n8n Webhook URL (optioneel):</label>
-              <input id="webhook-url" type="url" class="input-text" placeholder="https://hook.eu2.make.com/..." style="margin-top: 4px; font-size: 0.82rem;" />
-            </div>
-          </details>
+          <p class="panel-sub">Social media wordt voorlopig niet automatisch gepubliceerd. Kopieer de voorgestelde tekst en plaats ze zelf na controle.</p>
         </section>
       </div>
     </div>
@@ -444,6 +407,6 @@ Spring van dinsdag t/m zaterdag gewoon binnen ZONDER AFSPRAAK in ons vernieuwd k
 
   <div id="toast" class="toast" role="status"></div>
 
-  <script src="./assets/js/admin.js"></script>
+  <script src="./assets/js/admin-v2.js"></script>
 </body>
 </html>
