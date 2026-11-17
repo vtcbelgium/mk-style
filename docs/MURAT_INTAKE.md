@@ -1,6 +1,6 @@
 # MK Style — gegevens die Murat nog moet bevestigen
 
-Status 17 november 2026: Murat vindt het ontwerp goed en heeft 'komt in orde, merci' geschreven na de domeinuitleg. **Geen bewijs van de feitelijke domeinaankoop of definitieve inhoudelijke goedkeuring.** Geen betaal- of inloggegevens via WhatsApp opvragen.
+Status 17 november 2026: Murat is tevreden over het ontwerp, bevestigde inmiddels de **huidige voorbeeldprijzen en openingsuren** en gaf zijn **bedrijfsnaam en btw-nummer** door. Zakelijk e-mailadres volgt. **Domein is nog niet aantoonbaar geregistreerd of betaald.** Geen betaal- of inloggegevens via WhatsApp opvragen.
 
 ## 1. Domein en accounts (geblokkeerd tot Murat bevestigt)
 - [ ] Murat bevestigt dat `mk38style.be` bij OVHcloud geregistreerd en actief is.
@@ -10,21 +10,24 @@ Status 17 november 2026: Murat vindt het ontwerp goed en heeft 'komt in orde, me
 - [ ] Cloudflare account- en hosting-eigenaarschap afspreken; alleen noodzakelijke ontwikkelaarsrechten verlenen.
 
 ## 2. Basisinformatie (bevestiging door Murat)
-- [ ] Exacte handelsnaam, statutaire naam en ondernemingsnummer/btw-status.
-- [ ] Officieel contact-e-mailadres voor wettelijke bedrijfsinfo.
+- [x] Bedrijfsnaam zoals opgegeven: **MK Style CommV.**; ondernemingsnummer **1004.134.102**, btw-nummer **BE1004.134.102** (Murat, WhatsApp 17/11/2026). Externe KBO-afgeleide bedrijfsvermelding komt overeen; officiële bron controle vóór live.
+- [ ] Officieel zakelijk e-mailadres voor wettelijke bedrijfsinfo **nog niet ontvangen**; Murat is het aan het aanmaken.
 - [ ] Sint-Gertrudisplein 24, 3740 Beverst (Bilzen-Hoeselt) klopt.
 - [ ] Telefoonnummer 0484 07 39 08 en WhatsApp-link kloppen.
-- [ ] Correcte openingstijden, lunchpauzes en bijzondere sluitingsdagen.
+- [x] **Reguliere openingstijden van de huidige voorbeeldpagina zijn door Murat bevestigd.**
+- [ ] Afwijkende sluitingsdagen, vakantie en latere wijzigingen nog afzonderlijk beheren.
 - [ ] 'Zonder afspraak', betaalmiddelen en parkeren op het plein zijn feitelijk juist.
 - [ ] Vermelding 16+ jaar ervaring, geschiedenis en beschreven producten kloppen.
-- [ ] Namen en omschrijvingen van **alle** diensten + actuele prijzen:
+- [x] **Prijzen van alle op de huidige voorbeeldpagina getoonde diensten zijn door Murat bevestigd.**
+- [ ] Leeftijdsgrenzen, dienstbeschrijvingen en eventuele toekomstige aanvullingen afzonderlijk controleren.
+- Bevestigde prijzen van de bestaande voorbeeldpagina:
   - Herenknipbeurt €25
   - Knippen & Baard €40
   - Baard €15
   - Kindersnit €20
   - Tondeusesnit/Bros €20
   - Knippen, wassen & stylen €30
-  (Dit zijn **voorlopige waarden uit de demo**, geen bevestigde prijslijst.)
+  (Bevestigd door Murat op 17/11/2026 voor de huidige voorbeeldpagina.)
 - [ ] Facebookpagina en Instagram @mkstyle.38 zijn officieel en juist.
 
 ## 3. Foto's en privacy
