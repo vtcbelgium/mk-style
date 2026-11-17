@@ -1,5 +1,8 @@
 # MK Style — Herenkapper en barbier Beverst
 
+## Centrale klantgegevens
+**[config/client-profile.json](config/client-profile.json)** is de centrale projectfiche voor MK Style: bedrijfsidentiteit, btw-nummer, zakelijke contactgegevens, bevestigde openingsuren en prijzen, domeinstatus, website-links en nog te bevestigen zaken. Het is een **publiek leesbaar bestand**, want deze repository is Public. De productie-websitebuild neemt dit bestand niet mee. Deel nooit wachtwoorden, sleutels, privégesprekken of persoonlijke gegevens in Git.
+
 ## Status
 De publieke website op `main` is **een demo**, géén productieklaar beheersysteem. Het bestaande `admin.html` gebruikt een **publieke demo-PIN** en `localStorage`; wijzigingen zijn niet gedeeld met bezoekers op andere toestellen. Gebruik demo-PIN of browser-Gemini-sleutels nooit in productie.
 
