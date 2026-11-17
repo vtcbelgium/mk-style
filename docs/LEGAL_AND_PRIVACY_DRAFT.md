@@ -3,16 +3,16 @@
 **Status:** werkdocument. Dit is geen juridisch advies of kant-en-klare verklaring. Verifieer toepasselijk Belgisch/EU recht en concrete diensten vóór publicatie. Laat Murat de gegevens en verwerkingen bevestigen, en laat bij twijfel nakijken door jurist/privacyadviseur.
 
 ## Wettelijke bedrijfsinformatie — te verzamelen
-- Handelsnaam: MK Style (voorlopig)
-- Juridische naam exploitant: **[TE BEVESTIGEN]**
-- Ondernemingsnummer / btw-nummer indien van toepassing: **[TE BEVESTIGEN]**
+- Handelsnaam: **MK Style** (door Murat bevestigd op 17/11/2026)
+- Juridische vorm/naam zoals door Murat opgegeven: **MK Style CommV.** (definitieve weergave controleren aan officiële KBO-registratie)
+- Ondernemingsnummer: **1004.134.102**; btw-nummer: **BE1004.134.102** (door Murat op 17/11/2026 bevestigd; nog officieel te controleren)
 - Vestigingsadres: Sint-Gertrudisplein 24, 3740 Beverst (Bilzen-Hoeselt) **[TE BEVESTIGEN]**
-- Zakelijk e-mailadres: **[TE BEVESTIGEN]**
+- Zakelijk e-mailadres: **[NOG NIET ONTVANGEN]** — Murat maakt een adres aan
 - Telefoonnummer: 0484 07 39 08 **[TE BEVESTIGEN]**
 - Toezicht-/beroepsvermeldingen: **[enkel indien van toepassing]**
 - Verantwoordelijke voor inhoud en contact voor aanpassingen: **[TE BEVESTIGEN]**
 
-Geen persoonsgegevens/ondernemingsnummer verzinnen; bedrijfspagina pas publiceren na verificatie.
+Ondernemingsnummer en juridische naam zijn door Murat gedeeld en komen overeen met een publieke KBO-afgeleide vermelding. Controleer officiële KBO/BCE-gegevens en ontvang het zakelijke e-mailadres vóór definitieve publicatie. Geen persoonsgegevens of aanvullende gegevens verzinnen.
 
 ## Privacyverklaring — basisstructuur (aanpassen aan feitelijke gegevensverwerking)
 1. **Verwerkingsverantwoordelijke:** naam/gegevens Murat/onderneming.
