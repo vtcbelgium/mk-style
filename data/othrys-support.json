@@ -1,0 +1,33 @@
+{
+  "schema": "othrys.support.site-manifest.v1",
+  "siteId": "mk-style",
+  "clientName": "MK Style",
+  "repo": "vtcbelgium/mk-style",
+  "tier": "essential_care",
+  "lifecycleStage": "pilot_pending_launch",
+  "domainPolicy": {
+    "owner": "client",
+    "dnsDelegation": "othrys_technical_access"
+  },
+  "commercialGuard": {
+    "billingValve": "closed_dormant",
+    "billingEnabled": false
+  },
+  "compliance": {
+    "gdprProcessorAgreementRequired": true,
+    "aiDisclosureRequired": true,
+    "neverFabricateBookings": true
+  },
+  "monitoring": {
+    "frontlineDetector": "external_edge_webhook",
+    "deepDiagnosis": "t590_argus_on_demand",
+    "journeySmokeCadence": "post_deploy_and_daily_readonly",
+    "excludeSyntheticFromAnalytics": true
+  },
+  "reporting": {
+    "schedule": "MON 08:00 Europe/Brussels",
+    "deliveryMode": "self_contained_email_and_signed_link",
+    "missingMetricPolicy": "UNAVAILABLE_NEVER_ZERO",
+    "quietWeekPolicy": "NO_FORCED_RECOMMENDATION"
+  }
+}
