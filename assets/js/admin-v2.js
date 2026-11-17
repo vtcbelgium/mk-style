@@ -111,7 +111,11 @@ function addManualPanel() {
     <h2>💶 Prijs aanpassen</h2>
     <div class="field-row"><label for="price-service">Dienst</label><select id="price-service" class="input-text"></select></div>
     <div class="field-row"><label for="price-value">Nieuwe prijs</label><input id="price-value" class="input-text" placeholder="€27" maxlength="9"></div>
-    <button id="price-save" class="btn btn-outline btn-sm">Bewaar prijs</button>`;
+    <button id="price-save" class="btn btn-outline btn-sm">Bewaar prijs</button>
+    <hr style="margin:22px 0;border:0;border-top:1px solid var(--border-subtle)">
+    <h2>↩️ Herstel vorige wijziging</h2>
+    <p class="panel-sub">Maak de laatst gepubliceerde wijziging ongedaan. De server bewaart ook de herstelactie.</p>
+    <button id="undo-last" class="btn btn-outline btn-sm">Herstel vorige versie</button>`;
   root.append(sec);
 }
 async function deleteException(date) {
@@ -156,6 +160,17 @@ function wire() {
       exceptions.push({date,closed,shifts,note});
       await publish({exceptions});
     }catch(e){toast('Niet opgeslagen: '+e.message);}
+  });
+  $('undo-last').addEventListener('click',async()=>{
+    if(!Number.isSafeInteger(version) || version<2) {toast('Geen eerdere wijziging gevonden.');return;}
+    if(!confirm('Laatste wijziging ongedaan maken? Dit wordt voor alle bezoekers toegepast.'))return;
+    try {
+      const data=await api('/api/admin/undo','POST',{expectedVersion:version});
+      if(!data.published)throw new Error('Geen bevestiging van herstel');
+      current=data.config;version=data.version;render();
+      showSummary('✓ Vorige wijziging is hersteld. Versie '+version+' gecontroleerd.');
+      toast('Wijziging teruggedraaid.');
+    }catch(e){toast('Herstellen mislukt: '+e.message);}
   });
   $('price-save').addEventListener('click',async()=>{
     try {
