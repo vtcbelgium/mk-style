@@ -27,7 +27,8 @@ function getBrusselsNow() {
 }
 
 function resolveDay(config, dayKey, date) {
-  return (config.exceptions || []).find(e => e.date === date) || config.hours[dayKey];
+  const special = (config.exceptions || []).find(e => e.date === date);
+  return special ? {...special, label:config.hours?.[dayKey]?.label || dayKey} : config.hours[dayKey];
 }
 function findNextOpening(config, currentDayIdx, todayDate) {
   const base = new Date(todayDate + 'T12:00:00Z');
@@ -98,6 +99,13 @@ function renderAnnouncement(config) {
   const tagEl = document.getElementById('announcement-tag');
   if (!bar || !textEl || !tagEl) return;
 
+  if (config._stale) {
+    bar.classList.add('is-visible','is-alert');
+    tagEl.textContent = 'Opgelet';
+    textEl.textContent = 'Actuele openingstijden en prijzen zijn tijdelijk niet bevestigd. Bel de zaak voor de recentste informatie.';
+    return;
+  }
+
   if (config.announcement && config.announcement.active && config.announcement.text) {
     bar.classList.add('is-visible');
     bar.classList.toggle('is-alert', config.announcement.type === 'alert');
@@ -109,7 +117,9 @@ function renderAnnouncement(config) {
 }
 
 function renderStatus(config) {
-  const status = computeShopStatus(config);
+  const status = config._stale
+    ? {state:'closed',pillText:'STATUS ONBEKEND',detailText:'Live gegevens tijdelijk niet beschikbaar. Bel om de actuele openingsuren te controleren.'}
+    : computeShopStatus(config);
   const pills = document.querySelectorAll('.js-status-pill');
   pills.forEach((pill) => {
     pill.classList.remove('is-open', 'is-break', 'is-closed');
@@ -193,11 +203,11 @@ async function loadConfig() {
       }
     }
   } catch (_) { /* API unavailable */ }
-  if (lastValidConfig) return lastValidConfig;
+  if (lastValidConfig) return {...lastValidConfig,_stale:true};
   // Temporary static fallback only; the live API remains the source of truth.
   try {
     const response = await fetch('./data/site-config.json', {cache:'no-store'});
-    if (response.ok) { lastValidConfig = await response.json(); return lastValidConfig; }
+    if (response.ok) { lastValidConfig = await response.json(); return {...lastValidConfig,_stale:true}; }
   } catch (_) {}
   return null;
 }
