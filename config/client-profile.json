@@ -1,0 +1,245 @@
+{
+  "_description": "Publieke zakelijke projectfiche voor MK Style. Geen secrets, inloggegevens, privégesprekken of persoonlijke contactgegevens toevoegen. Dit bestand is voor het ontwikkelteam; het wordt niet opgenomen in de website-build.",
+  "last_updated": "2026-11-17",
+  "project": {
+    "name": "MK Style website",
+    "github_repository": "https://github.com/vtcbelgium/mk-style",
+    "development_branch": "feat/production-readiness-2026-11",
+    "draft_pull_request": "https://github.com/vtcbelgium/mk-style/pull/44",
+    "project_board": "https://github.com/vtcbelgium/mk-style/issues/43",
+    "temporary_preview": "https://vtcbelgium.github.io/mk-style/",
+    "target_site": "https://mk38style.be/",
+    "production_status": "not_live",
+    "planned_hosting": "Cloudflare Pages + Functions + D1",
+    "hosting_status": "not_deployed",
+    "ai_admin_status": "under_development_not_production_ready"
+  },
+  "company": {
+    "trade_name": "MK Style",
+    "legal_name": "MK Style CommV.",
+    "legal_name_status": "confirmed_by_owner_2026-11-17_official_registry_check_pending",
+    "enterprise_number": "1004.134.102",
+    "vat_number": "BE1004.134.102",
+    "enterprise_vat_source": "Owner WhatsApp message 2026-11-17; official registry verification before publication",
+    "owner_first_name_for_public_website": "Murat",
+    "business_address": {
+      "street": "Sint-Gertrudisplein 24",
+      "postal_code": "3740",
+      "locality": "Beverst",
+      "municipality": "Bilzen-Hoeselt",
+      "region": "Limburg",
+      "country": "BE",
+      "status": "from_existing_preview_owner_confirmation_pending"
+    },
+    "telephone": {
+      "display": "0484 07 39 08",
+      "international": "+32484073908",
+      "status": "from_existing_preview_owner_confirmation_pending"
+    },
+    "whatsapp": {
+      "public_business_url": "https://wa.me/32484073908",
+      "status": "from_existing_preview_owner_confirmation_pending"
+    },
+    "business_email": null,
+    "business_email_status": "owner_creating_address_not_received",
+    "social_media": {
+      "instagram": "https://www.instagram.com/mkstyle.38/",
+      "instagram_handle": "@mkstyle.38",
+      "facebook": "https://www.facebook.com/p/MK-Style-61588435168843/",
+      "status": "from_existing_preview_owner_confirmation_pending"
+    }
+  },
+  "domain": {
+    "name": "mk38style.be",
+    "registrar": "OVHcloud",
+    "registrar_account_type": "Company / Commercial per owner's question",
+    "registration_status": "awaiting_payment_or_confirmation_email",
+    "registration_verified": false,
+    "owner": "Murat / MK Style company (to verify after registration)",
+    "dns_setup": "not_started",
+    "renewal_date": null,
+    "additional_hosting_required_at_registrar": false
+  },
+  "confirmed_by_owner": {
+    "as_of": "2026-11-17",
+    "general_design": "preview_looks_good",
+    "regular_opening_hours": "confirmed_as_shown_in_preview",
+    "prices": "confirmed_as_shown_in_preview",
+    "legal_name": "MK Style CommV.",
+    "enterprise_number": "1004.134.102",
+    "vat_number": "BE1004.134.102"
+  },
+  "opening_hours": {
+    "time_zone": "Europe/Brussels",
+    "regular_schedule": {
+      "monday": {
+        "label": "Maandag",
+        "closed": true,
+        "shifts": [],
+        "note": ""
+      },
+      "tuesday": {
+        "label": "Dinsdag",
+        "closed": false,
+        "shifts": [
+          [
+            "09:30",
+            "13:00"
+          ],
+          [
+            "13:30",
+            "18:30"
+          ]
+        ],
+        "note": ""
+      },
+      "wednesday": {
+        "label": "Woensdag",
+        "closed": false,
+        "shifts": [
+          [
+            "09:30",
+            "13:00"
+          ],
+          [
+            "13:30",
+            "18:30"
+          ]
+        ],
+        "note": ""
+      },
+      "thursday": {
+        "label": "Donderdag",
+        "closed": false,
+        "shifts": [
+          [
+            "09:30",
+            "13:00"
+          ],
+          [
+            "13:30",
+            "18:30"
+          ]
+        ],
+        "note": ""
+      },
+      "friday": {
+        "label": "Vrijdag",
+        "closed": false,
+        "shifts": [
+          [
+            "09:30",
+            "13:00"
+          ],
+          [
+            "13:30",
+            "18:30"
+          ]
+        ],
+        "note": ""
+      },
+      "saturday": {
+        "label": "Zaterdag",
+        "closed": false,
+        "shifts": [
+          [
+            "09:00",
+            "17:00"
+          ]
+        ],
+        "note": "Doorlopend open"
+      },
+      "sunday": {
+        "label": "Zondag",
+        "closed": true,
+        "shifts": [],
+        "note": ""
+      }
+    },
+    "status": "confirmed_by_owner_2026-11-17",
+    "exceptions": "not_yet_collected"
+  },
+  "services": {
+    "price_status": "confirmed_by_owner_2026-11-17",
+    "descriptions_and_age_limits_status": "from_preview_not_separately_verified",
+    "items": [
+      {
+        "id": "knip",
+        "name": "Herenknipbeurt",
+        "price": "€25",
+        "description": "Persoonlijk advies, strakke fade of klassieke snit, inclusief afwerking & styling.",
+        "tag": "Populair"
+      },
+      {
+        "id": "knip-baard",
+        "name": "Knippen & Baard",
+        "price": "€40",
+        "description": "Volledige verzorging: strakke snit gecombineerd met baard trimmen en scherp aflijnen.",
+        "tag": "Compleet"
+      },
+      {
+        "id": "baard",
+        "name": "Baard Scheren / Trimmen",
+        "price": "€15",
+        "description": "Vakkundig modelleren, contouren scheren met mes en verzorgende baardolie.",
+        "tag": ""
+      },
+      {
+        "id": "kids",
+        "name": "Kindersnit (t/m 12 jaar)",
+        "price": "€20",
+        "description": "Geduldig en vlot geknipt voor jongens t/m 12 jaar — altijd welkom zonder afspraak.",
+        "tag": ""
+      },
+      {
+        "id": "tondeuse",
+        "name": "Tondeusesnit / Bros",
+        "price": "€20",
+        "description": "Strakke buzzcut of bros op één of meerdere lengtes, netjes afgelijnd in de nek.",
+        "tag": ""
+      },
+      {
+        "id": "was-style",
+        "name": "Knippen, Wassen & Stylen",
+        "price": "€30",
+        "description": "Verfrissende wasbeurt, hoofdhuidmassage, knipbeurt en premium afwerking.",
+        "tag": ""
+      }
+    ]
+  },
+  "website_claims_to_verify": [
+    "without_appointment_policy",
+    "payment_methods",
+    "free_parking_claim",
+    "16_plus_years_experience",
+    "brand_products",
+    "photos_and_customer_consent",
+    "phone_address_and_social_account_ownership"
+  ],
+  "pending_from_owner": [
+    "OVHcloud domain registration confirmation, without passwords",
+    "business email address",
+    "confirm remaining address / phone / social links and claims",
+    "photo publishing rights, especially recognizable customers",
+    "choose authorized admin email",
+    "review privacy and legal content before launch"
+  ],
+  "project_rules": {
+    "domain_belongs_to": "MK Style / Murat",
+    "public_repo_warning": "Repository is PUBLIC as checked on 2026-11-17",
+    "never_commit": [
+      "API keys or tokens",
+      "passwords or PINs",
+      "OAuth secrets and Cloudflare credentials",
+      "private WhatsApp screenshots or chat exports",
+      "customer records, private personal data, invoices or billing details"
+    ],
+    "secrets_storage": "Cloudflare encrypted environment secrets or other purpose-built secret store; local .env ignored by git"
+  },
+  "reference_files": [
+    "data/site-config.json",
+    "docs/MURAT_INTAKE.md",
+    "docs/LEGAL_AND_PRIVACY_DRAFT.md",
+    "docs/DEPLOYMENT_RUNBOOK.md"
+  ]
+}
