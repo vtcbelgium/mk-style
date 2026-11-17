@@ -27,8 +27,9 @@ export async function onRequestPatch({request,env}) {
     const results = await db.batch([
       db.prepare('UPDATE site_config SET config_json = ?, version = ?, updated_at = ? WHERE id = ? AND version = ?')
         .bind(serialized,newVersion,now,'main',original.version),
-      db.prepare('INSERT OR IGNORE INTO site_revisions (version, before_json, after_json, actor, source, created_at) VALUES (?, ?, ?, ?, ?, ?)')
-        .bind(newVersion,original.raw,serialized,user.email,body.source,now)
+      db.prepare('INSERT OR IGNORE INTO site_revisions (version, before_json, after_json, actor, source, created_at) '
+        + 'SELECT ?, ?, ?, ?, ?, ? WHERE EXISTS (SELECT 1 FROM site_config WHERE id = ? AND version = ?)')
+        .bind(newVersion,original.raw,serialized,user.email,body.source,now,'main',newVersion)
     ]);
     if (results[0]?.meta?.changes !== 1) return json({error:'Conflict; herlaad de gegevens'},409);
     if (results[1]?.meta?.changes !== 1) throw new Error('Revisie niet geschreven');
