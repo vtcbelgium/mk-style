@@ -1,0 +1,34 @@
+name: MK Style - quality gate
+on:
+  pull_request:
+  push:
+    branches: [feat/production-readiness-2026-11]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate JavaScript syntax
+        run: |
+          for f in assets/js/main.js assets/js/admin-v2.js functions/_lib/*.js functions/api/*.js functions/api/admin/*.js scripts/*.mjs; do
+            node --check "$f"
+          done
+      - name: Run validation regression tests
+        run: npm test
+      - name: Build static site
+        run: npm run build
+      - name: Prohibit legacy demo credentials in published files
+        run: |
+          if grep -R -E 'mk_admin_unlocked|gemini-key-input|Demo-code: 3824|publish-webhook-btn' dist/; then
+            echo 'Unsafe demo artifact found in deploy output'
+            exit 1
+          fi
+          test -f dist/index.html
+          test -f dist/admin.html
+          test ! -e dist/assets/js/admin.js
+          test ! -d dist/migrations
