@@ -1,4 +1,3 @@
-const STORAGE_KEY = 'mk_style_live_config_v1';
 const DAY_ORDER = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const JS_DAY_TO_KEY = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
@@ -12,6 +11,7 @@ function getBrusselsNow() {
   const parts = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Europe/Brussels',
     weekday: 'short',
+    year: 'numeric', month: '2-digit', day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
     hour12: false
@@ -23,36 +23,31 @@ function getBrusselsNow() {
   const wkMap = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
   const dayIdx = wkMap[map.weekday] ?? now.getDay();
   const mins = Number(map.hour) * 60 + Number(map.minute);
-  return { dayIdx, dayKey: JS_DAY_TO_KEY[dayIdx], mins };
+  return { dayIdx, dayKey: JS_DAY_TO_KEY[dayIdx], mins, date: `${map.year}-${map.month}-${map.day}` };
 }
 
-function findNextOpening(hoursConfig, currentDayIdx) {
-  for (let offset = 1; offset <= 7; offset++) {
+function resolveDay(config, dayKey, date) {
+  return (config.exceptions || []).find(e => e.date === date) || config.hours[dayKey];
+}
+function findNextOpening(config, currentDayIdx, todayDate) {
+  const base = new Date(todayDate + 'T12:00:00Z');
+  for (let offset = 1; offset <= 14; offset++) {
+    const date = new Date(base.getTime() + offset * 86400000).toISOString().slice(0,10);
     const idx = (currentDayIdx + offset) % 7;
-    const key = JS_DAY_TO_KEY[idx];
-    const dayObj = hoursConfig[key];
-    if (dayObj && !dayObj.closed && dayObj.shifts && dayObj.shifts.length > 0) {
-      const shortLabel = dayObj.label.slice(0, 2);
-      return `${offset === 1 ? 'Morgen' : shortLabel} ${dayObj.shifts[0][0]}`;
+    const day = resolveDay(config, JS_DAY_TO_KEY[idx], date);
+    if (day && !day.closed && day.shifts?.length) {
+      return (offset === 1 ? 'Morgen' : date) + ' ' + day.shifts[0][0];
     }
   }
   return 'Binnenkort';
 }
 
 function computeShopStatus(config) {
-  const { dayIdx, dayKey, mins } = getBrusselsNow();
-  const today = config.hours[dayKey];
-
-  if (config.announcement?.active && config.announcement?.forceClosedToday) {
-    return {
-      state: 'closed',
-      pillText: 'TIJDELIJK GESLOTEN',
-      detailText: config.announcement.text || 'Uitzonderlijk gesloten — bekijk de melding bovenaan.'
-    };
-  }
+  const { dayIdx, dayKey, mins, date } = getBrusselsNow();
+  const today = resolveDay(config, dayKey, date);
 
   if (!today || today.closed || !today.shifts || today.shifts.length === 0) {
-    const nextOpen = findNextOpening(config.hours, dayIdx);
+    const nextOpen = findNextOpening(config, dayIdx, date);
     return {
       state: 'closed',
       pillText: `GESLOTEN • ${nextOpen}`,
@@ -89,7 +84,7 @@ function computeShopStatus(config) {
     }
   }
 
-  const nextOpen = findNextOpening(config.hours, dayIdx);
+  const nextOpen = findNextOpening(config, dayIdx, date);
   return {
     state: 'closed',
     pillText: `GESLOTEN • ${nextOpen}`,
@@ -105,8 +100,8 @@ function renderAnnouncement(config) {
 
   if (config.announcement && config.announcement.active && config.announcement.text) {
     bar.classList.add('is-visible');
-    bar.classList.toggle('is-alert', Boolean(config.announcement.forceClosedToday || config.announcement.type === 'alert'));
-    tagEl.textContent = config.announcement.forceClosedToday ? 'Sluiting / Verlof' : 'Update';
+    bar.classList.toggle('is-alert', config.announcement.type === 'alert');
+    tagEl.textContent = config.announcement.type === 'alert' ? 'Opgelet' : 'Update';
     textEl.textContent = config.announcement.text;
   } else {
     bar.classList.remove('is-visible', 'is-alert');
@@ -151,10 +146,10 @@ function renderHours(config) {
   const list = document.getElementById('hours-list');
   if (!list || !config.hours) return;
 
-  const { dayKey } = getBrusselsNow();
+  const { dayKey, date } = getBrusselsNow();
 
   list.innerHTML = DAY_ORDER.map((key) => {
-    const d = config.hours[key];
+    const d = key === dayKey ? resolveDay(config, key, date) : config.hours[key];
     if (!d) return '';
     const isToday = key === dayKey;
     let timeHtml = '';
@@ -186,24 +181,25 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
+let lastValidConfig = null;
 async function loadConfig() {
-  let baseConfig = null;
   try {
-    const res = await fetch('./data/site-config.json', { cache: 'no-store' });
-    if (res.ok) baseConfig = await res.json();
-  } catch (_) {
-    // Fallback if opened via file://
-  }
-
-  const localRaw = localStorage.getItem(STORAGE_KEY);
-  if (localRaw) {
-    try {
-      const parsed = JSON.parse(localRaw);
-      return baseConfig ? { ...baseConfig, ...parsed } : parsed;
-    } catch (_) {}
-  }
-
-  return baseConfig;
+    const response = await fetch('/api/config', {cache:'no-store'});
+    if (response.ok) {
+      const data = await response.json();
+      if (data && data.config && data.config.hours && Array.isArray(data.config.services)) {
+        lastValidConfig = data.config;
+        return data.config;
+      }
+    }
+  } catch (_) { /* API unavailable */ }
+  if (lastValidConfig) return lastValidConfig;
+  // Temporary static fallback only; the live API remains the source of truth.
+  try {
+    const response = await fetch('./data/site-config.json', {cache:'no-store'});
+    if (response.ok) { lastValidConfig = await response.json(); return lastValidConfig; }
+  } catch (_) {}
+  return null;
 }
 
 function applyAll(config) {
@@ -215,26 +211,12 @@ function applyAll(config) {
 }
 
 async function init() {
-  const config = await loadConfig();
-  if (config) {
-    applyAll(config);
-    setInterval(() => renderStatus(config), 30000);
-  }
-
-  window.addEventListener('storage', async (e) => {
-    if (e.key === STORAGE_KEY) {
-      const updated = await loadConfig();
-      applyAll(updated);
-    }
-  });
-
-  if ('BroadcastChannel' in window) {
-    const bc = new BroadcastChannel('mk_style_sync');
-    bc.onmessage = async () => {
-      const updated = await loadConfig();
-      applyAll(updated);
-    };
-  }
+  const refresh = async () => {
+    const config = await loadConfig();
+    if (config) applyAll(config);
+  };
+  await refresh();
+  // Refresh both status and changes published from Murat's phone.
+  setInterval(refresh, 60000);
 }
-
 document.addEventListener('DOMContentLoaded', init);
