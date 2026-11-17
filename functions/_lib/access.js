@@ -1,11 +1,11 @@
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 const keySets = new Map();
 export async function adminIdentity(request, env) {
-  const team = String(env.TEAM_DOMAIN || '').replace(/\\/$/, '');
+  const team = String(env.TEAM_DOMAIN || '').replace(/\/$/, '');
   const aud = String(env.POLICY_AUD || '');
   const allowed = String(env.ADMIN_EMAILS || '').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
   // Fail closed until Cloudflare Access and the explicit allowlist are configured.
-  if (!/^https:\/\/[a-z0-9-]+\\.cloudflareaccess\\.com$/.test(team) || !aud || !allowed.length) {
+  if (!/^https:\/\/[a-z0-9-]+\.cloudflareaccess\.com$/.test(team) || !aud || !allowed.length) {
     return { error:'Beheeromgeving nog niet geconfigureerd', status:503 };
   }
   const token = request.headers.get('Cf-Access-Jwt-Assertion');
