@@ -8,3 +8,6 @@ coverage/
 *.log
 .DS_Store
 !*.example
+
+# Generated from confirmed business configuration, not committed
+migrations/0002_seed.sql
