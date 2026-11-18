@@ -1,19 +1,27 @@
+## Huidige stand — 19 november 2026
+- ✅ Op expliciet verzoek is de tijdelijke Basic Auth-vraag voor de **ontwikkelpreview verwijderd**. Geen extra wachtwoord nodig om publieke previewpagina's, assets en lees-API te bezoeken. De ontwikkelpreview is daarmee publiek toegankelijk via de link, met `noindex, nofollow, noarchive`.
+- ✅ Beheeracties zijn **niet** publiek vrijgegeven: `/api/admin/*` blijft op serverniveau alleen toegankelijk na Cloudflare Access JWT en e-mailallowlist. Zonder ingestelde Access blijft het endpoint fail-closed.
+- ✅ Cloudflare Pages-preview opnieuw gedeployed naar `https://feat-production-readiness-20.mk-style.pages.dev`, deployment `9a9295ee`, 20/20 lokale tests groen. Externe anonieme HTTP-controle nog niet onafhankelijk bevestigd.
+- ⚠️ Het oude `STAGING_ACCESS_PASSWORD`-secret is niet meer functioneel nodig; geen rotatie vereist voor dit ontwikkelwachtwoord. Kan bij accountonderhoud verwijderd worden.
+- ⛔ Cloudflare-zone `mk38style.be` opnieuw aangevraagd via de T590, maar API gaf `403 com.cloudflare.api.account.zone.create`. Wrangler OAuth mist zone-create. Eenmalig via [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Add a domain/site** → `mk38style.be` → passend plan toevoegen; hierna kunnen wij de toegewezen nameservers uitlezen en de rest voorbereiden. OVHcloud nog niet wijzigen.
+- ⛔ Productie blijft geblokkeerd tot DNS, Access, tests, fotorechten, juridische goedkeuring en herstelprocedure rond zijn.
+
 ## Uitvoering na validatie — 18 november 2026
 - ✅ **Nieuwste staging-deployment:** `https://feat-production-readiness-20.mk-style.pages.dev`, Cloudflare deployment `d022ede4`. De build en Pages Functions bundeling zijn gelukt.
 - ✅ **22 lokale tests en GitHub quality gate geslaagd**, inclusief komende sluitingsdagen, DST, verlofperiode 1–31 dagen en preview-security.
 - ✅ Handmatige verlofperiode en AI-voorstel voor expliciet gedateerd verlof toegevoegd; iedere wijziging vereist een bevestiging en servervalidatie.
 - ✅ Een `package-lock.json` is vastgelegd; CI gebruikt nu `npm ci` en bundelt Pages Functions.
 - ⚠️ Dit Pages-project is **Direct Upload**, geen ingebouwde Git-integratie. Cloudflare kan een bestaand Direct Upload-project niet achteraf aan Git koppelen. Hiervoor is `.github/workflows/staging-deploy.yml` voorbereid, maar nog **niet actief**: GitHub environment `mk-style-staging` moet beperkte Cloudflare Pages Edit-token en account-ID als secrets krijgen. Workflow mag uitsluitend naar stagingbranch deployen.
-- 🔑 Het oorspronkelijke staging-Basic-Auth-wachtwoord is in chat gedeeld. **Rotatie verplicht voor verdere externe toegang.** Laat een nieuwe geheime waarde maken onder Cloudflare Pages → `mk-style` → Settings → Variables and Secrets → **Preview** → `STAGING_ACCESS_PASSWORD`. Nieuwe waarde nooit in chat, GitHub of screenshots plaatsen. Automatische rotatie via de computer werd door veiligheidscontroles geblokkeerd, dus **nog niet uitgevoerd**.
+- ℹ️ Oude dev-Basic-Auth is verwijderd op 19 november. Het oude secret wordt niet meer gebruikt. Voor werkelijke beheertoegang blijft Cloudflare Access vereist.
 - ⚠️ De nieuwste deployment is bevestigd door Wrangler; een **nieuwe anonieme HTTP-smoketest** werd door Aegis geblokkeerd en is nog niet bevestigd. Oudere preview is wel getest: 401 zonder login, 200 met login, D1-configversie 1.
 - ⛔ D1-back-upmap aanmaken werd door Aegis terecht geblokkeerd in afwachting van eigenaarstoestemming; geen export of hersteltest claimen.
 - ⛔ **Nog niet productieklaar:** Cloudflare Access login+AUD/e-mailallowlist, Gemini-secret/budget, D1-backup+restore, cross-device wijzigingstest, foto's/content akkoord, wettelijke eindcontrole, publieke DNS en Murats aftekening.
 
 ## Cloudflare staging gerealiseerd — 18 november 2026
 - Cloudflare Pages-project: `mk-style` op OTHRYS-account; productiebranch `main`, **geen productie-deployment**.
-- Preview: `https://feat-production-readiness-20.mk-style.pages.dev` — met tijdelijke Basic Auth beschermd via `functions/_middleware.js` en uitsluitend Cloudflare previewsecret `STAGING_ACCESS_PASSWORD` (niet in git).
+- Preview: `https://feat-production-readiness-20.mk-style.pages.dev` — vanaf 19/11 vrij toegankelijk voor ontwikkelcontrole (noindex), zonder extra Basic Auth. Beheer-API blijft met Cloudflare Access afgeschermd.
 - D1: afzonderlijke EU-databases `mk-style-staging` (schema+seed geactiveerd) en `mk-style-production` (nog leeg en niet verbonden aan openbare website). `wrangler.jsonc` bevat uitsluitend resource-ID's, geen secrets.
-- Read-only API `/api/config` is online in de preview en leest versie 1 uit D1; alle pagina's/scripts/admin/API blokken zonder previewlogin met 401.
+- Read-only API `/api/config` is online in de preview en leest versie 1 uit D1; websitepagina's/assets en publieke read-API werken nu zonder extra previewlogin; dit is een bewuste wijziging van 19/11. Admin API blijft fail-closed.
 - Gebruikerslogin voor Murat (Cloudflare Access), eventuele AI-providersecret en de echte DNS-koppeling zijn **NIET** geconfigureerd. Admin API blijft server-side fail-closed.
 - Lokale regressietests: 12/12; preview smoke-tests voor homepage, admin, JS en API: ongeautoriseerd 401, geautoriseerd 200; noindex.
 - Het domein `mk38style.be` is nog niet verbonden. Murat hoeft nog geen NS aan te passen; Cloudflare-zone moet eerst toegevoegd en gecontroleerd worden. Eigenaar houdt OVHcloud-account.
