@@ -1,6 +1,6 @@
 {
   "_description": "Publieke zakelijke projectfiche voor MK Style. Geen secrets, inloggegevens, privégesprekken of persoonlijke contactgegevens toevoegen. Dit bestand is voor het ontwikkelteam; het wordt niet opgenomen in de website-build.",
-  "last_updated": "2026-11-17",
+  "last_updated": "2026-11-18",
   "project": {
     "name": "MK Style website",
     "github_repository": "https://github.com/vtcbelgium/mk-style",
@@ -40,8 +40,8 @@
       "public_business_url": "https://wa.me/32484073908",
       "status": "from_existing_preview_owner_confirmation_pending"
     },
-    "business_email": null,
-    "business_email_status": "owner_creating_address_not_received",
+    "business_email": "38mkstyle@gmail.com",
+    "business_email_status": "confirmed_by_owner_2026-11-18",
     "social_media": {
       "instagram": "https://www.instagram.com/mkstyle.38/",
       "instagram_handle": "@mkstyle.38",
@@ -53,12 +53,14 @@
     "name": "mk38style.be",
     "registrar": "OVHcloud",
     "registrar_account_type": "Company / Commercial per owner's question",
-    "registration_status": "awaiting_payment_or_confirmation_email",
+    "registration_status": "owner_reports_active_at_OVHcloud_2026-11-18",
     "registration_verified": false,
     "owner": "Murat / MK Style company (to verify after registration)",
-    "dns_setup": "not_started",
+    "dns_setup": "not_started_site_not_connected",
     "renewal_date": null,
-    "additional_hosting_required_at_registrar": false
+    "additional_hosting_required_at_registrar": false,
+    "owner_reported_active_at": "2026-11-18",
+    "registry_or_dns_verification": "not_independently_verified"
   },
   "confirmed_by_owner": {
     "as_of": "2026-11-17",
@@ -67,7 +69,9 @@
     "prices": "confirmed_as_shown_in_preview",
     "legal_name": "MK Style CommV.",
     "enterprise_number": "1004.134.102",
-    "vat_number": "BE1004.134.102"
+    "vat_number": "BE1004.134.102",
+    "business_email": "38mkstyle@gmail.com",
+    "domain_report": "OVHcloud/domain active on 2026-11-18; registry and DNS verification outstanding"
   },
   "opening_hours": {
     "time_zone": "Europe/Brussels",
@@ -217,12 +221,12 @@
     "phone_address_and_social_account_ownership"
   ],
   "pending_from_owner": [
-    "OVHcloud domain registration confirmation, without passwords",
-    "business email address",
+    "Confirm domain holder and registration / renewal data without sharing credentials; verify DNS configuration",
     "confirm remaining address / phone / social links and claims",
     "photo publishing rights, especially recognizable customers",
     "choose authorized admin email",
-    "review privacy and legal content before launch"
+    "review privacy and legal content before launch",
+    "Follow Cloudflare DNS integration steps or arrange delegated access; no password sharing"
   ],
   "project_rules": {
     "domain_belongs_to": "MK Style / Murat",
