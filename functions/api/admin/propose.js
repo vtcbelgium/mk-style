@@ -31,6 +31,8 @@ export async function onRequestPost({request,env}) {
       'Antwoord uitsluitend met geldig JSON object: {"operation":{...},"summary":"...","socialDraft":"..."}.',
       'Kies operation uit:',
       '{"action":"set_exception","date":"YYYY-MM-DD","closed":true,"shifts":[],"note":"..."},',
+      '{"action":"set_exception_range","startDate":"YYYY-MM-DD","endDate":"YYYY-MM-DD","closed":true,"note":"..."},',
+      'Bij meerdaags verlof: uitsluitend een expliciet begin- en einddatum, inclusief beide dagen, maximaal 31 dagen; nooit raden naar het jaar.',
       '{"action":"set_announcement","active":true,"type":"info of alert","text":"..."},',
       '{"action":"set_price","serviceId":"bestaand id","price":"€25"}.',
       'Bij onzekerheid, meerdere opdrachten of dubbelzinnige datum: geef {"operation":{"action":"clarify"},"summary":"Vraag om verduidelijking.","socialDraft":""}.',
