@@ -13,9 +13,6 @@
       "database_id": "e6b9996b-30fc-4eda-86cd-fb5fae427cef"
     }
   ],
-  "vars": {
-    "STAGING_GATE_REQUIRED": "true"
-  },
   "env": {
     "preview": {
       "d1_databases": [
@@ -24,10 +21,7 @@
           "database_name": "mk-style-staging",
           "database_id": "e6b9996b-30fc-4eda-86cd-fb5fae427cef"
         }
-      ],
-      "vars": {
-        "STAGING_GATE_REQUIRED": "true"
-      }
+      ]
     },
     "production": {
       "d1_databases": [
@@ -36,10 +30,7 @@
           "database_name": "mk-style-production",
           "database_id": "b803618e-abef-48ef-9e49-cf8fbbbe9cea"
         }
-      ],
-      "vars": {
-        "STAGING_GATE_REQUIRED": "false"
-      }
+      ]
     }
   }
 }
