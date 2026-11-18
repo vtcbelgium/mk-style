@@ -1,9 +1,9 @@
 # MK Style — minimale acties voor de OTHRYS-eigenaar
-**Status:** 18 november 2026. Voorbereiding; niets van deze checklist naar Murat doorsturen zolang er placeholders zijn.
+**Status:** 19 november 2026. Voorbereiding; niets van deze checklist naar Murat doorsturen zolang er placeholders zijn.
 
 ## NU: veiligheid en beheer
-1. **Roteer het gelekte previewwachtwoord:** meld aan op [Cloudflare Dashboard](https://dash.cloudflare.com/) → Workers & Pages → `mk-style` → Settings → Variables and Secrets → **Preview** → `STAGING_ACCESS_PASSWORD` → Edit/Replace. Gebruik een nieuw willekeurig lang geheim. Noteer het in een eigen wachtwoordbeheerder, **nooit** in WhatsApp, chat of GitHub. Controleer daarna dat het oude wachtwoord niet meer werkt. Eerdere automatische rotatiepogingen zijn door veiligheidscontroles tegengehouden; de rotatie is **niet voltooid**.
-2. **Voeg de domeinzone toe via jouw Cloudflare-dashboard:** Add a domain / Connect a domain → `mk38style.be` → Free-plan (indien passend). Cloudflare Wrangler OAuth mist het zone-create recht (API 403). De domeinregistratie bij OVHcloud blijft op naam van Murat; alleen de DNS-zone wordt op OTHRYS beheerd. **Wijzig nog niets bij OVHcloud.**
+1. **Geen extra wachtwoord meer nodig tijdens ontwikkeling:** de preview toont voortaan de website direct, zonder Basic Auth. De server-side beheer-API blijft fail-closed tot Cloudflare Access is ingesteld. Het oude previewsecret kan later in Cloudflare worden verwijderd; het wordt door de huidige code niet meer gebruikt.
+2. **Nog één dashboardactie: voeg de domeinzone toe via jouw Cloudflare-dashboard:** Add a domain / Connect a domain → `mk38style.be` → Free-plan (indien passend). De bestaande Wrangler OAuth heeft alleen `zone:read`; een nieuwe API-poging op 19/11 blijft HTTP 403 (`com.cloudflare.api.account.zone.create`). De toestemming in ChatGPT verleent geen extra Cloudflare-rechten. De domeinregistratie bij OVHcloud blijft op naam van Murat; alleen de DNS-zone wordt op OTHRYS beheerd. **Wijzig nog niets bij OVHcloud.**
 3. Noteer de **twee exacte** Cloudflare-nameservers wanneer Cloudflare ze toewijst. Niet gokken; nog geen instructie naar Murat.
 4. **Cloudflare Access** voor `/admin.html` en `/api/admin/*` veilig instellen met alleen `38mkstyle@gmail.com` en de afgesproken OTHRYS beheerder. Beide paden/policy-AUD controleren, en de JWT-validatie op de server laten falen wanneer het ontbreekt. Dit moet ook op previewdomeinen kloppen.
 
