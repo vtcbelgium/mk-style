@@ -152,14 +152,23 @@ function renderServices(config) {
   `).join('');
 }
 
-function renderHours(config) {
+function nextOccurrenceDate(todayDate, currentDayIdx, targetDayIdx) {
+  // Show the next occurrence of each day, not only today's exceptions.
+  // Calculating with UTC midday avoids crossing DST boundaries.
+  const offset = (targetDayIdx - currentDayIdx + 7) % 7;
+  const middayUtc = new Date(todayDate + 'T12:00:00Z');
+  return new Date(middayUtc.getTime() + offset * 86400000).toISOString().slice(0, 10);
+}
+
+function renderHours(config, now = getBrusselsNow()) {
   const list = document.getElementById('hours-list');
   if (!list || !config.hours) return;
 
-  const { dayKey, date } = getBrusselsNow();
+  const { dayKey, dayIdx, date } = now;
 
   list.innerHTML = DAY_ORDER.map((key) => {
-    const d = key === dayKey ? resolveDay(config, key, date) : config.hours[key];
+    const nextDate = nextOccurrenceDate(date, dayIdx, JS_DAY_TO_KEY.indexOf(key));
+    const d = resolveDay(config, key, nextDate);
     if (!d) return '';
     const isToday = key === dayKey;
     let timeHtml = '';
