@@ -32,13 +32,89 @@
     "updatedAt": "2026-11-12T20:30:00+01:00"
   },
   "hours": {
-    "monday": { "label": "Maandag", "closed": true, "shifts": [], "note": "" },
-    "tuesday": { "label": "Dinsdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
-    "wednesday": { "label": "Woensdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
-    "thursday": { "label": "Donderdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
-    "friday": { "label": "Vrijdag", "closed": false, "shifts": [["09:30", "13:00"], ["13:30", "18:30"]], "note": "" },
-    "saturday": { "label": "Zaterdag", "closed": false, "shifts": [["09:00", "17:00"]], "note": "Doorlopend open" },
-    "sunday": { "label": "Zondag", "closed": true, "shifts": [], "note": "" }
+    "monday": {
+      "label": "Maandag",
+      "closed": true,
+      "shifts": [],
+      "note": ""
+    },
+    "tuesday": {
+      "label": "Dinsdag",
+      "closed": false,
+      "shifts": [
+        [
+          "09:30",
+          "13:00"
+        ],
+        [
+          "13:30",
+          "18:30"
+        ]
+      ],
+      "note": ""
+    },
+    "wednesday": {
+      "label": "Woensdag",
+      "closed": false,
+      "shifts": [
+        [
+          "09:30",
+          "13:00"
+        ],
+        [
+          "13:30",
+          "18:30"
+        ]
+      ],
+      "note": ""
+    },
+    "thursday": {
+      "label": "Donderdag",
+      "closed": false,
+      "shifts": [
+        [
+          "09:30",
+          "13:00"
+        ],
+        [
+          "13:30",
+          "18:30"
+        ]
+      ],
+      "note": ""
+    },
+    "friday": {
+      "label": "Vrijdag",
+      "closed": false,
+      "shifts": [
+        [
+          "09:30",
+          "13:00"
+        ],
+        [
+          "13:30",
+          "18:30"
+        ]
+      ],
+      "note": ""
+    },
+    "saturday": {
+      "label": "Zaterdag",
+      "closed": false,
+      "shifts": [
+        [
+          "09:00",
+          "17:00"
+        ]
+      ],
+      "note": "Doorlopend open"
+    },
+    "sunday": {
+      "label": "Zondag",
+      "closed": true,
+      "shifts": [],
+      "note": ""
+    }
   },
   "services": [
     {
@@ -83,5 +159,9 @@
       "price": "€30",
       "tag": ""
     }
-  ]
+  ],
+  "legalName": "MK Style CommV.",
+  "enterpriseNumber": "1004.134.102",
+  "vatNumber": "BE1004.134.102",
+  "businessEmail": "38mkstyle@gmail.com"
 }
