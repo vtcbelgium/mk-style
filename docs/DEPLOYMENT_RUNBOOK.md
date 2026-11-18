@@ -1,3 +1,14 @@
+## Uitvoering na validatie — 18 november 2026
+- ✅ **Nieuwste staging-deployment:** `https://feat-production-readiness-20.mk-style.pages.dev`, Cloudflare deployment `d022ede4`. De build en Pages Functions bundeling zijn gelukt.
+- ✅ **22 lokale tests en GitHub quality gate geslaagd**, inclusief komende sluitingsdagen, DST, verlofperiode 1–31 dagen en preview-security.
+- ✅ Handmatige verlofperiode en AI-voorstel voor expliciet gedateerd verlof toegevoegd; iedere wijziging vereist een bevestiging en servervalidatie.
+- ✅ Een `package-lock.json` is vastgelegd; CI gebruikt nu `npm ci` en bundelt Pages Functions.
+- ⚠️ Dit Pages-project is **Direct Upload**, geen ingebouwde Git-integratie. Cloudflare kan een bestaand Direct Upload-project niet achteraf aan Git koppelen. Hiervoor is `.github/workflows/staging-deploy.yml` voorbereid, maar nog **niet actief**: GitHub environment `mk-style-staging` moet beperkte Cloudflare Pages Edit-token en account-ID als secrets krijgen. Workflow mag uitsluitend naar stagingbranch deployen.
+- 🔑 Het oorspronkelijke staging-Basic-Auth-wachtwoord is in chat gedeeld. **Rotatie verplicht voor verdere externe toegang.** Laat een nieuwe geheime waarde maken onder Cloudflare Pages → `mk-style` → Settings → Variables and Secrets → **Preview** → `STAGING_ACCESS_PASSWORD`. Nieuwe waarde nooit in chat, GitHub of screenshots plaatsen. Automatische rotatie via de computer werd door veiligheidscontroles geblokkeerd, dus **nog niet uitgevoerd**.
+- ⚠️ De nieuwste deployment is bevestigd door Wrangler; een **nieuwe anonieme HTTP-smoketest** werd door Aegis geblokkeerd en is nog niet bevestigd. Oudere preview is wel getest: 401 zonder login, 200 met login, D1-configversie 1.
+- ⛔ D1-back-upmap aanmaken werd door Aegis terecht geblokkeerd in afwachting van eigenaarstoestemming; geen export of hersteltest claimen.
+- ⛔ **Nog niet productieklaar:** Cloudflare Access login+AUD/e-mailallowlist, Gemini-secret/budget, D1-backup+restore, cross-device wijzigingstest, foto's/content akkoord, wettelijke eindcontrole, publieke DNS en Murats aftekening.
+
 ## Cloudflare staging gerealiseerd — 18 november 2026
 - Cloudflare Pages-project: `mk-style` op OTHRYS-account; productiebranch `main`, **geen productie-deployment**.
 - Preview: `https://feat-production-readiness-20.mk-style.pages.dev` — met tijdelijke Basic Auth beschermd via `functions/_middleware.js` en uitsluitend Cloudflare previewsecret `STAGING_ACCESS_PASSWORD` (niet in git).
@@ -14,8 +25,8 @@
 
 ## Infrastructuur (na akkoord #4, #5, #31)
 1. Bevestig domeinregistratie bij Murat, en dat hij eigenaar blijft van registrar en facturatie.
-2. Kies beheermodel voor Cloudflare met Murat als eigenaar/appropriate access en ontwikkelaar met beperkt recht.
-3. Maak een Cloudflare Pages project met **GitHub integration** vanuit `vtcbelgium/mk-style`, productietak pas na review `main`.
+2. **Gekozen beheermodel:** Murat bezit OVHcloud-domein en bedrijfsassets; OTHRYS host en beheert het Cloudflare Pages-project onder het eigen account, met expliciete support/overdrachtsafspraken.
+3. Cloudflare Pages-project **`mk-style` bestaat al als Direct Upload**. Voor nieuwe commits gebruiken we de handmatige of later geautoriseerde GitHub Actions staging-deploy; ingebouwde Git-integratie is achteraf niet mogelijk voor dit project. Productietak `main` blijft geblokkeerd tot na review.
 4. **Build command:** `npm run build`. **Build output:** `dist`. **Root:** repository root. Pages Functions in `functions/` worden apart gebundeld.
 5. Maak een **staging en productie** D1-database met logische namen. Bind elke Pages environment apart onder exact de naam **`DB`**. Noteer DB IDs buiten publieke issues.
 6. Maak lokaal `migrations/0002_seed.sql` met `npm run seed:sql` nadat Murat `data/site-config.json` heeft goedgekeurd. Bekijk de gegenereerde SQL voordat je ze toepast. Geen seed blind in productie.
