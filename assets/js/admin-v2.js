@@ -95,6 +95,21 @@ function showProposal(data) {
   cancel.addEventListener('click',()=>{pending=null;box.style.display='none';toast('Voorstel geannuleerd; niets gewijzigd.');});
   controls.append(confirm,cancel);box.append(title,p,details,controls);
 }
+function datesForPeriod(startDate,endDate) {
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
+    throw new Error('Kies een begin- en einddatum.');
+  }
+  const from = new Date(startDate + 'T12:00:00Z');
+  const to = new Date(endDate + 'T12:00:00Z');
+  if(Number.isNaN(from.getTime()) || Number.isNaN(to.getTime()) ||
+      from.toISOString().slice(0,10)!==startDate || to.toISOString().slice(0,10)!==endDate) {
+    throw new Error('Ongeldige verlofdatum.');
+  }
+  const days = Math.round((to.getTime()-from.getTime())/86400000)+1;
+  if(days<1 || days>31) throw new Error('Kies maximaal 31 opeenvolgende dagen.');
+  return Array.from({length:days},(_,i)=>
+    new Date(from.getTime()+i*86400000).toISOString().slice(0,10));
+}
 function addManualPanel() {
   const root=document.querySelector('.admin-grid > div');
   const sec=document.createElement('section');sec.className='panel';
@@ -106,6 +121,13 @@ function addManualPanel() {
     <div class="field-row"><label for="exception-hours">Alternatieve uren (bij open)</label><input id="exception-hours" class="input-text" placeholder="09:00 - 13:00"></div>
     <div class="field-row"><label for="exception-note">Reden</label><input id="exception-note" class="input-text" maxlength="80" placeholder="Bijvoorbeeld: verlof"></div>
     <button id="exception-save" class="btn btn-outline btn-sm">Bewaar uitzondering</button>
+    <hr style="margin:22px 0;border:0;border-top:1px solid var(--border-subtle)">
+    <h2>🏖️ Jaarlijks verlof of meerdere sluitingsdagen</h2>
+    <p class="panel-sub">Alle gekozen datums worden als gesloten gemarkeerd. De normale weekuren blijven behouden. Maximaal 31 dagen per keer.</p>
+    <div class="field-row"><label for="holiday-start">Van (inclusief)</label><input id="holiday-start" class="input-text" type="date"></div>
+    <div class="field-row"><label for="holiday-end">Tot en met (inclusief)</label><input id="holiday-end" class="input-text" type="date"></div>
+    <div class="field-row"><label for="holiday-note">Reden</label><input id="holiday-note" class="input-text" maxlength="80" placeholder="Jaarlijks verlof"></div>
+    <button id="holiday-save" class="btn btn-outline btn-sm">Bewaar verlofperiode</button>
     <div id="existing-exceptions" style="margin-top:18px"></div>
     <hr style="margin:22px 0;border:0;border-top:1px solid var(--border-subtle)">
     <h2>💶 Prijs aanpassen</h2>
@@ -160,6 +182,21 @@ function wire() {
       exceptions.push({date,closed,shifts,note});
       await publish({exceptions});
     }catch(e){toast('Niet opgeslagen: '+e.message);}
+  });
+  $('holiday-save').addEventListener('click',async()=>{
+    const btn=$('holiday-save');
+    btn.disabled=true;
+    try {
+      const start=$('holiday-start').value, end=$('holiday-end').value;
+      const dates=datesForPeriod(start,end);
+      const note=$('holiday-note').value.trim()||'Jaarlijks verlof';
+      const dateSet=new Set(dates);
+      if(!confirm('Sluit '+dates.length+' dagen van '+start+' t/m '+end+'? Bestaande uitzonderingen op die datums worden vervangen.'))return;
+      const exceptions=(current.exceptions||[]).filter(e=>!dateSet.has(e.date));
+      exceptions.push(...dates.map(date=>({date,closed:true,shifts:[],note})));
+      await publish({exceptions});
+    }catch(e){toast('Verlof niet opgeslagen: '+e.message);}
+    finally{btn.disabled=false;}
   });
   $('undo-last').addEventListener('click',async()=>{
     if(!Number.isSafeInteger(version) || version<2) {toast('Geen eerdere wijziging gevonden.');return;}
