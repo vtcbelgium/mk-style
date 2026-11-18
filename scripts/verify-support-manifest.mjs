@@ -3,6 +3,7 @@
 import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { runAllPilotDrills } from './run-pilot-drills.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const errors = [];
@@ -51,6 +52,18 @@ if (html !== null) {
   expect(/<html[^>]*\slang=/i.test(html), 'index.html: missing <html lang=>');
   const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
   expect(!!t && t[1].trim() !== '', 'index.html: missing or empty <title>');
+}
+
+try {
+  const result = runAllPilotDrills(root);
+  expect(result.allPassed === true, 'pilot drills: allPassed must be true');
+  expect(result.passedCount === 4, `pilot drills: passedCount must be 4 (got ${result.passedCount})`);
+  for (const d of result.drills.filter((x) => !x.passed)) {
+    const bad = d.checks.filter((c) => !c.passed).map((c) => c.name).join(', ');
+    errors.push(`pilot drill ${d.id} failed: ${bad}`);
+  }
+} catch (e) {
+  errors.push(`pilot drills: ${e.message}`);
 }
 
 if (errors.length) {
