@@ -73,6 +73,19 @@ export function applyChanges(base, changes) {
   }
   return next;
 }
+// Convert an explicit inclusive holiday period to individual exceptions.
+// UTC noon keeps the calendar dates stable across Belgian DST changes.
+export function datesInRange(startDate, endDate, maxDays = 31) {
+  if (!isIsoDate(startDate) || !isIsoDate(endDate)) fail('Verlofdatums zijn ongeldig');
+  const from = new Date(startDate + 'T12:00:00Z').getTime();
+  const to = new Date(endDate + 'T12:00:00Z').getTime();
+  const days = Math.round((to - from) / 86400000) + 1;
+  if (days < 1 || days > maxDays) fail('Verlofperiode moet tussen 1 en ' + maxDays + ' dagen liggen');
+  return Array.from({ length:days }, (_,i) =>
+    new Date(from + i * 86400000).toISOString().slice(0,10)
+  );
+}
+
 export function applyAiOperation(base, operation) {
   if (!obj(operation) || typeof operation.action !== 'string') fail('AI voorstel onduidelijk');
   const op = operation;
@@ -80,6 +93,17 @@ export function applyAiOperation(base, operation) {
     if (!isIsoDate(op.date)) fail('AI geeft ongeldige datum');
     const current = Array.isArray(base.exceptions) ? base.exceptions.filter(e => e.date !== op.date) : [];
     return { exceptions: [...current, { date:op.date, closed:op.closed, shifts:op.shifts || [], note:op.note || '' }] };
+  }
+  if (op.action === 'set_exception_range') {
+    if (op.closed !== true || !text(op.note ?? '', 80)) fail('Onveilige verlofperiode');
+    const days = datesInRange(op.startDate, op.endDate);
+    const daySet = new Set(days);
+    const existing = Array.isArray(base.exceptions)
+      ? base.exceptions.filter(e => !daySet.has(e.date)) : [];
+    return { exceptions:[
+      ...existing,
+      ...days.map(date => ({ date, closed:true, shifts:[], note:op.note || '' }))
+    ] };
   }
   if (op.action === 'set_announcement') {
     return { announcement: { active:op.active, type:op.type, text:op.text } };
