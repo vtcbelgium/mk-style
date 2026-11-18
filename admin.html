@@ -286,26 +286,26 @@
         <section class="panel panel-gold">
           <h2>&#10024; Praat tegen je MK Style AI Assistent</h2>
           <p class="panel-sub">
-            Typ of spreek in gewoon Nederlands wat je wil aanpassen (feestdag, verlof, andere uren of een actie). De AI maakt een voorstel. Alleen jij kunt dit bevestigen. Sociale berichten blijven concepten.
+            Geef één duidelijke opdracht tegelijk: een sluitingsdag met exacte datum (JJJJ-MM-DD), een melding of een prijswijziging. Voor vaste weekuren gebruik je de handmatige editor. De AI maakt alleen een voorstel; pas na jouw bevestiging wordt iets gewijzigd.
           </p>
 
           <div class="prompt-box">
-            <textarea id="ai-prompt" class="prompt-textarea" placeholder="Bijv: 'Donderdag zijn we gesloten wegens feestdag, vrijdag staan we terug klaar vanaf 9u30!'"></textarea>
+            <textarea id="ai-prompt" class="prompt-textarea" placeholder="Bijv: 'Op 2026-12-25 zijn we gesloten wegens feestdag.'"></textarea>
             <button id="mic-btn" type="button" class="mic-btn" title="Spreek in (Nederlands)">&#127908;</button>
           </div>
 
           <div class="chips-wrap">
-            <button type="button" class="chip-btn" data-prompt="Donderdag zijn we gesloten wegens een feestdag. Vrijdag terug open vanaf 09:30 zonder afspraak!">
-              &#128197; Feestdag donderdag gesloten
+            <button type="button" class="chip-btn" data-prompt="Op JJJJ-MM-DD zijn we uitzonderlijk gesloten wegens een feestdag. Vervang JJJJ-MM-DD door de juiste datum.">
+              &#128197; Sluit één datum
             </button>
-            <button type="button" class="chip-btn" data-prompt="Wij zijn in jaarlijks verlof van 10 augustus t/m 20 augustus. Vanaf 21 augustus staan we weer fris klaar!">
-              &#9728;&#65039; Jaarlijks verlof instellen
+            <button type="button" class="chip-btn" data-prompt="Verander de prijs van de herenknipbeurt naar €27. Dit is enkel een voorbeeld; pas het bedrag aan voor je een voorstel aanvraagt.">
+              &#128176; Prijsvoorstel
             </button>
-            <button type="button" class="chip-btn" data-prompt="Zaterdag zijn we extra vroeg open van 08:30 tot 18:00! Spring gerust binnen.">
-              &#9200; Zaterdag 08:30 – 18:00
+            <button type="button" class="chip-btn" data-prompt="Toon een algemene melding bovenaan de website: [vul hier de exacte tekst in].">
+              &#128227; Melding op website
             </button>
-            <button type="button" class="chip-btn" data-prompt="Zet alles terug op de normale openingsuren en verwijder de melding bovenaan.">
-              &#9989; Normale uren herstellen
+            <button type="button" class="chip-btn" data-prompt="Verberg de huidige melding bovenaan de website.">
+              &#10006;&#65039; Melding verbergen
             </button>
           </div>
 
@@ -352,12 +352,12 @@
         </section>
       </div>
 
-      <!-- Right Column: Automatic Facebook & Instagram Post Studio -->
+      <!-- Right Column: Facebook & Instagram draft editor; no automatic posting -->
       <div>
         <section class="panel">
-          <h2>&#128241; Automatische Facebook &amp; Instagram Post</h2>
+          <h2>&#128241; Facebook &amp; Instagram — concept</h2>
           <p class="panel-sub">
-            Zodra je iets tegen de AI zegt, schrijft hij meteen een passende post voor <strong>Facebook (MK Style)</strong> en <strong>Instagram (@mkstyle.38)</strong>.
+            De AI kan optioneel een berichtconcept voorstellen voor <strong>Facebook (MK Style)</strong> en <strong>Instagram (@mkstyle.38)</strong>. Er wordt niets automatisch gepubliceerd.
           </p>
 
           <label style="display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600;">
@@ -380,7 +380,7 @@
                   <div style="font-size: 0.73rem; color: var(--text-muted); font-weight: 500;">Sint-Gertrudisplein 24, Bilzen-Hoeselt</div>
                 </div>
               </div>
-              <span style="font-size: 0.72rem; color: var(--gold-bright); border: 1px solid var(--border-gold); padding: 2px 8px; border-radius: 999px;">FB + IG</span>
+              <span style="font-size: 0.72rem; color: var(--gold-bright); border: 1px solid var(--border-gold); padding: 2px 8px; border-radius: 999px;">Concept · FB + IG</span>
             </div>
             <img id="social-preview-img" src="./assets/images/interior-hex-lights.jpg" alt="Voorbeeld post afbeelding" class="social-preview-img" />
             <textarea id="social-caption" class="social-caption-area">💈 Altijd strak in stijl bij MK Style!
