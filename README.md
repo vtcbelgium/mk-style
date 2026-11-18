@@ -1,3 +1,13 @@
+## Cloudflare staging gerealiseerd — 18 november 2026
+- Cloudflare Pages-project: `mk-style` op OTHRYS-account; productiebranch `main`, **geen productie-deployment**.
+- Preview: `https://feat-production-readiness-20.mk-style.pages.dev` — met tijdelijke Basic Auth beschermd via `functions/_middleware.js` en uitsluitend Cloudflare previewsecret `STAGING_ACCESS_PASSWORD` (niet in git).
+- D1: afzonderlijke EU-databases `mk-style-staging` (schema+seed geactiveerd) en `mk-style-production` (nog leeg en niet verbonden aan openbare website). `wrangler.jsonc` bevat uitsluitend resource-ID's, geen secrets.
+- Read-only API `/api/config` is online in de preview en leest versie 1 uit D1; alle pagina's/scripts/admin/API blokken zonder previewlogin met 401.
+- Gebruikerslogin voor Murat (Cloudflare Access), eventuele AI-providersecret en de echte DNS-koppeling zijn **NIET** geconfigureerd. Admin API blijft server-side fail-closed.
+- Lokale regressietests: 12/12; preview smoke-tests voor homepage, admin, JS en API: ongeautoriseerd 401, geautoriseerd 200; noindex.
+- Het domein `mk38style.be` is nog niet verbonden. Murat hoeft nog geen NS aan te passen; Cloudflare-zone moet eerst toegevoegd en gecontroleerd worden. Eigenaar houdt OVHcloud-account.
+- Geen deploy/merge naar `main` of livegang voordat foto-/inhoudsrechten, Access-beveiliging, rollback, privacy, end-to-end testen en Murat's eindakkoord aanwezig zijn.
+
 # MK Style — Herenkapper en barbier Beverst
 
 ## Centrale klantgegevens
