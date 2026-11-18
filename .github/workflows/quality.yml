@@ -22,6 +22,9 @@ jobs:
         run: npm test
       - name: Validate public client profile JSON
         run: node -e "JSON.parse(require('fs').readFileSync('config/client-profile.json', 'utf8'))"
+      - name: Inspect domain DNS (read only; not a deployment gate)
+        continue-on-error: true
+        run: npm run domain:check
       - name: Build static site
         run: npm run build
       - name: Prohibit legacy demo credentials in published files
