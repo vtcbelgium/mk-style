@@ -1,6 +1,6 @@
 {
   "_description": "Publieke zakelijke projectfiche voor MK Style. Geen secrets, inloggegevens, privégesprekken of persoonlijke contactgegevens toevoegen. Dit bestand is voor het ontwikkelteam; het wordt niet opgenomen in de website-build.",
-  "last_updated": "2026-11-18",
+  "last_updated": "2026-11-19",
   "project": {
     "name": "MK Style website",
     "github_repository": "https://github.com/vtcbelgium/mk-style",
@@ -56,11 +56,18 @@
     "registration_status": "owner_reports_active_at_OVHcloud_2026-11-18",
     "registration_verified": false,
     "owner": "Murat / MK Style company (to verify after registration)",
-    "dns_setup": "not_started_site_not_connected",
+    "dns_setup": "Cloudflare zone created; Pages custom domain not yet verified; OVHcloud nameservers unchanged",
     "renewal_date": null,
     "additional_hosting_required_at_registrar": false,
     "owner_reported_active_at": "2026-11-18",
-    "registry_or_dns_verification": "not_independently_verified"
+    "registry_or_dns_verification": "Cloudflare zone confirmed pending; registrar delegation not yet switched",
+    "cloudflare_zone_status": "pending_nameserver_update",
+    "cloudflare_zone_added_at": "2026-11-19",
+    "cloudflare_zone_id": "80f9e59bdd828f13d26596650ef7c5c7",
+    "cloudflare_assigned_nameservers": [
+      "maya.ns.cloudflare.com",
+      "peter.ns.cloudflare.com"
+    ]
   },
   "confirmed_by_owner": {
     "as_of": "2026-11-17",
@@ -226,7 +233,7 @@
     "photo publishing rights, especially recognizable customers",
     "choose authorized admin email",
     "review privacy and legal content before launch",
-    "Follow Cloudflare DNS integration steps or arrange delegated access; no password sharing"
+    "Later, after Pages and DNS preflight, authorize OVHcloud nameserver delegation to maya.ns.cloudflare.com and peter.ns.cloudflare.com without sharing credentials"
   ],
   "project_rules": {
     "domain_belongs_to": "MK Style / Murat",
