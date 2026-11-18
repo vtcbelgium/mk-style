@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { applyChanges, applyAiOperation, isIsoDate, localBelgianDate } from '../functions/_lib/site.js';
+import { applyChanges, applyAiOperation, isIsoDate, localBelgianDate, datesInRange } from '../functions/_lib/site.js';
 const base = {
   hours:Object.fromEntries(['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(day=>[day,{label:day,closed:true,shifts:[],note:''}])),
   services:[{id:'knip',name:'Herenknipbeurt',desc:'Knippen',price:'€25',tag:''}],
@@ -38,4 +38,32 @@ test('no accidental unbounded closure from announcement',()=>{
 });
 test('Brussels date boundary is timezone aware',()=>{
   assert.equal(localBelgianDate(new Date('2026-11-17T23:30:00Z')),'2026-11-18');
+});
+
+test('eleven-day holiday period closes exactly those dates and preserves the weekly schedule',()=>{
+  const change=applyAiOperation(base,{action:'set_exception_range',startDate:'2027-08-10',endDate:'2027-08-20',closed:true,note:'Jaarlijks verlof'});
+  const updated=applyChanges(base,change);
+  assert.equal(updated.exceptions.length,11);
+  assert.equal(updated.exceptions[0].date,'2027-08-10');
+  assert.equal(updated.exceptions.at(-1).date,'2027-08-20');
+  assert.ok(updated.exceptions.every(e=>e.closed&&e.shifts.length===0));
+  assert.deepEqual(updated.hours,base.hours);
+});
+test('holiday range crosses summer-time switch without dropping a day',()=>{
+  assert.deepEqual(datesInRange('2027-03-27','2027-03-29'),['2027-03-27','2027-03-28','2027-03-29']);
+});
+test('holiday range reuses existing exceptions without duplicates',()=>{
+  const data={...base,exceptions:[{date:'2027-08-12',closed:false,shifts:[['10:00','12:00']],note:'oud'}]};
+  const change=applyAiOperation(data,{action:'set_exception_range',startDate:'2027-08-10',endDate:'2027-08-13',closed:true,note:'Vakantie'});
+  const next=applyChanges(data,change);
+  assert.equal(next.exceptions.length,4);
+  assert.equal(next.exceptions.filter(e=>e.date==='2027-08-12').length,1);
+  assert.equal(next.exceptions.find(e=>e.date==='2027-08-12').note,'Vakantie');
+});
+test('unsafe holiday durations, invalid dates and open-range misuse are rejected',()=>{
+  assert.throws(()=>datesInRange('2027-09-01','2027-08-01'));
+  assert.throws(()=>datesInRange('2027-07-01','2027-08-01')); // 32 days
+  assert.throws(()=>datesInRange('2027-02-30','2027-03-03'));
+  assert.throws(()=>applyAiOperation(base,{action:'set_exception_range',startDate:'2027-08-10',endDate:'2027-08-13',closed:false}));
+  assert.throws(()=>applyAiOperation(base,{action:'set_exception_range',startDate:'2027-08-10',endDate:'2027-08-13',closed:true,note:'<script>'}));
 });
