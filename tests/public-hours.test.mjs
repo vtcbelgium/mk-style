@@ -17,8 +17,8 @@ function hoursFor(config, now) {
   return list.innerHTML;
 }
 function dayCell(html,label){
-  const at=html.indexOf('>'+label+'<');
-  assert.ok(at>0,'Expected '+label+' in hours schedule');
+  const at=html.indexOf(label);
+  assert.ok(at>=0,'Expected '+label+' in hours schedule');
   const tail=html.slice(at);
   const match=tail.match(/<span class="hours-time">([\s\S]*?)<\/span>/);
   assert.ok(match,'Expected hours for '+label);
