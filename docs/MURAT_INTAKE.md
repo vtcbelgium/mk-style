@@ -1,9 +1,9 @@
 # MK Style — gegevens die Murat nog moet bevestigen
 
-Status 17 november 2026: Murat is tevreden over het ontwerp, bevestigde inmiddels de **huidige voorbeeldprijzen en openingsuren** en gaf zijn **bedrijfsnaam en btw-nummer** door. Zakelijk e-mailadres volgt. **Domein is nog niet aantoonbaar geregistreerd of betaald.** Geen betaal- of inloggegevens via WhatsApp opvragen.
+Status 18 november 2026: Murat bevestigde eerder het ontwerp, de prijzen, het weekrooster en zijn bedrijfsgegevens. Op 18/11 meldt hij dat OVHcloud/domein actief is en gaf hij **38mkstyle@gmail.com** door als zakelijk e-mailadres. Domeinregistratie, houdergegevens en DNS-koppeling zijn nog **niet onafhankelijk gecontroleerd**. Geen wachtwoorden, betaal- of inloggegevens via WhatsApp opvragen.
 
 ## 1. Domein en accounts (geblokkeerd tot Murat bevestigt)
-- [ ] Murat bevestigt dat `mk38style.be` bij OVHcloud geregistreerd en actief is.
+- [x] Murat meldt op 18/11 dat OVHcloud/domein actief is. **Dit is een eigenaarverklaring; nog geen onafhankelijke registratie- of DNS-verificatie.**
 - [ ] Domein staat juridisch op naam van Murat / zijn onderneming, **Company/Commercial**, geen overheidsoptie.
 - [ ] Hij geeft alleen aan dat de DNS-records aangepast mogen worden; geen wachtwoord delen.
 - [ ] Wie ontvangt facturen en verlengingsmails? Verlengdatum noteren.
@@ -11,7 +11,7 @@ Status 17 november 2026: Murat is tevreden over het ontwerp, bevestigde inmiddel
 
 ## 2. Basisinformatie (bevestiging door Murat)
 - [x] Bedrijfsnaam zoals opgegeven: **MK Style CommV.**; ondernemingsnummer **1004.134.102**, btw-nummer **BE1004.134.102** (Murat, WhatsApp 17/11/2026). Externe KBO-afgeleide bedrijfsvermelding komt overeen; officiële bron controle vóór live.
-- [ ] Officieel zakelijk e-mailadres voor wettelijke bedrijfsinfo **nog niet ontvangen**; Murat is het aan het aanmaken.
+- [x] Zakelijk Gmail-adres van MK Style door Murat bevestigd op 18/11/2026: **38mkstyle@gmail.com**.
 - [ ] Sint-Gertrudisplein 24, 3740 Beverst (Bilzen-Hoeselt) klopt.
 - [ ] Telefoonnummer 0484 07 39 08 en WhatsApp-link kloppen.
 - [x] **Reguliere openingstijden van de huidige voorbeeldpagina zijn door Murat bevestigd.**
