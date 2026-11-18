@@ -11,3 +11,6 @@ coverage/
 
 # Generated from confirmed business configuration, not committed
 migrations/0002_seed.sql
+
+# Built assets are deployed by CI, never checked into source
+dist/
