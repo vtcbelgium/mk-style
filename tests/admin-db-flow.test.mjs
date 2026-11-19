@@ -21,13 +21,13 @@ class MemoryD1 {
   }
   prepare(sql){
     const db=this.db;
-    return {bind(...params){
-      return {
-        async first(){return db.prepare(sql).get(...params)||null;},
-        async all(){return {results:db.prepare(sql).all(...params)};},
-        async run(){const result=db.prepare(sql).run(...params);return {meta:{changes:result.changes}};}
-      };
-    }};
+    const call=(params)=>({
+      async first(){return db.prepare(sql).get(...params)||null;},
+      async all(){return {results:db.prepare(sql).all(...params)};},
+      async run(){const result=db.prepare(sql).run(...params);return {meta:{changes:result.changes}};}
+    });
+    // Cloudflare D1 supports both prepare(...).all() and prepare(...).bind(...).all().
+    return {...call([]),bind(...params){return call(params);}};
   }
   async batch(statements) {
     this.db.exec('BEGIN');
