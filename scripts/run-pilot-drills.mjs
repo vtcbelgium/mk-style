@@ -139,8 +139,8 @@ function rollbackProposal(probe, release) {
 }
 
 function drillRollback() {
-  const proposal = rollbackProposal({ url: 'https://mk38style.be/', status: 500 }, { current: 'sha-bad', previous: 'sha-good' });
-  const healthy = rollbackProposal({ url: 'https://mk38style.be/', status: 200 }, { current: 'sha-ok', previous: 'sha-good' });
+  const proposal = rollbackProposal({ url: 'https://mkstyle.be/', status: 500 }, { current: 'sha-bad', previous: 'sha-good' });
+  const healthy = rollbackProposal({ url: 'https://mkstyle.be/', status: 200 }, { current: 'sha-ok', previous: 'sha-good' });
   const checks = [
     check('http_500_yields_proposal', proposal !== null),
     check('auto_execute_false', proposal?.autoExecuteProduction === false),

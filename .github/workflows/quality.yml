@@ -1,0 +1,50 @@
+name: MK Style - quality gate
+on:
+  pull_request:
+  push:
+    branches: [feat/production-readiness-2026-11]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Audit production dependencies (high and critical)
+        run: npm audit --omit=dev --audit-level=high
+      - name: Validate JavaScript syntax
+        run: |
+          for f in assets/js/main.js assets/js/admin-v2.js functions/_middleware.js functions/_lib/*.js functions/api/*.js functions/api/admin/*.js scripts/*.mjs; do
+            node --check "$f"
+          done
+      - name: Run validation regression tests
+        run: npm test
+      - name: Validate public client profile JSON
+        run: node -e "JSON.parse(require('fs').readFileSync('config/client-profile.json', 'utf8'))"
+      - name: Inspect domain DNS (read only; not a deployment gate)
+        continue-on-error: true
+        run: npm run domain:check
+      - name: Build static site
+        run: npm run build
+      - name: Verify Cloudflare Pages Functions bundle
+        run: npx wrangler pages functions build functions --project-directory . --outfile .wrangler/ci/_worker.bundle.mjs
+      - name: Prohibit legacy demo credentials in published files
+        run: |
+          if grep -R -E 'mk_admin_unlocked|gemini-key-input|Demo-code: 3824|publish-webhook-btn' dist/; then
+            echo 'Unsafe demo artifact found in deploy output'
+            exit 1
+          fi
+          test -f dist/index.html
+          test -f dist/admin.html
+          test -f dist/privacy.html
+          test -f dist/404.html
+          test -d dist/assets/fonts
+          test ! -e dist/assets/js/admin.js
+          test ! -d dist/migrations
+          test ! -e dist/config/client-profile.json

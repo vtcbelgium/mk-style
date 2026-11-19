@@ -2,7 +2,7 @@
   "schema": "othrys.support.compliance-checklist.v1",
   "siteId": "mk-style",
   "domainDelegation": {
-    "domain": "mk38style.be",
+    "domain": "mkstyle.be",
     "registrant": "client_murat",
     "dnsAccess": "technical_delegation_only"
   },
