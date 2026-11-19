@@ -53,6 +53,11 @@ test('authenticated admin writes, version conflicts, public read and one-step un
       jwksRequests++;
       return new Response(JSON.stringify({keys:[publicJwk]}),{status:200,headers:{'content-type':'application/json'}});
     }
+    if(url.startsWith('https://generativelanguage.googleapis.com/')){
+      return new Response(JSON.stringify({candidates:[{
+        content:{parts:[{text:JSON.stringify({caption:'Een frisse snit bij MK Style, zonder afspraak. 📍 Beverst #MKStyle'})}]}
+      }]}),{status:200,headers:{'content-type':'application/json'}});
+    }
     throw new Error('Unexpected external fetch: '+url);
   };
   t.after(()=>{globalThis.fetch=originalFetch;});
@@ -121,5 +126,22 @@ test('authenticated admin writes, version conflicts, public read and one-step un
   }),env});
   assert.equal(invalidDraft.status,400);
 
+  const unavailableAi=await socialDraft({request:request('POST','/api/admin/social-draft',{
+    platform:'instagram',topic:'walkin',expectedVersion:3,mode:'ai'
+  }),env});
+  assert.equal(unavailableAi.status,503);
+  env.GEMINI_API_KEY='test-key-is-not-real';
+  const aiResponse=await socialDraft({request:request('POST','/api/admin/social-draft',{
+    platform:'instagram',topic:'walkin',expectedVersion:3,mode:'ai'
+  }),env});
+  assert.equal(aiResponse.status,200);
+  const aiDraft=await aiResponse.json();
+  assert.equal(aiDraft.mode,'ai');
+  assert.equal(aiDraft.posted,false);
+  assert.equal(aiDraft.requiresApproval,true);
+  assert.match(aiDraft.caption,/Beverst/);
+  assert.equal(DB.db.prepare('SELECT COUNT(*) AS count FROM site_revisions').get().count,2);
+  assert.equal(DB.db.prepare('SELECT version FROM site_config WHERE id=?').get('main').version,3);
+  assert.equal(DB.db.prepare('SELECT SUM(requests) AS total FROM ai_daily_usage').get().total,1);
   assert.equal(jwksRequests,1);
 });
