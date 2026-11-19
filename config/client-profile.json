@@ -7,12 +7,13 @@
     "development_branch": "feat/production-readiness-2026-11",
     "draft_pull_request": "https://github.com/vtcbelgium/mk-style/pull/44",
     "project_board": "https://github.com/vtcbelgium/mk-style/issues/43",
-    "temporary_preview": "https://vtcbelgium.github.io/mk-style/",
+    "temporary_preview": "https://feat-production-readiness-20.mk-style.pages.dev/",
     "target_site": "https://mk38style.be/",
     "production_status": "not_live",
     "planned_hosting": "Cloudflare Pages + Functions + D1",
-    "hosting_status": "not_deployed",
-    "ai_admin_status": "under_development_not_production_ready"
+    "hosting_status": "staging_preview_deployed_production_not_live",
+    "ai_admin_status": "under_development_not_production_ready",
+    "quality_gate_status": "automated_tests_staging_smoke_required_before_prod"
   },
   "company": {
     "trade_name": "MK Style",
@@ -252,5 +253,25 @@
     "docs/MURAT_INTAKE.md",
     "docs/LEGAL_AND_PRIVACY_DRAFT.md",
     "docs/DEPLOYMENT_RUNBOOK.md"
-  ]
+  ],
+  "google_business": {
+    "public_listing_found": true,
+    "match_basis": "MK Style at Sint-Gertrudisplein 24, Bilzen-Hoeselt, public map and directory evidence",
+    "google_maps_place_id": "ChIJu8aXT6XgwEcRyp23QzZ2j2A",
+    "listing_url": "https://www.google.com/maps/search/?api=1&query=MK%20Style%20Sint-Gertrudisplein%2024%20Beverst%20Belgium&query_place_id=ChIJu8aXT6XgwEcRyp23QzZ2j2A",
+    "owner_access_status": "not_verified",
+    "windsor_account_status": "not_connected_to_user_windsor",
+    "google_api_approval_status": "not_checked",
+    "sync_status": "not_activated",
+    "no_duplicate_listing": true,
+    "consent_required_for_updates": true,
+    "review_reply_approval": "explicit_per_review"
+  },
+  "marketing": {
+    "instagram_status": "public_link_known_not_connected_to_windsor",
+    "facebook_page_status": "public_link_known_not_connected_to_windsor",
+    "publish_status": "drafts_only_owner_approval_required",
+    "site_to_gbp_sync_status": "not_activated",
+    "photo_usage_rights_status": "pending_owner_confirmation"
+  }
 }
