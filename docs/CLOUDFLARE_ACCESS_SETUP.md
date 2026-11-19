@@ -10,7 +10,8 @@ Cloudflare Access geeft **per applicatie één Audience (AUD)** uit. De backend 
 
 | Public hostname | Path | Waarom |
 | --- | --- | --- |
-| `mk38style.be` | `/admin.html` | Bescherm de eigenaarspagina |
+| `mk38style.be` | `/admin.html` | Bescherm de oorspronkelijke beheerlink |
+| `mk38style.be` | `/admin` | Bescherm de clean URL waarnaar Pages kan omleiden |
 | `mk38style.be` | `/api/admin/*` | Bescherm alle beheer-API-routes en hun JWT |
 
 **Gebruik niet twee aparte Access-apps zonder de code aan te passen:** hun verschillende AUD-tags laten `admin.html` en de API niet met dezelfde `POLICY_AUD` werken. De wildcard `/api/admin/*` dekt het parent-pad `/api/admin` niet; dat is geen bestaande Function-route. Leg geen Access-app op `mk38style.be/*` of `/` die de openbare website sluit.
@@ -32,11 +33,11 @@ Aanmaak zodra Cloudflare-zone **Active** is:
 8. Bevestig met een nieuwe Pages-production deployment dat de productievariabelen effectief aanwezig zijn. Leg geen Access JWT's, PIN-codes, OAuth-gegevens of secrets vast in GitHub, een screenshot of berichten.
 
 ## Applicatiebeveiliging als tweede laag
-De server valideert iedere beheer-API-call op **RS256-handtekening, issuer, Audience en e-mailadres**. Het productiedomein controleert ook `/admin.html` op dezelfde identiteit in `functions/_middleware.js`. Zonder werkende Access-configuratie geeft de server een **503** en zonder geldige JWT een **401**. De ontwikkelpreview blijft op verzoek publiek toegankelijk, maar kan niets wijzigen zonder geldige Access-configuratie.
+De server valideert iedere beheer-API-call op **RS256-handtekening, issuer, Audience en e-mailadres**. Het productiedomein controleert ook `/admin.html`, `/admin` en `/admin/` op dezelfde identiteit in `functions/_middleware.js`. Zonder werkende Access-configuratie geeft de server een **503** en zonder geldige JWT een **401**. De ontwikkelpreview blijft op verzoek publiek toegankelijk, maar kan niets wijzigen zonder geldige Access-configuratie.
 
 ## Vereiste live acceptatietests (voor goedkeuring)
 - [ ] `https://mk38style.be/` en `/api/config` werken voor anonieme klanten
-- [ ] Anonieme `/admin.html` wordt naar Access-login omgeleid of geweigerd; **niet 200 en niet 503**
+- [ ] Anonieme `/admin.html` en `/admin` worden naar Access-login omgeleid of geweigerd; **niet 200 en niet 503**
 - [ ] Anonieme `/api/admin/config`, `/api/admin/history`, `/api/admin/undo`, `/api/admin/propose` worden tegengehouden
 - [ ] `38mkstyle@gmail.com` meldt aan met e-mailcode en ziet de beheerpagina; een willekeurig ander e-mailadres wordt geweigerd
 - [ ] De login geeft geen Cloudflare- of GitHub-beheertoegang; de klant ziet alleen de MK Style beheerfuncties
