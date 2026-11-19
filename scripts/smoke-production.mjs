@@ -31,10 +31,13 @@ for(const path of ['/robots.txt','/sitemap.xml']){
 }
 for(const path of ['/api/admin/config','/api/admin/history']){
  const res=await request(path);
- expect([401,403,503].includes(res.status)||(
-   [301,302,303,307,308].includes(res.status) &&
-   /cloudflareaccess\.com/.test(res.headers.get('location')||'')
- ),'Unauthorized admin endpoint not denied: '+path+' => '+res.status);
+ // 503 means the Access policy is still unconfigured; that must BLOCK launch.
+ const redirect=res.headers.get('location')||'';
+ const isAccessRedirect=[301,302,303,307,308].includes(res.status)&&
+   (/cloudflareaccess\.com/.test(redirect) ||
+    redirect.includes('/cdn-cgi/access/login'));
+ expect([401,403].includes(res.status)||isAccessRedirect,
+   'Admin Access not ready or unauthorized endpoint exposed: '+path+' => '+res.status);
 }
 const www=await fetch('https://www.mk38style.be/',{redirect:'manual',signal:AbortSignal.timeout(12000)});
 expect([301,302,307,308].includes(www.status),'www must redirect to canonical apex');
