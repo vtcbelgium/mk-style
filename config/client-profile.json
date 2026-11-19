@@ -30,16 +30,16 @@
       "municipality": "Bilzen-Hoeselt",
       "region": "Limburg",
       "country": "BE",
-      "status": "from_existing_preview_owner_confirmation_pending"
+      "status": "confirmed_by_owner_2026-11-19"
     },
     "telephone": {
       "display": "0484 07 39 08",
       "international": "+32484073908",
-      "status": "from_existing_preview_owner_confirmation_pending"
+      "status": "confirmed_by_owner_2026-11-19"
     },
     "whatsapp": {
       "public_business_url": "https://wa.me/32484073908",
-      "status": "from_existing_preview_owner_confirmation_pending"
+      "status": "confirmed_by_owner_2026-11-19"
     },
     "business_email": "38mkstyle@gmail.com",
     "business_email_status": "confirmed_by_owner_2026-11-18",
@@ -47,7 +47,7 @@
       "instagram": "https://www.instagram.com/mkstyle.38/",
       "instagram_handle": "@mkstyle.38",
       "facebook": "https://www.facebook.com/p/MK-Style-61588435168843/",
-      "status": "from_existing_preview_owner_confirmation_pending"
+      "status": "confirmed_by_owner_2026-11-19"
     }
   },
   "domain": {
@@ -55,9 +55,9 @@
     "registrar": "OVHcloud",
     "registrar_account_type": "Company / Commercial per owner's question",
     "registration_status": "owner_reports_active_at_OVHcloud_2026-11-18",
-    "registration_verified": false,
+    "registration_verified": true,
     "owner": "Murat / MK Style company (to verify after registration)",
-    "dns_setup": "Cloudflare zone created; Pages custom domain not yet verified; OVHcloud nameservers unchanged",
+    "dns_setup": "OVHcloud delegated to maya.ns.cloudflare.com & peter.ns.cloudflare.com (confirmed 2026-11-19); awaiting .be zone propagation",
     "renewal_date": null,
     "additional_hosting_required_at_registrar": false,
     "owner_reported_active_at": "2026-11-18",
@@ -173,7 +173,7 @@
   },
   "services": {
     "price_status": "confirmed_by_owner_2026-11-17",
-    "descriptions_and_age_limits_status": "from_preview_not_separately_verified",
+    "descriptions_and_age_limits_status": "confirmed_by_owner_2026-11-19",
     "items": [
       {
         "id": "knip",
@@ -272,6 +272,6 @@
     "facebook_page_status": "public_link_known_not_connected_to_windsor",
     "publish_status": "drafts_only_owner_approval_required",
     "site_to_gbp_sync_status": "not_activated",
-    "photo_usage_rights_status": "pending_owner_confirmation"
+    "photo_usage_rights_status": "confirmed_by_owner_2026-11-19"
   }
 }

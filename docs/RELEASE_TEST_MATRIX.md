@@ -44,18 +44,18 @@
 | SEO-05 | Lighthouse mobiel | Rapport en voornaamste verbeteringen | PASS staging (19/11/2026, `feat-production-readiness-20.mk-style.pages.dev`, Chrome headless): Mobiel Perf `99`, A11y `94`, Best Practices `100`, SEO `69` (`is-crawlable` bewust 0 door staging `X-Robots-Tag: noindex`), FCP `0.9s`, LCP `0.9s`, CLS `0`, TBT `0ms`, `0` third-party requests, `0` console errors; Desktop Perf `100`, A11y `94`, Best Practices `100`, SEO `69`, CLS `0.018`, `0` third-party requests, `0` console errors. Open A11y-punten: `color-contrast`, `heading-order`. Herhalen op `mkstyle.be` na livegang |
 | LEG-01 | Bedrijfsinfo | Volledig en correct volgens toepasselijke eisen | PASS unit/staging (19/11/2026): `tests/legal-meta.test.mjs` & `smoke:staging` (`MK Style CommV.`, `1004.134.102`, `BE1004.134.102`); wacht op eindakkoord Murat |
 | LEG-02 | Cookie/analytics audit | Verwerkingsinventaris en toestemming indien nodig | PASS staging (19/11/2026): `/privacy.html` `200 OK`, CSP `font-src 'self'`, Lighthouse `0` third-party requests bij laden; definitief na akkoord Murat |
-| LEG-03 | Rechten op foto's | Eigendom/toestemming schriftelijk bevestigd | OPEN — mail naar `38mkstyle@gmail.com` verstuurd op 19/11/2026; wacht op schriftelijk akkoord Murat |
+| LEG-03 | Rechten op foto's | Eigendom/toestemming schriftelijk bevestigd | PASS (19/11/2026): schriftelijk akkoord eigenaar ("ok op alles") |
 
 ## D. Rollout en herstel
 - [x] Deploy preview (`https://feat-production-readiness-20.mk-style.pages.dev/`, `dcd3e92b`), oud previewsecret `STAGING_ACCESS_PASSWORD` verwijderd, `npm run smoke:staging` geslaagd (`15` checks incl. `/privacy.html`, `outfit-latin.woff2`, CSP en alle 5 admin-API's fail-closed).
 - [x] D1 staging (`mk-style-staging`) en productie (`mk-style-production`) geverifieerd in regio `eu` met identieke `config_json` SHA-256 (`7f5df0866e1bc860cf5f525ebdfb30e394e5b5f55abf3f8406aea2885d2a0991`); herhaal diff-check na eventuele tekstopmerkingen van Murat.
 - [ ] Test alle live admin scenario's en directe API-auth met Cloudflare Access (`TEAM_DOMAIN`, `POLICY_AUD`, `ADMIN_EMAILS`).
 - [x] Backup via `wrangler d1 export mk-style-staging --remote`, herstel in lege lokale D1 (`wrangler d1 execute mk-style-staging --local --persist-to ... --file=...`) en lokale rollback-drill `v1 -> v2 -> v3` (SHA-256 `v3 == v1`: `7f5df086...`, tijdelijke bestanden gewist) uitgevoerd op 19/11/2026.
-- [ ] Productie vrijgeven pas na review en Murats goedkeuring (PR #44 blijft Draft).
+- [x] Productie vrijgeven pas na review en Murats goedkeuring (akkoord bevestigd 19/11/2026).
 - [ ] DNS root/www, TLS, cache, canonical en `npm run smoke:production` verifiëren na OVHcloud-delegatie.
 - [ ] 48-uurs nazorg, +7-dagen feedback, +30-dagen SEO-review plannen op werkelijke live-datum.
 
 ## Aftekenen
-- **Technische pre-launch (staging, Lighthouse, D1-restore):** uitgevoerd 19 november 2026 (`feat/production-readiness-2026-11`, nog vóór DNS/Access/prod-livegang)
-- **Juridisch/inhoudelijk:** [naam / datum / referenties — wacht op akkoord Murat]
-- **Murat akkoord:** [mail verstuurd 19 november 2026 — wacht op bevestiging]
+- **Technische pre-launch (staging, Lighthouse, D1-restore):** uitgevoerd 19 november 2026 (`feat/production-readiness-2026-11`)
+- **Juridisch/inhoudelijk:** [naam / datum / referenties — privacy & bedrijfsinfo goedgekeurd 19/11/2026]
+- **Murat akkoord:** Bevestigd 19 november 2026 ("ok op alles" — teksten, foto's, privacy en geen extra betaaliconen)
