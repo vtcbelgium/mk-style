@@ -50,3 +50,12 @@ test('GBP connection is pending, with no false claim that profile is controlled'
  assert.equal(profile.google_business.sync_status,'not_activated');
  assert.equal(profile.google_business.no_duplicate_listing,true);
 });
+test('homepage title and description are concise and locally specific',()=>{
+ const title=html.match(/<title>([^<]+)<\/title>/)?.[1]||'';
+ const description=html.match(/<meta name="description" content="([^"]+)"/)?.[1]||'';
+ assert.ok(title.length>=35&&title.length<=65,title);
+ assert.ok(description.length>=110&&description.length<=165,description);
+ assert.match(title,/Herenkapper Beverst zonder afspraak/);
+ assert.match(title,/MK Style Bilzen-Hoeselt/);
+ assert.match(description,/Sint-Gertrudisplein 24/);
+});
