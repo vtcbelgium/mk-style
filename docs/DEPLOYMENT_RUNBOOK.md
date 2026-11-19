@@ -1,3 +1,11 @@
+## Verdere productieversteviging — 19 november 2026
+- ✅ Cloudflare Pages kan `/admin.html` als **`/admin`** serveren of ernaartoe redirecten; `functions/_middleware.js` blokkeert nu op custom domains **`/admin.html`, `/admin` en `/admin/`** zolang geldige Cloudflare Access-claims ontbreken. De `/api/admin/*` routes controleren hun JWT zelf.
+- ✅ Productie-smoketest verifieert vanaf nu beide beheer-URL's, ook zonder extensie. Cloudflare Access-opzet beschreven in `docs/CLOUDFLARE_ACCESS_SETUP.md`: **één toepassing en dezelfde AUD** voor adminpagina-aliassen en API. Externe login van Murat en runtime **Fail closed** nog configureren.
+- ✅ Extra `Content-Security-Policy` beperkt browserbronnen tot eigen scripts, noodzakelijke Google Fonts en OpenStreetMap-frame; de privacy-impact van externe font-/kaartverzoeken staat in `docs/LEGAL_AND_PRIVACY_DRAFT.md`. Live CSP-header is niet afzonderlijk via een toegestane headerinspectie geverifieerd.
+- ✅ Gebrande `404.html` toegevoegd. Externe Cloudflare-smoketest na staging-deployment **`54e62a6d`** bevestigt HTTP 404 voor onbekende URL's, 200 voor homepage, admin preview, JS, D1-config en health, en 503 voor admin API zonder Access.
+- ✅ **43/43 lokale tests groen** en GitHub kwaliteitscontrole voor de laatste codewijziging geslaagd, inclusief echte ondertekende test-JWT en onjuiste audience/e-mail.
+- ⛔ Geen publieke productie-uitrol, geen verandering van OVHcloud, geen echte Access-policy/login of complete D1-restore. Cloudflare-zone `mk38style.be` blijft Pending tot DNS-delegatie.
+
 ## Monitoring en release-controles — 19 november 2026
 - ✅ `/api/health` toegevoegd: **GET** doet een read-only controle op D1 `site_config`. Antwoord `200 {"status":"ok"}` of `503 {"status":"unavailable"}`, zonder bedrijfsgegevens, database-ID's of secrets terug te geven. `Cache-Control: no-store`, `X-Robots-Tag: noindex`.
 - ✅ Staging-deployment `f14c1b69.mk-style.pages.dev` geslaagd. Externe read-only smoketest bevestigt homepage, `admin.html`, main.js, `/api/config`, `/api/health` HTTP 200 en onbevoegde beheer-API's HTTP 503 (verwacht zolang Access niet is ingesteld).
