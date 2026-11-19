@@ -1,3 +1,13 @@
+## Huidige productievoorbereiding — 19 november 2026 (laatste verificatie)
+- ✅ **Cloudflare DNS-zone** `mk38style.be` bestaat bij OTHRYS; status **Pending** totdat de autoritatieve nameservers bij OVHcloud effectief naar `maya.ns.cloudflare.com` en `peter.ns.cloudflare.com` gaan. Pages Custom Domains weigert apex-koppeling tot Cloudflare DNS actief is.
+- ✅ **EU D1-productiedatabase** `mk-style-production`: migratie `0001_schema.sql` uitgevoerd en seed met Murats bevestigde basisgegevens toegepast. Read-only SQL verifieerde `site_config` versie 1, `MK Style`, e-mailadres en **6 diensten**. Staging heeft een afzonderlijke database.
+- ✅ **Time Travel** op productiedatabase geeft een actuele herstelbookmark terug (Cloudflare voorziet herstelgeschiedenis). Dit is **geen uitgevoerde back-up-/restoretest**.
+- ✅ Code: zichtbaar bedrijfsvermelding in de footer, incl. MK Style CommV., ondernemingsnummer, btw en zakelijk e-mailadres. LocalBusiness JSON-LD bevat nu de zakelijke e-mail; niet-bevestigde betaalmethoden zijn uit JSON-LD gehaald.
+- ✅ **34/34 lokale tests** en GitHub quality gate geslaagd; toegevoegde tests blokkeren alle vijf admin API-handlers zonder Cloudflare Access, bevestigen database-isolatie en juridische contactvermeldingen.
+- ✅ Laatste succesvolle preview-deployment `7c5a7db8.mk-style.pages.dev` en branch-alias `feat-production-readiness-20.mk-style.pages.dev`. Website blijft via de preview bereikbaar, **niet op klantdomein**.
+- ⛔ De **productie-website is nog niet gepubliceerd**. Productiebranch `main` heeft nog geen goedgekeurde build. Geen DNS-wijzigingen bij Murat aangevraagd. Cloudflare Access-login, end-to-end admin-wijziging+undo, hersteltest, fotorechten, privacy-eindcontrole, canonical redirect en domein-SSL blijven release-gates.
+- 📚 FOD Economie vereist makkelijk toegankelijke bedrijfsidentificatie op zakelijke websites; zie https://economie.fgov.be/nl/themas/online/elektronische-handel/verkoop-internet/bedrijfswebsite-en-accounts-op.
+
 ## Huidige stand — 19 november 2026
 - ✅ Op expliciet verzoek is de tijdelijke Basic Auth-vraag voor de **ontwikkelpreview verwijderd**. Geen extra wachtwoord nodig om publieke previewpagina's, assets en lees-API te bezoeken. De ontwikkelpreview is daarmee publiek toegankelijk via de link, met `noindex, nofollow, noarchive`.
 - ✅ Beheeracties zijn **niet** publiek vrijgegeven: `/api/admin/*` blijft op serverniveau alleen toegankelijk na Cloudflare Access JWT en e-mailallowlist. Zonder ingestelde Access blijft het endpoint fail-closed.
