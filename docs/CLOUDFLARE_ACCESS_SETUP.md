@@ -21,9 +21,9 @@ Cloudflare Pages serveert HTML ook op een **extensionless URL**; bescherm beide 
 Aanmaak zodra Cloudflare-zone **Active** is:
 1. OTHRYS Cloudflare Dashboard → **Zero Trust** → **Access controls** → **Applications** → **Create application** → **Self-hosted and private**.
 2. Applicatienaam: `MK Style Owner Admin`.
-3. Voeg beide **Public hostname** / **Path**-bestemmingen hierboven toe **binnen dezelfde applicatie**. Controleer exact of elke aangevraagde route matcht; neem geen Access-bypass policy op.
+3. Voeg de drie **Public hostname** / **Path**-bestemmingen hierboven toe **binnen dezelfde applicatie**. Controleer exact of elke aangevraagde route matcht; neem geen Access-bypass policy op.
 4. Access policy: **Allow → Emails → `38mkstyle@gmail.com`**, en optioneel het uitdrukkelijk bevoegde OTHRYS-beheeradres voor technische ondersteuning. Geen `Everyone`, brede e-maildomeinen, of `Bypass`. Zet default deny aan (Access doet dit standaard).
-5. Identiteit: zorg eerst dat **One-time PIN** als loginmethode actief is in Cloudflare Zero Trust (nieuwe accounts gebruiken mogelijk een andere standaardlogin). Selecteer die methode voor deze applicatie. Cloudflare **One-time PIN** per e-mail. Murat krijgt een code in Gmail, wij krijgen geen Gmail-toegang. Stel een beperkte sessieduur in (bv. één dag); op een eigen toestel hoeft Murat alleen periodiek opnieuw te bevestigen.
+5. Identiteit: zorg eerst dat **One-time PIN** als loginmethode actief is in Cloudflare Zero Trust (nieuwe accounts gebruiken mogelijk een andere standaardlogin). Selecteer deze e-mailcode-login voor de applicatie. Murat krijgt een code in Gmail, wij krijgen geen Gmail-toegang. Stel een beperkte sessieduur in (bv. één dag); op een eigen toestel hoeft Murat alleen periodiek opnieuw te bevestigen.
 6. Na Create: kopieer de **Application Audience (AUD)** uit Additional settings, en de eigen Zero Trust team domain (`https://<team>.cloudflareaccess.com`).
 7. Op **Cloudflare Pages → mk-style → Settings → Variables and Secrets → Production** (niet in Git) instellen:
    - `TEAM_DOMAIN` = exacte team-URL inclusief `https://`
