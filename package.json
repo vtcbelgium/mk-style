@@ -7,7 +7,8 @@
     "seed:sql": "node scripts/create-seed.mjs",
     "build": "node scripts/build-site.mjs",
     "domain:check": "node scripts/check-dns.mjs",
-    "smoke:staging": "node scripts/smoke-staging.mjs"
+    "smoke:staging": "node scripts/smoke-staging.mjs",
+    "smoke:production": "node scripts/smoke-production.mjs"
   },
   "dependencies": {
     "jose": "^6.0.0"
