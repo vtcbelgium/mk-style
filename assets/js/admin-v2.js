@@ -14,6 +14,41 @@ async function api(url,method='GET',body) {
   if (!res.ok) throw new Error(data.error || 'Serverfout (' + res.status + ')');
   return data;
 }
+async function refreshHistory() {
+  const root = $('change-history');
+  if (!root) return;
+  try {
+    const result = await api('/api/admin/history');
+    root.replaceChildren();
+    if (!Array.isArray(result.history) || result.history.length === 0) {
+      const empty = document.createElement('li');
+      empty.textContent = 'Nog geen wijzigingen opgeslagen.';
+      root.append(empty);
+      return;
+    }
+    for (const entry of result.history.slice(0, 10)) {
+      const item = document.createElement('li');
+      item.style.cssText = 'padding:9px 0;border-bottom:1px solid var(--border-subtle)';
+      const version = document.createElement('strong');
+      const type = entry.source === 'ai' ? 'AI-voorstel bevestigd' : 'Handmatige wijziging';
+      version.textContent = 'Versie ' + entry.version + ' · ' + type;
+      const info = document.createElement('div');
+      info.style.cssText = 'font-size:0.78rem;color:var(--text-secondary);margin-top:4px';
+      const stamp = new Date(entry.created_at);
+      const when = Number.isNaN(stamp.getTime())
+        ? 'Datum niet beschikbaar'
+        : new Intl.DateTimeFormat('nl-BE', {
+            timeZone:'Europe/Brussels',dateStyle:'medium',timeStyle:'short'
+          }).format(stamp);
+      info.textContent = when + ' · ' + (entry.actor || 'Beheerder');
+      item.append(version, info);
+      root.append(item);
+    }
+  } catch {
+    root.textContent = 'Wijzigingsgeschiedenis tijdelijk niet beschikbaar.';
+  }
+}
+
 function showSummary(text) {
   const e=$('ai-summary');e.textContent=text;e.classList.add('is-visible');
 }
@@ -22,6 +57,7 @@ async function reload() {
   current = data.config; version = data.version; pending = null;
   $('pending-ai').style.display='none';
   render();
+  await refreshHistory();
   toast('Servergegevens geladen (versie ' + version + ')');
 }
 function render() {
@@ -71,6 +107,7 @@ async function publish(changes,source='manual') {
   if (!data.published) throw new Error('Geen bevestiging van publicatie');
   current=data.config;version=data.version;pending=null;
   $('pending-ai').style.display='none';render();
+  await refreshHistory();
   showSummary('✓ Server heeft versie '+version+' opgeslagen en teruggelezen. Controleer de openbare website op een ander toestel.');
   toast('Wijziging centraal opgeslagen, versie '+version);
 }
@@ -137,7 +174,13 @@ function addManualPanel() {
     <hr style="margin:22px 0;border:0;border-top:1px solid var(--border-subtle)">
     <h2>↩️ Herstel vorige wijziging</h2>
     <p class="panel-sub">Maak de laatst gepubliceerde wijziging ongedaan. De server bewaart ook de herstelactie.</p>
-    <button id="undo-last" class="btn btn-outline btn-sm">Herstel vorige versie</button>`;
+    <button id="undo-last" class="btn btn-outline btn-sm">Herstel vorige versie</button>
+    <hr style="margin:22px 0;border:0;border-top:1px solid var(--border-subtle)">
+    <h2>🕒 Laatste wijzigingen</h2>
+    <p class="panel-sub">Alleen zichtbaar voor bevoegde beheerders. De server registreert datum, versie en uitvoerder.</p>
+    <ol id="change-history" aria-live="polite" style="margin:0;padding:0;list-style:none">
+      <li>Geschiedenis laden...</li>
+    </ol>`;
   root.append(sec);
 }
 async function deleteException(date) {
@@ -205,6 +248,7 @@ function wire() {
       const data=await api('/api/admin/undo','POST',{expectedVersion:version});
       if(!data.published)throw new Error('Geen bevestiging van herstel');
       current=data.config;version=data.version;render();
+      await refreshHistory();
       showSummary('✓ Vorige wijziging is hersteld. Versie '+version+' gecontroleerd.');
       toast('Wijziging teruggedraaid.');
     }catch(e){toast('Herstellen mislukt: '+e.message);}
