@@ -1,3 +1,10 @@
+## Staging-verificatie en back-upblokkade — 19 november 2026
+- ✅ Na de bestaande preview-deployment is een externe **read-only smoke-test** uitgevoerd op `https://feat-production-readiness-20.mk-style.pages.dev/`: homepage, admin.html, main.js en `/api/config` antwoorden **HTTP 200**, terwijl `/api/admin/config` en `/api/admin/history` **HTTP 503** antwoorden wegens ontbrekende Cloudflare Access-configuratie. Dit is verwacht fail-closed gedrag; geen klantdata gewijzigd.
+- ✅ `scripts/smoke-staging.mjs` toegevoegd en opgenomen als post-deploy stap in `.github/workflows/staging-deploy.yml` (zodra CI-secrets zijn ingericht).
+- ✅ CI kwaliteitscontrole controleert nu ook `npm audit --omit=dev --audit-level=high`. Lokale audit toont **0 bekende advisories** voor runtime-dependencies; GitHub quality gate geslaagd.
+- ⛔ Bij het aanmaken van `.wrangler/backups` op VTC-t590 vraagt Aegis aparte eigenaarstoestemming. De gebruiker ziet deze aanvraag niet in het Tekton-scherm. **Geen backup-export/restore uitgevoerd** en geen alternatieve locatie gebruikt om die beperking te omzeilen. Back-upstap blijft open; Cloudflare D1 Time Travel bookmark is wel read-only gecontroleerd.
+- ⛔ Het project is **nog niet productie-live**: echte Cloudflare Access-login, hersteltest, fotorechten/privacy, DNS-overdracht en eindacceptatie blijven open.
+
 ## Huidige productievoorbereiding — 19 november 2026 (laatste verificatie)
 - ✅ **Cloudflare DNS-zone** `mk38style.be` bestaat bij OTHRYS; status **Pending** totdat de autoritatieve nameservers bij OVHcloud effectief naar `maya.ns.cloudflare.com` en `peter.ns.cloudflare.com` gaan. Pages Custom Domains weigert apex-koppeling tot Cloudflare DNS actief is.
 - ✅ **EU D1-productiedatabase** `mk-style-production`: migratie `0001_schema.sql` uitgevoerd en seed met Murats bevestigde basisgegevens toegepast. Read-only SQL verifieerde `site_config` versie 1, `MK Style`, e-mailadres en **6 diensten**. Staging heeft een afzonderlijke database.
