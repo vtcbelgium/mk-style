@@ -1,47 +1,41 @@
-## Cloudflare staging gerealiseerd — 18 november 2026
-- Cloudflare Pages-project: `mk-style` op OTHRYS-account; productiebranch `main`, **geen productie-deployment**.
-- Preview: `https://feat-production-readiness-20.mk-style.pages.dev` — met tijdelijke Basic Auth beschermd via `functions/_middleware.js` en uitsluitend Cloudflare previewsecret `STAGING_ACCESS_PASSWORD` (niet in git).
-- D1: afzonderlijke EU-databases `mk-style-staging` (schema+seed geactiveerd) en `mk-style-production` (nog leeg en niet verbonden aan openbare website). `wrangler.jsonc` bevat uitsluitend resource-ID's, geen secrets.
-- Read-only API `/api/config` is online in de preview en leest versie 1 uit D1; alle pagina's/scripts/admin/API blokken zonder previewlogin met 401.
-- Gebruikerslogin voor Murat (Cloudflare Access), eventuele AI-providersecret en de echte DNS-koppeling zijn **NIET** geconfigureerd. Admin API blijft server-side fail-closed.
-- Lokale regressietests: 12/12; preview smoke-tests voor homepage, admin, JS en API: ongeautoriseerd 401, geautoriseerd 200; noindex.
-- Het domein `mkstyle.be` is nog niet verbonden. Murat hoeft nog geen NS aan te passen; Cloudflare-zone moet eerst toegevoegd en gecontroleerd worden. Eigenaar houdt OVHcloud-account.
-- Geen deploy/merge naar `main` of livegang voordat foto-/inhoudsrechten, Access-beveiliging, rollback, privacy, end-to-end testen en Murat's eindakkoord aanwezig zijn.
-
 # MK Style — Herenkapper en barbier Beverst
 
 ## Centrale klantgegevens
 **[config/client-profile.json](config/client-profile.json)** is de centrale projectfiche voor MK Style: bedrijfsidentiteit, btw-nummer, zakelijke contactgegevens, bevestigde openingsuren en prijzen, domeinstatus, website-links en nog te bevestigen zaken. Het is een **publiek leesbaar bestand**, want deze repository is Public. De productie-websitebuild neemt dit bestand niet mee. Deel nooit wachtwoorden, sleutels, privégesprekken of persoonlijke gegevens in Git.
 
-## Status
-De publieke website op `main` is **een demo**, géén productieklaar beheersysteem. Het bestaande `admin.html` gebruikt een **publieke demo-PIN** en `localStorage`; wijzigingen zijn niet gedeeld met bezoekers op andere toestellen. Gebruik demo-PIN of browser-Gemini-sleutels nooit in productie.
+## Status — v0.1.0 Live (`https://mkstyle.be/`)
+De productiewebsite voor **MK Style** staat sinds **19 november 2026 (`v0.1.0`)** officieel live op **https://mkstyle.be/** via **Cloudflare Pages + Pages Functions + Europese Cloudflare D1**.  
+Lees het volledige release-overzicht in [CHANGELOG.md](CHANGELOG.md) en het testprotocol in [docs/RELEASE_TEST_MATRIX.md](docs/RELEASE_TEST_MATRIX.md).
 
-De voorbereidingen voor productie staan in de branch `feat/production-readiness-2026-11`. **Deze branch is niet geïmplementeerd op Cloudflare en niet volledig getest.** Zie [installatie- en verificatiehandleiding](docs/DEPLOYMENT_RUNBOOK.md) en [klantgegevens die eerst geverifieerd moeten worden](docs/MURAT_INTAKE.md).
+- **Domein & Edge:** `mkstyle.be` draait achter Cloudflare DNS (`maya.ns.cloudflare.com`, `peter.ns.cloudflare.com`) met `301`-redirects vanaf `www.mkstyle.be` en `http://`, TLS (Google Trust Services), HSTS (`max-age=31536000; includeSubDomains`), strikte CSP, zelfgehoste fonts en null-sender `SPF`/`DMARC`/`DKIM` anti-spoofing records.
+- **Beheer & Beveiliging:** `https://mkstyle.be/admin` en alle `/api/admin/*` routes zijn server-side en via **Cloudflare Zero Trust Access** fail-closed vergrendeld; publieke routes hebben `0` third-party tracking of externe Google Fonts.
+- **Monitoring & Backups:** 5-minuten read-only uptime-, health-, redirect-, HSTS-, admin-lock- en TLS-controle actief via OTHRYS (`vtcbelgium/OTHRYS`), zonder synthetische vervuiling en met koude D1/Git-backups.
 
 ## Website
-- Bestaande one-pager met contact, foto’s, diensten, tarieven, live-openingsstatus en lokale SEO.
-- Tijdelijke GitHub Pages preview: https://vtcbelgium.github.io/mk-style/
-- Beoogd klantdomein: `mkstyle.be`; domeinregistratie moet Murat bevestigen.
-- Bedrijfsgegevens, tarieven en foto-/merkrechten zijn **voorlopig** totdat de eigenaar ze heeft geverifieerd.
+- One-pager voor herenkapper & barbier **MK Style CommV.** op Sint-Gertrudisplein 24, 3740 Beverst (Bilzen-Hoeselt) — 100% zonder afspraak.
+- Live openingsstatus (`Europe/Brussels`), diensten en prijzen uit **Cloudflare D1** (`mk-style-production`), klik-om-te-laden OpenStreetMap-kaart, volledige `HairSalon` JSON-LD en privacyverklaring op [`/privacy`](https://mkstyle.be/privacy).
+- De inhoud, tarieven, bedrijfsgegevens en fotorechten zijn door eigenaar Murat bevestigd (`config/client-profile.json`); Google Bedrijfsprofiel- en Search Console-eigenaarsverificatie lopen als post-launch opvolging.
 
-## Productieontwerp (branch)
-- Cloudflare Pages voor commerciële hosting (GitHub-integratie).
-- Cloudflare Workers/Pages Functions als beveiligde API.
-- Cloudflare D1 voor centrale, versiegestuurde configuratie en auditgeschiedenis.
-- Cloudflare Access JWT + server-side emailallowlist voor alle beheer-API's; geen publiek client-side PIN.
-- Gemini AI optioneel **server-side**, voor een gestructureerd voorstel. Murat moet zelf op **Bevestigen** klikken, waarna de server valideert en schrijft.
-- In de beheerinterface zijn ook handmatige instellingen en undo van de vorige wijziging aanwezig.
-- Social-media teksten worden enkel als **concept** gemaakt; automatisch posten is niet geactiveerd.
+## Productiearchitectuur (`v0.1.0`)
+- **Cloudflare Pages** (buildoutput `dist/` zonder docs, secrets of migrations) met Pages Functions in `functions/`.
+- **Cloudflare D1 (EU):** gescheiden databases `mk-style-staging` en `mk-style-production` voor versiegestuurde configuratie (`version`), revisiehistorie (`site_revisions`) en dagelijks AI-quotum (`ai_daily_usage`).
+- **Cloudflare Access JWT + server-side allowlist:** (`TEAM_DOMAIN`, `POLICY_AUD`, `ADMIN_EMAILS` uitsluitend als encrypted Cloudflare secrets).
+- **3-laags Admin AI-assistent:**
+  1. Lokale deterministische Nederlandse parser (`functions/_lib/nl-parser.js`, `0 ms`, `0` AI-quotum) voor duidelijke sluitingsdagen, verlofperiodes, uren, meldingen en prijzen.
+  2. Native **Cloudflare Workers AI** (`env.AI`: `@cf/mistralai/mistral-small-3.1-24b-instruct` met `@cf/meta/llama-3.1-8b-instruct-fp8` fallback) met server-side validatie, daglimiet (`25/dag`) en verplichte eigenaarsgoedkeuring vóór publicatie.
+  3. Optionele externe providerondersteuning (`functions/_lib/ai-provider.js` voor Pollinations/Gemini indien geconfigureerd) en Social Studio conceptgenerator (**✨ Verfijn met AI**, altijd alleen concept — nooit automatische publicatie).
+- Manuele uren, uitzonderingen, verlofperiodes, prijzen en één-klik **undo** blijven altijd zonder AI beschikbaar.
 
-## Lokaal voorbereiden (geen productie)
+## Lokaal ontwikkelen & testen
 ```bash
 npm install
 npm test
 npm run build
-npm run seed:sql # pas NA goedkeuring van de business data; SQL review voor D1 apply
+node scripts/verify-support-manifest.mjs
+npm run smoke:production   # read-only productiecheck op https://mkstyle.be/
 ```
 
-`npm run build` maakt een `dist/` voor statische Cloudflare Pages assets; API-functions blijven in de bronmap `functions/`. Een D1 binding `DB`, Access env, en eventueel AI-secret zijn vereist voor de backend. De stagingtests worden uitgevoerd alvorens productie in te schakelen.
+`npm run build` bouwt de statische bestanden naar `dist/` zonder documentatie of secrets. Productie-deploy gebeurt met `wrangler pages deploy dist --project-name mk-style --branch main`.
 
 ## Opvolging
 Centrale werkplanning en het overzicht van 42 issues: [MK Style master issue #43](https://github.com/vtcbelgium/mk-style/issues/43).

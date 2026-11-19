@@ -3,6 +3,9 @@
   "last_updated": "2026-11-19",
   "project": {
     "name": "MK Style website",
+    "version": "0.1.0",
+    "release_tag": "v0.1.0",
+    "launched_at": "2026-11-19",
     "github_repository": "https://github.com/vtcbelgium/mk-style",
     "development_branch": "feat/production-readiness-2026-11",
     "draft_pull_request": "https://github.com/vtcbelgium/mk-style/pull/44",
@@ -12,8 +15,8 @@
     "production_status": "live",
     "planned_hosting": "Cloudflare Pages + Functions + D1",
     "hosting_status": "cloudflare_pages_production_live",
-    "ai_admin_status": "under_development_not_production_ready",
-    "quality_gate_status": "automated_tests_staging_smoke_required_before_prod"
+    "ai_admin_status": "live_verified_3_layer_nl_parser_workers_ai",
+    "quality_gate_status": "v0_1_0_launch_verified_2026-11-19"
   },
   "company": {
     "trade_name": "MK Style",
@@ -71,7 +74,7 @@
     ]
   },
   "confirmed_by_owner": {
-    "as_of": "2026-11-17",
+    "as_of": "2026-11-19",
     "general_design": "preview_looks_good",
     "regular_opening_hours": "confirmed_as_shown_in_preview",
     "prices": "confirmed_as_shown_in_preview",
@@ -79,7 +82,7 @@
     "enterprise_number": "1004.134.102",
     "vat_number": "BE1004.134.102",
     "business_email": "38mkstyle@gmail.com",
-    "domain_report": "OVHcloud/domain active on 2026-11-18; registry and DNS verification outstanding"
+    "domain_report": "OVHcloud delegated to Cloudflare NS (maya/peter.ns.cloudflare.com) and live on https://mkstyle.be/ (2026-11-19)"
   },
   "opening_hours": {
     "time_zone": "Europe/Brussels",
@@ -229,12 +232,10 @@
     "phone_address_and_social_account_ownership"
   ],
   "pending_from_owner": [
-    "Confirm domain holder and registration / renewal data without sharing credentials; verify DNS configuration",
-    "confirm remaining address / phone / social links and claims",
-    "photo publishing rights, especially recognizable customers",
-    "choose authorized admin email",
-    "review privacy and legal content before launch",
-    "Later, after Pages and DNS preflight, authorize OVHcloud nameserver delegation to maya.ns.cloudflare.com and peter.ns.cloudflare.com without sharing credentials"
+    "Confirm OVHcloud domain renewal date without sharing credentials",
+    "Verify Google Business Profile & Google Search Console owner access",
+    "Complete real smartphone spot-check and first owner live publish/undo check",
+    "Run 48-hour, +7-day and +30-day post-launch follow-ups"
   ],
   "project_rules": {
     "domain_belongs_to": "MK Style / Murat",
