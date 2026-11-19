@@ -6,6 +6,7 @@ import {generateKeyPair,exportJWK,SignJWT} from 'jose';
 import {onRequestGet as getAdmin,onRequestPatch as patchAdmin} from '../functions/api/admin/config.js';
 import {onRequestPost as undoAdmin} from '../functions/api/admin/undo.js';
 import {onRequestGet as getPublic} from '../functions/api/config.js';
+import {onRequestGet as getHistory} from '../functions/api/admin/history.js';
 
 // In-memory SQL engine implements the exact statements used by Cloudflare D1,
 // with the same .prepare/.bind/.first/.run/.batch calling pattern. No cloud writes.
@@ -92,5 +93,12 @@ test('authenticated admin writes, version conflicts, public read and one-step un
   assert.deepEqual(undone.config.exceptions||[],[]);
   const revisions=DB.db.prepare('SELECT version,source FROM site_revisions ORDER BY version').all();
   assert.deepEqual(revisions.map(r=>r.version),[2,3]);
+  const historyResponse=await getHistory({request:request('GET','/api/admin/history'),env});
+  assert.equal(historyResponse.status,200);
+  const audit=await historyResponse.json();
+  assert.equal(audit.currentVersion,3);
+  assert.deepEqual(audit.history.map(entry=>entry.version),[3,2]);
+  assert.ok(audit.history.every(entry=>entry.actor==='38mkstyle@gmail.com'));
+  assert.ok(audit.history.every(entry=>!('before_json' in entry)&&!('after_json' in entry)));
   assert.equal(jwksRequests,1);
 });
