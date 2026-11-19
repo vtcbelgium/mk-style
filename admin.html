@@ -355,10 +355,45 @@
       <!-- Right Column: Facebook & Instagram draft editor; no automatic posting -->
       <div>
         <section class="panel">
-          <h2>&#128241; Facebook &amp; Instagram — concept</h2>
+          <h2>&#128241; MK Style Social Studio — concepten</h2>
           <p class="panel-sub">
-            De AI kan optioneel een berichtconcept voorstellen voor <strong>Facebook (MK Style)</strong> en <strong>Instagram (@mkstyle.38)</strong>. Er wordt niets automatisch gepubliceerd.
+            Maak een concept voor Instagram, Facebook of Google Bedrijfsprofiel op basis van de actuele saloninformatie.
+            Voorstellen worden <strong>nooit automatisch gepubliceerd</strong>; controleer altijd de tekst en fotorechten.
           </p>
+          <div class="field-row">
+            <label for="social-platform">Platform</label>
+            <select id="social-platform" class="input-text">
+              <option value="instagram">Instagram · @mkstyle.38</option>
+              <option value="facebook">Facebook · MK Style</option>
+              <option value="google">Google Bedrijfsprofiel · concept</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <label for="social-topic">Onderwerp</label>
+            <select id="social-topic" class="input-text">
+              <option value="walkin">Zonder afspraak</option>
+              <option value="service">Dienst en prijs</option>
+              <option value="location">Locatie en bereikbaarheid</option>
+              <option value="special_hours">Bestaande uitzonderlijke openingsdag</option>
+            </select>
+          </div>
+          <div class="field-row" id="social-service-row" style="display:none">
+            <label for="social-service">Dienst uit de actuele prijslijst</label>
+            <select id="social-service" class="input-text"></select>
+          </div>
+          <div class="field-row" id="social-date-row" style="display:none">
+            <label for="social-date">Datum die al op de website is ingesteld</label>
+            <select id="social-date" class="input-text"></select>
+          </div>
+          <div class="field-row">
+            <label for="social-brief">Extra aanwijzing voor AI (optioneel, max. 250 tekens)</label>
+            <input id="social-brief" class="input-text" maxlength="250" placeholder="Bijv. warm en kort, geen kortingsclaims">
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px">
+            <button id="social-template-btn" type="button" class="btn btn-gold btn-sm">Maak gratis tekstconcept</button>
+            <button id="social-ai-btn" type="button" class="btn btn-outline btn-sm">Verfijn met AI (indien actief)</button>
+          </div>
+          <p id="social-draft-status" class="panel-sub" role="status">Nog niets verstuurd of gepubliceerd.</p>
 
           <label style="display: block; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600;">
             Kies foto voor bij het bericht:
@@ -380,7 +415,7 @@
                   <div style="font-size: 0.73rem; color: var(--text-muted); font-weight: 500;">Sint-Gertrudisplein 24, Bilzen-Hoeselt</div>
                 </div>
               </div>
-              <span style="font-size: 0.72rem; color: var(--gold-bright); border: 1px solid var(--border-gold); padding: 2px 8px; border-radius: 999px;">Concept · FB + IG</span>
+              <span style="font-size: 0.72rem; color: var(--gold-bright); border: 1px solid var(--border-gold); padding: 2px 8px; border-radius: 999px;">Concept · nooit gepubliceerd</span>
             </div>
             <img id="social-preview-img" src="./assets/images/interior-hex-lights.jpg" alt="Voorbeeld post afbeelding" class="social-preview-img" />
             <textarea id="social-caption" class="social-caption-area">💈 Altijd strak in stijl bij MK Style!
@@ -399,7 +434,7 @@ Spring van dinsdag t/m zaterdag gewoon binnen ZONDER AFSPRAAK in ons vernieuwd k
               &#128203; Kopieer Tekst
             </button>
           </div>
-          <p class="panel-sub">Social media wordt voorlopig niet automatisch gepubliceerd. Kopieer de voorgestelde tekst en plaats ze zelf na controle.</p>
+          <p class="panel-sub">Controleer vóór publicatie teksten, klantfoto's en toestemming. De kopieerknop plaatst niets op een platform; Google, Instagram en Facebook zijn nog niet gekoppeld aan deze website.</p>
         </section>
       </div>
     </div>
