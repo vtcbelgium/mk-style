@@ -2,11 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { onRequest } from '../functions/_middleware.js';
 import { adminIdentity } from '../functions/_lib/access.js';
+import { generateKeyPair, exportJWK, SignJWT } from 'jose';
 
-async function request(path, hostname = 'feat-production-readiness-20.mk-style.pages.dev', env = {}) {
+async function request(path, hostname = 'feat-production-readiness-20.mk-style.pages.dev', env = {}, headers = {}) {
   let nextCalls = 0;
   const response = await onRequest({
-    request:new Request('https://' + hostname + path),
+    request:new Request('https://' + hostname + path, {headers}),
     env,
     next:async()=>{nextCalls++;return new Response('ok', {status:200});}
   });
@@ -53,4 +54,37 @@ test('production public pages and public API are not gated by the admin middlewa
     assert.equal(response.status,200);
     assert.equal(nextCalls,1);
   }
+});
+
+test('signed Access JWT is required and allowed for production admin page',async t=>{
+  const team='https://mk-style-middleware-test.cloudflareaccess.com',aud='mk-style-prod-owner';
+  const {publicKey,privateKey}=await generateKeyPair('RS256');
+  const jwk=await exportJWK(publicKey);
+  Object.assign(jwk,{kid:'middleware-key',use:'sig',alg:'RS256'});
+  const originalFetch=globalThis.fetch;
+  globalThis.fetch=async url=>{
+    if(String(url)!==team+'/cdn-cgi/access/certs')throw Error('Unexpected outgoing fetch');
+    return new Response(JSON.stringify({keys:[jwk]}),{headers:{'Content-Type':'application/json'}});
+  };
+  t.after(()=>{globalThis.fetch=originalFetch;});
+  const env={TEAM_DOMAIN:team,POLICY_AUD:aud,ADMIN_EMAILS:'38mkstyle@gmail.com'};
+  const issue=async(email,audience=aud)=>new SignJWT({email})
+    .setProtectedHeader({alg:'RS256',kid:'middleware-key'})
+    .setIssuer(team).setAudience(audience).setIssuedAt().setExpirationTime('30m')
+    .sign(privateKey);
+  const valid=await request('/admin.html','mk38style.be',env,
+    {'Cf-Access-Jwt-Assertion':await issue('38mkstyle@gmail.com')});
+  assert.equal(valid.response.status,200);
+  assert.equal(valid.nextCalls,1);
+  assert.match(valid.response.headers.get('cache-control'),/no-store/);
+
+  const wrongEmail=await request('/admin.html','mk38style.be',env,
+    {'Cf-Access-Jwt-Assertion':await issue('random@example.com')});
+  assert.equal(wrongEmail.response.status,403);
+  assert.equal(wrongEmail.nextCalls,0);
+
+  const wrongAudience=await request('/admin.html','mk38style.be',env,
+    {'Cf-Access-Jwt-Assertion':await issue('38mkstyle@gmail.com','not-the-access-app')});
+  assert.equal(wrongAudience.response.status,401);
+  assert.equal(wrongAudience.nextCalls,0);
 });
