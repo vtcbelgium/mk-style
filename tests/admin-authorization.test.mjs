@@ -4,13 +4,15 @@ import {onRequestGet as readAdmin, onRequestPatch as patchAdmin} from '../functi
 import {onRequestGet as history} from '../functions/api/admin/history.js';
 import {onRequestPost as propose} from '../functions/api/admin/propose.js';
 import {onRequestPost as undo} from '../functions/api/admin/undo.js';
+import {onRequestPost as socialDraft} from '../functions/api/admin/social-draft.js';
 
 const routes=[
  ['GET','/api/admin/config',readAdmin],
  ['PATCH','/api/admin/config',patchAdmin],
  ['GET','/api/admin/history',history],
  ['POST','/api/admin/propose',propose],
- ['POST','/api/admin/undo',undo]
+ ['POST','/api/admin/undo',undo],
+ ['POST','/api/admin/social-draft',socialDraft]
 ];
 for (const [method,path,handler] of routes) {
  test(method+' '+path+' rejects preview visitors without configured Access',async()=>{
