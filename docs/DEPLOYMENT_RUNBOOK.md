@@ -1,3 +1,12 @@
+## Monitoring en release-controles — 19 november 2026
+- ✅ `/api/health` toegevoegd: **GET** doet een read-only controle op D1 `site_config`. Antwoord `200 {"status":"ok"}` of `503 {"status":"unavailable"}`, zonder bedrijfsgegevens, database-ID's of secrets terug te geven. `Cache-Control: no-store`, `X-Robots-Tag: noindex`.
+- ✅ Staging-deployment `f14c1b69.mk-style.pages.dev` geslaagd. Externe read-only smoketest bevestigt homepage, `admin.html`, main.js, `/api/config`, `/api/health` HTTP 200 en onbevoegde beheer-API's HTTP 503 (verwacht zolang Access niet is ingesteld).
+- ✅ 37/37 unit-/integratietests geslaagd, inclusief D1 gezondheidscontrole en fail-closed gedrag.
+- ✅ `npm run smoke:staging` test site, database en gescheiden beheerrechten; onderdeel van de handmatige staging-deployworkflow.
+- ✅ `npm run smoke:production` **voorbereid, nog NIET uitgevoerd**. Vereist na livegang: geldig HTTPS, de juiste bedrijfsgegevens, D1-read, health, sitemap, robots, `www`-redirect naar canonical apex en werkende admin-auth. **503 door ontbrekende Access blokkeert de go-live check**.
+- ⛔ DNS-zone `mk38style.be` blijft Pending tot OVHcloud-nameservers gewijzigd worden; productie niet live, geen merge naar `main`.
+- ⛔ Echte Cloudflare Access-login, AI-secret/budget en bewaartermijnen, restore-test en finale fotorechten/privacy blijven open. Aegis vroeg goedkeuring voor de lokale backupmap, maar eigenaar zag geen aanvraag; beperkingen niet omzeild.
+
 ## Staging-verificatie en back-upblokkade — 19 november 2026
 - ✅ Na de bestaande preview-deployment is een externe **read-only smoke-test** uitgevoerd op `https://feat-production-readiness-20.mk-style.pages.dev/`: homepage, admin.html, main.js en `/api/config` antwoorden **HTTP 200**, terwijl `/api/admin/config` en `/api/admin/history` **HTTP 503** antwoorden wegens ontbrekende Cloudflare Access-configuratie. Dit is verwacht fail-closed gedrag; geen klantdata gewijzigd.
 - ✅ `scripts/smoke-staging.mjs` toegevoegd en opgenomen als post-deploy stap in `.github/workflows/staging-deploy.yml` (zodra CI-secrets zijn ingericht).
