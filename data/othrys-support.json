@@ -4,7 +4,7 @@
   "clientName": "MK Style",
   "repo": "vtcbelgium/mk-style",
   "tier": "essential_care",
-  "lifecycleStage": "pilot_pending_launch",
+  "lifecycleStage": "live",
   "domainPolicy": {
     "owner": "client",
     "dnsDelegation": "othrys_technical_access"

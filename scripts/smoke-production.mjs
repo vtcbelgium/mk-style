@@ -16,7 +16,7 @@ function ok(response,path){expect(response.status===200,path+' returned HTTP '+r
 const home=await request('/');
 ok(home,'homepage');
 const html=await home.text();
-expect(/<title>MK Style/.test(html),'Unexpected home page title');
+expect(/<title>[^<]*MK Style[^<]*<\/title>/.test(html),'Unexpected home page title');
 expect(html.includes('MK Style CommV.')&&html.includes('38mkstyle@gmail.com'),
   'Public legal/contact footer is missing');
 expect(!html.includes('fonts.googleapis.com')&&!html.includes('fonts.gstatic.com')&&html.includes('privacy.html'),

@@ -11,14 +11,14 @@
 | WEB-04 | Trage 4G / offline | Geen misleidende 'NU OPEN' bij ontbrekende actuele data | NIET GETEST (nog op vertraagd netwerk testen) |
 | WEB-05 | Tijdzone België DST | Open-status, middagpauze en 'morgen' kloppen | PASS (geautomatiseerd, 19/11/2026): `npm test` (`61/61`, `Europe/Brussels` DST/morgen) |
 | WEB-06 | Eénmalige sluiting woensdag | Maakt niet alle woensdagen dicht | PASS (geautomatiseerd, 19/11/2026): `npm test` (`tests/site.test.mjs`, `tests/admin-db-flow.test.mjs`) |
-| WEB-07 | Domeinroot + www | HTTPS, canonical redirect en geldige SSL | GEBLOKKEERD — DNS pending (`npm run domain:check` 19/11/2026 = `NXDOMAIN`) |
+| WEB-07 | Domeinroot + www | HTTPS, canonical redirect en geldige SSL | PASS (19/11/2026): `https://mkstyle.be/` `200` SSL + `https://www.mkstyle.be/` `301 -> https://mkstyle.be/` |
 | WEB-08 | Kaarten/telefoon/WhatsApp | Juiste locatie en correcte eigenaarstelefoon | DEELS (19/11/2026): map click-to-load & links getest in `npm test`; wacht op bevestiging Murat |
 | WEB-09 | Fotos mobiel | Snel en legaal; juiste alt-teksten | DEELS (19/11/2026): `width`/`height`/alt getest in `npm test`; fotorechten wachten op antwoord Murat |
 
 ## B. Admin, autorisatie en AI
 | ID | Scenario | Verwacht resultaat | Resultaat |
 |---|---|---|---|
-| ADM-01 | Zonder Cloudflare Access JWT direct /api/admin/config | 401 of veilige 503 vóór setup | PASS staging + unit (19/11/2026): `npm run smoke:staging` geeft `503` op alle 5 `/api/admin/*` routes (`dcd3e92b`); prod 401/Access-redirect na setup |
+| ADM-01 | Zonder Cloudflare Access JWT direct /api/admin/config | 401 of veilige 503 vóór setup | PASS prod (19/11/2026): `302` Access-redirect op alle 7 `/admin*` & `/api/admin/*` routes (`mkstyle.be`), `401` direct op `mk-style.pages.dev/api/admin/config` |
 | ADM-02 | Verkeerd account, geldig JWT | 403 voor elke beheerrroute | PASS unit (19/11/2026): `tests/preview-gate.test.mjs` (`403` wrong email, `401` wrong AUD); live Access-login nog OPEN |
 | ADM-03 | Verkeerde Origin voor PATCH/POST | 403, geen wijziging | PASS unit (19/11/2026): `tests/admin-db-flow.test.mjs` (`403`); live test nog OPEN |
 | ADM-04 | Prijs/uren met ongeldige input | 4xx, gegevens ongewijzigd | PASS unit (19/11/2026): `tests/site.test.mjs` & `tests/social-draft.test.mjs`; live UI-test nog OPEN |
@@ -52,7 +52,7 @@
 - [ ] Test alle live admin scenario's en directe API-auth met Cloudflare Access (`TEAM_DOMAIN`, `POLICY_AUD`, `ADMIN_EMAILS`).
 - [x] Backup via `wrangler d1 export mk-style-staging --remote`, herstel in lege lokale D1 (`wrangler d1 execute mk-style-staging --local --persist-to ... --file=...`) en lokale rollback-drill `v1 -> v2 -> v3` (SHA-256 `v3 == v1`: `7f5df086...`, tijdelijke bestanden gewist) uitgevoerd op 19/11/2026.
 - [x] Productie vrijgeven pas na review en Murats goedkeuring (akkoord bevestigd 19/11/2026).
-- [ ] DNS root/www, TLS, cache, canonical en `npm run smoke:production` verifiëren na OVHcloud-delegatie.
+- [x] DNS root/www, TLS, cache, canonical en `npm run smoke:production` verifiëren na OVHcloud-delegatie (afgerond 19/11/2026).
 - [ ] 48-uurs nazorg, +7-dagen feedback, +30-dagen SEO-review plannen op werkelijke live-datum.
 
 ## Aftekenen
