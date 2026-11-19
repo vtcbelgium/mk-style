@@ -16,6 +16,14 @@ expect(html.includes('MK Style CommV.')&&html.includes('38mkstyle@gmail.com'),
   'Public legal/contact footer is missing');
 expect(!/noindex/i.test(home.headers.get('x-robots-tag')||''),
   'Production homepage is accidentally noindex');
+const csp=home.headers.get('content-security-policy')||'';
+expect(csp.includes("default-src 'self'")&&csp.includes("script-src 'self'"),
+  'Production CSP is missing or too permissive');
+expect(home.headers.get('x-content-type-options')==='nosniff',
+  'Production X-Content-Type-Options is missing');
+const missing=await request('/nonexistent-mk-style-launch-check');
+expect(missing.status===404,'Unknown production URL must return HTTP 404');
+
 const api=await request('/api/config');
 ok(api,'public config');
 const data=await api.json();
