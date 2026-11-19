@@ -3,22 +3,22 @@
 **Status:** voorbereid; **nog niet naar Murat sturen** totdat Cloudflare is ingesteld en de exacte toegewezen nameservers bekend zijn.
 
 ## Doel en eigenaarschap
-- `mk38style.be` blijft geregistreerd en betaald door **MK Style / Murat** bij OVHcloud.
+- `mkstyle.be` blijft geregistreerd en betaald door **MK Style / Murat** bij OVHcloud.
 - **OTHRYS** beheert de website, Cloudflare Pages/Functions, D1, beveiliging, deployment en dagelijkse monitoring.
-- Het zakelijke Gmail-adres `38mkstyle@gmail.com` werkt onafhankelijk van `mk38style.be`; er is geen mailhosting of MX-record op het domein nodig zolang Murat geen `@mk38style.be`-mailbox wil.
+- Het zakelijke Gmail-adres `38mkstyle@gmail.com` werkt onafhankelijk van `mkstyle.be`; er is geen mailhosting of MX-record op het domein nodig zolang Murat geen `@mkstyle.be`-mailbox wil.
 - **Nooit** Murats Gmail- of OVHcloud-wachtwoord, OTP/2FA-code, herstelcodes of betaalgegevens vragen. Geen hoofdaccount gedeeld.
 
 ## Eerst door OTHRYS uit te voeren
 1. Cloudflare toegang bevestigen namens de ontwikkelaar (geen bestaande secrets weergeven).
 2. Cloudflare Pages-project voor MK Style op eigen OTHRYS-account aanmaken en previewdeploy activeren.
 3. D1 staging en productiedatabase scheiden; API/login/auth en security op previewdomein testen.
-4. `mk38style.be` als **Cloudflare-zone** toevoegen, toegewezen NS1/NS2 vastleggen. **Geen namen raden of generieke Cloudflare-nameservers gebruiken.**
+4. `mkstyle.be` als **Cloudflare-zone** toevoegen, toegewezen NS1/NS2 vastleggen. **Geen namen raden of generieke Cloudflare-nameservers gebruiken.**
 5. Bestaande OVHcloud-records inventariseren (A/AAAA/CNAME/TXT/MX/CAA, DNSSEC) en benodigde records in Cloudflare voorbereiden **voordat** een nameserverwijziging wordt uitgevoerd.
 6. Pas na groene tests en staging-acceptatie de domeinkoppeling aanvragen. Geen live-omschakeling op basis van alleen CI.
 
 ## Route A — Murat krijgt één concrete OVHcloud-handeling (fallback)
 1. Murat opent de officiële [OVHcloud Control Panel](https://www.ovh.com/manager/) en meldt zichzelf aan.
-2. `Web Cloud` → `Domain names / Domains & DNS` → `mk38style.be`.
+2. `Web Cloud` → `Domain names / Domains & DNS` → `mkstyle.be`.
 3. Open `DNS servers` en kies `Modify DNS servers` / `Edit DNS servers`.
 4. Stel de exacte twee door Cloudflare toegewezen nameservers in:
    - NS1: `maya.ns.cloudflare.com`
@@ -43,7 +43,7 @@ Zodra de Cloudflare-zone + staging bestaan en de exacte NS1/NS2 bekend zijn:
 ## Verificatie door OTHRYS na zijn actie
 - [ ] Registrar-domein blijft onder Murats account
 - [ ] Cloudflare-zone is Active met de toegewezen nameservers
-- [ ] SSL geldig voor `mk38style.be` en `www.mk38style.be`
+- [ ] SSL geldig voor `mkstyle.be` en `www.mkstyle.be`
 - [ ] Beide hosts werken met de afgesproken canonical redirect
 - [ ] Sitebezoeker op ander toestel ziet de juiste prijzen/uren
 - [ ] Admin en API enkel toegankelijk na server-side autorisatie

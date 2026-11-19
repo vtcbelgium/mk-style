@@ -8,7 +8,7 @@ Status 18 november 2026: Murat bevestigde eerder het ontwerp, de prijzen, het we
 - **Eén OVHcloud-actie later:** zodra de exacte Cloudflare-nameservers bekend zijn, laat Murat ze invullen of geeft hij op veilige wijze beperkte toegang; wij nemen geen wachtwoorden over.
 - **Eén gebundelde eindcontrole:** fotorechten, nog onbevestigde contactgegevens/claims, beheerlogin en akkoord op lancering.
 - **Alleen indien hij het wil:** beperkte toegang tot het Google Bedrijfsprofiel voor lokaal SEO-beheer.
-- Gmail `38mkstyle@gmail.com` is onafhankelijk van `mk38style.be`; geen MX of extra mailboxabonnement vereist.
+- Gmail `38mkstyle@gmail.com` is onafhankelijk van `mkstyle.be`; geen MX of extra mailboxabonnement vereist.
 
 ## 1. Domein en accounts (geblokkeerd tot Murat bevestigt)
 - [x] Murat meldt op 18/11 dat OVHcloud/domein actief is. **Dit is een eigenaarverklaring; nog geen onafhankelijke registratie- of DNS-verificatie.**

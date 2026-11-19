@@ -5,7 +5,7 @@
 - Read-only API `/api/config` is online in de preview en leest versie 1 uit D1; alle pagina's/scripts/admin/API blokken zonder previewlogin met 401.
 - Gebruikerslogin voor Murat (Cloudflare Access), eventuele AI-providersecret en de echte DNS-koppeling zijn **NIET** geconfigureerd. Admin API blijft server-side fail-closed.
 - Lokale regressietests: 12/12; preview smoke-tests voor homepage, admin, JS en API: ongeautoriseerd 401, geautoriseerd 200; noindex.
-- Het domein `mk38style.be` is nog niet verbonden. Murat hoeft nog geen NS aan te passen; Cloudflare-zone moet eerst toegevoegd en gecontroleerd worden. Eigenaar houdt OVHcloud-account.
+- Het domein `mkstyle.be` is nog niet verbonden. Murat hoeft nog geen NS aan te passen; Cloudflare-zone moet eerst toegevoegd en gecontroleerd worden. Eigenaar houdt OVHcloud-account.
 - Geen deploy/merge naar `main` of livegang voordat foto-/inhoudsrechten, Access-beveiliging, rollback, privacy, end-to-end testen en Murat's eindakkoord aanwezig zijn.
 
 # MK Style — Herenkapper en barbier Beverst
@@ -21,7 +21,7 @@ De voorbereidingen voor productie staan in de branch `feat/production-readiness-
 ## Website
 - Bestaande one-pager met contact, foto’s, diensten, tarieven, live-openingsstatus en lokale SEO.
 - Tijdelijke GitHub Pages preview: https://vtcbelgium.github.io/mk-style/
-- Beoogd klantdomein: `mk38style.be`; domeinregistratie moet Murat bevestigen.
+- Beoogd klantdomein: `mkstyle.be`; domeinregistratie moet Murat bevestigen.
 - Bedrijfsgegevens, tarieven en foto-/merkrechten zijn **voorlopig** totdat de eigenaar ze heeft geverifieerd.
 
 ## Productieontwerp (branch)

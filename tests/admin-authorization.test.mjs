@@ -25,9 +25,9 @@ for (const [method,path,handler] of routes) {
    assert.match(response.headers.get('Content-Type')||'',/application\/json/);
  });
  test(method+' '+path+' rejects missing Access token even with policy configured',async()=>{
-   const url='https://mk38style.be'+path;
+   const url='https://mkstyle.be'+path;
    const request=new Request(url,{
-     method,headers:method==='GET'?{}:{Origin:'https://mk38style.be'},
+     method,headers:method==='GET'?{}:{Origin:'https://mkstyle.be'},
      ...(method==='GET'?{}:{body:'{}'})
    });
    const env={TEAM_DOMAIN:'https://example.cloudflareaccess.com',POLICY_AUD:'fake-aud',ADMIN_EMAILS:'38mkstyle@gmail.com'};

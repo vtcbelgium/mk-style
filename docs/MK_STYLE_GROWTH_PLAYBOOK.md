@@ -2,7 +2,7 @@
 
 **Operationeel plan · 19 november 2026 · OTHRYS / MK Style**
 
-Dit plan is gebaseerd op de huidige MK Style-ontwikkelbranch, de door de zaak bevestigde prijzen en openingstijden, de aangetroffen openbare Google Maps-vermelding en recente officiële Google/Meta-documentatie. Het is **geen belofte dat koppelingen al actief zijn**. De domeinzone `mk38style.be` is nog Pending; geen productiepublicatie zonder de releasevoorwaarden.
+Dit plan is gebaseerd op de huidige MK Style-ontwikkelbranch, de door de zaak bevestigde prijzen en openingstijden, de aangetroffen openbare Google Maps-vermelding en recente officiële Google/Meta-documentatie. Het is **geen belofte dat koppelingen al actief zijn**. De domeinzone `mkstyle.be` is nog Pending; geen productiepublicatie zonder de releasevoorwaarden.
 
 ## Ontwerpprincipe: klein salon, weinig administratie
 
@@ -66,7 +66,7 @@ Maak later pas eigen dienstpagina's als er **unieke echte informatie en beelden*
 
 ### D. Technisch SEO-go/no-go
 
-- `mk38style.be` als canonical, `www` met permanente redirect naar apex.
+- `mkstyle.be` als canonical, `www` met permanente redirect naar apex.
 - `robots.txt` en sitemap enkel echte publieke pagina's; preview blijft `noindex`.
 - `HairSalon`/`LocalBusiness` en `WebSite` JSON-LD valideren; geen zelf-promotionele rating markup.
 - Open Graph previews voor delen op Facebook/WhatsApp; foto's met bruikbare `alt` tekst en duidelijke afmetingen.

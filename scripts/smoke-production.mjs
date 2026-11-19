@@ -1,7 +1,7 @@
 // Read-only production acceptance gate.
 // Run only AFTER Cloudflare zone activation, SSL and custom domain setup.
 // It never logs in, reads secrets, changes D1, or publishes anything.
-const origin='https://mk38style.be';
+const origin='https://mkstyle.be';
 const request=async(path,options={})=>{
   const method=options.method||'GET';
   return fetch(origin+path,{
@@ -67,8 +67,8 @@ for(const [path,method] of [['/admin.html','GET'],['/admin','GET'],['/admin/','G
  expect([401,403].includes(res.status)||isAccessRedirect,
    'Admin Access not ready or unauthorized endpoint exposed: '+path+' => '+res.status);
 }
-const www=await fetch('https://www.mk38style.be/',{redirect:'manual',signal:AbortSignal.timeout(12000)});
+const www=await fetch('https://www.mkstyle.be/',{redirect:'manual',signal:AbortSignal.timeout(12000)});
 expect([301,302,307,308].includes(www.status),'www must redirect to canonical apex');
-const location=new URL(www.headers.get('location')||'/', 'https://www.mk38style.be');
+const location=new URL(www.headers.get('location')||'/', 'https://www.mkstyle.be');
 expect(location.origin===origin,'www redirect targets an unexpected host');
 console.log('MK Style production acceptance checks passed (read-only).');

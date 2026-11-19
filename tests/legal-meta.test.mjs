@@ -34,7 +34,7 @@ test('structured LocalBusiness SEO metadata is valid and has a reachable contact
  const data=JSON.parse(match[1]);
  const business=data['@graph'].find(x=>Array.isArray(x['@type'])&&x['@type'].includes('HairSalon'));
  assert.ok(business);
- assert.equal(business.url,'https://mk38style.be/');
+ assert.equal(business.url,'https://mkstyle.be/');
  assert.equal(business.email,config.businessEmail);
  assert.equal(business.telephone,config.phoneTel);
  assert.equal(business.paymentAccepted,undefined,'Payment types not confirmed by Murat');

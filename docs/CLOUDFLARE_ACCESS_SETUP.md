@@ -1,6 +1,6 @@
 # MK Style — Cloudflare Access (eigenaar & OTHRYS)
 
-**Status 19 november 2026:** plan klaar; **NIET ingeschakeld**. `mk38style.be` staat nog Pending bij Cloudflare. Geen login of toegang voor Murat beloven zolang het domein, de applicatie en live testen niet gereed zijn.
+**Status 19 november 2026:** plan klaar; **NIET ingeschakeld**. `mkstyle.be` staat nog Pending bij Cloudflare. Geen login of toegang voor Murat beloven zolang het domein, de applicatie en live testen niet gereed zijn.
 
 ## Doel
 Murat logt later op zijn eigen telefoon in met `38mkstyle@gmail.com` via een e-mailcode, zonder technisch Cloudflare-account of toegang tot de OTHRYS-hosting. Alleen goedgekeurde beheerders kunnen de website aanpassen. Publieke bezoekers lezen de gewone site zonder account.
@@ -10,11 +10,11 @@ Cloudflare Access geeft **per applicatie één Audience (AUD)** uit. De backend 
 
 | Public hostname | Path | Waarom |
 | --- | --- | --- |
-| `mk38style.be` | `/admin.html` | Bescherm de oorspronkelijke beheerlink |
-| `mk38style.be` | `/admin` | Bescherm de clean URL waarnaar Pages kan omleiden |
-| `mk38style.be` | `/api/admin/*` | Bescherm alle beheer-API-routes en hun JWT |
+| `mkstyle.be` | `/admin.html` | Bescherm de oorspronkelijke beheerlink |
+| `mkstyle.be` | `/admin` | Bescherm de clean URL waarnaar Pages kan omleiden |
+| `mkstyle.be` | `/api/admin/*` | Bescherm alle beheer-API-routes en hun JWT |
 
-**Gebruik niet twee aparte Access-apps zonder de code aan te passen:** hun verschillende AUD-tags laten `admin.html` en de API niet met dezelfde `POLICY_AUD` werken. De wildcard `/api/admin/*` dekt het parent-pad `/api/admin` niet; dat is geen bestaande Function-route. Leg geen Access-app op `mk38style.be/*` of `/` die de openbare website sluit.
+**Gebruik niet twee aparte Access-apps zonder de code aan te passen:** hun verschillende AUD-tags laten `admin.html` en de API niet met dezelfde `POLICY_AUD` werken. De wildcard `/api/admin/*` dekt het parent-pad `/api/admin` niet; dat is geen bestaande Function-route. Leg geen Access-app op `mkstyle.be/*` of `/` die de openbare website sluit.
 
 Cloudflare Pages serveert HTML ook op een **extensionless URL**; bescherm beide URL's en controleer desgewenst ook \`/admin/\` als extra alias in de Access-policy. De applicatiemiddleware weigert alle drie.
 
@@ -37,7 +37,7 @@ Aanmaak zodra Cloudflare-zone **Active** is:
 De server valideert iedere beheer-API-call op **RS256-handtekening, issuer, Audience en e-mailadres**. Het productiedomein controleert ook `/admin.html`, `/admin` en `/admin/` op dezelfde identiteit in `functions/_middleware.js`. Zonder werkende Access-configuratie geeft de server een **503** en zonder geldige JWT een **401**. De ontwikkelpreview blijft op verzoek publiek toegankelijk, maar kan niets wijzigen zonder geldige Access-configuratie.
 
 ## Vereiste live acceptatietests (voor goedkeuring)
-- [ ] `https://mk38style.be/` en `/api/config` werken voor anonieme klanten
+- [ ] `https://mkstyle.be/` en `/api/config` werken voor anonieme klanten
 - [ ] Anonieme `/admin.html` en `/admin` worden naar Access-login omgeleid of geweigerd; **niet 200 en niet 503**
 - [ ] Anonieme `/api/admin/config`, `/api/admin/history`, `/api/admin/undo`, `/api/admin/propose` worden tegengehouden
 - [ ] `38mkstyle@gmail.com` meldt aan met e-mailcode en ziet de beheerpagina; een willekeurig ander e-mailadres wordt geweigerd

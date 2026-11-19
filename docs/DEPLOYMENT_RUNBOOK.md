@@ -1,13 +1,13 @@
 ## SEO, Google Business en Social Studio — 19 november 2026
 - ✅ Openbare bestaande MK Style Google Maps-vermelding op **Sint-Gertrudisplein 24, Beverst**, Place ID `ChIJu8aXT6XgwEcRyp23QzZ2j2A`, in publieke bronnen gevonden. Google Maps-links op de website verwijzen nu specifiek naar die bestaande vermelding en de beoordelingen. **Beheer-/eigenaarschap nog niet geverifieerd**; geen tweede listing aanmaken.
 - ✅ LocalBusiness JSON-LD bevat nu geverifieerde juridische bedrijfsidentiteit uit de eigenaardata, `hasMap` en gekoppelde `WebSite` node. Overbodige `meta keywords` en niet meer als Google-rich-result ondersteunde FAQPage markup verwijderd (zichtbare FAQ blijft). Geen fictieve review-/ratingdata toegevoegd.
-- ✅ Robots blokkeert `/admin`, `/admin.html` en `/api/admin/`; sitemap bijgewerkt bij echte contentwijziging op 19/11. Canonical target `https://mk38style.be/` blijft bedoeld voor productie. Preview blijft `noindex`.
+- ✅ Robots blokkeert `/admin`, `/admin.html` en `/api/admin/`; sitemap bijgewerkt bij echte contentwijziging op 19/11. Canonical target `https://mkstyle.be/` blijft bedoeld voor productie. Preview blijft `noindex`.
 - ✅ **MK Style Social Studio** opgebouwd: in `admin.html` Instagram-, Facebook- en Google Bedrijfsprofiel-concepten voor walk-in, diensten met actuele D1-prijs, adres, echte uitzonderlijke uren. Serverendpoint `POST /api/admin/social-draft` is Access/JWT- en Origin-beveiligd, retourneert alleen concepttekst; **geen enkele externe publicatieactie**.
 - ✅ Optionele Gemini-herformulering voorbereid: zonder `GEMINI_API_KEY` weigert die correct, gratis feitelijk sjabloon blijft beschikbaar na werkende Access-login. AI gebruikt gedeeld budget van max. tien voorstellen per beheerder per Belgische dag en verwerpt duidelijke onbevestigde kortingen, prijzen en externe links. **Echte providerverbinding is nog niet getest/geactiveerd.**
 - ✅ **60/60 lokale tests** en GitHub CI geslaagd; read-only staging smoke succesvol na Cloudflare deployment `96ad77a6.mk-style.pages.dev`, inclusief publiek/SEO 200, health 200, onbekende 404 en onbevoegde Social Studio 503.
 - ✅ Centrale `config/client-profile.json` bevat eerlijke status van Google Business, Windsor.ai en Meta: **niet gekoppeld**. Reeds geïnstalleerde Windsor.ai heeft in dit account op dit moment alleen OTHRYS-eigen Search Console/GA4-bronnen; MK Style GBP, Instagram en Facebook nog niet.
 - 📖 Volledig prioriteitenplan: `docs/MK_STYLE_GROWTH_PLAYBOOK.md`. Streef naar sterke lokale SEO met profielkwaliteit, echte foto's/reviews, eigen diensten en bewijs, niet met doorway-pagina's of reviewspamming.
-- ⛔ Productie vrijgave blijft geblokkeerd door pending nameservers `mk38style.be`, Access, AI-providerkeuze, echte D1 hersteltest, toestemming voor foto's, juridische check en expliciete eigenaar-goedkeuring voor externe accountkoppelingen/mutaties.
+- ⛔ Productie vrijgave blijft geblokkeerd door pending nameservers `mkstyle.be`, Access, AI-providerkeuze, echte D1 hersteltest, toestemming voor foto's, juridische check en expliciete eigenaar-goedkeuring voor externe accountkoppelingen/mutaties.
 
 ## Nieuwe functies — 19 november 2026 (beheerhistoriek en privacykaart)
 - ✅ OpenStreetMap wordt **pas na expliciete klik op ‘Toon kaart’** geladen; een bezoeker die de pagina alleen bekijkt, veroorzaakt geen OpenStreetMap-iframeverzoek. De routeknoppen en het adres blijven zichtbaar. Geen wijzigingen aan Google Fonts; beoordeling van die externe fontverzoeken blijft een privacycheck.
@@ -16,7 +16,7 @@
 - ✅ In-memory D1-integratietest controleert ook de geschiedenis na PATCH en undo, zonder `before_json`/`after_json` naar de browser te sturen.
 - ✅ **48/48 lokale tests geslaagd**, GitHub quality gate controleert de ontwikkelbranch; nieuw Cloudflare staging-deployment `bc2e2314.mk-style.pages.dev` geslaagd.
 - ✅ Live read-only staging-smoketest controleerde HTTP 200 voor pagina, dev admin, JS, D1-config en health; 404 voor onbekende URL, 503 voor onbevoegde beheerders (verwacht zolang Access ontbreekt).
-- ⛔ Nog niet productie-live; `mk38style.be` blijft Pending, geen OVHcloud-omschakeling; echte Cloudflare Access-login, hersteltest en foto-/privacygoedkeuring open.
+- ⛔ Nog niet productie-live; `mkstyle.be` blijft Pending, geen OVHcloud-omschakeling; echte Cloudflare Access-login, hersteltest en foto-/privacygoedkeuring open.
 
 ## Verdere productieversteviging — 19 november 2026
 - ✅ Cloudflare Pages kan `/admin.html` als **`/admin`** serveren of ernaartoe redirecten; `functions/_middleware.js` blokkeert nu op custom domains **`/admin.html`, `/admin` en `/admin/`** zolang geldige Cloudflare Access-claims ontbreken. De `/api/admin/*` routes controleren hun JWT zelf.
@@ -24,7 +24,7 @@
 - ✅ Extra `Content-Security-Policy` beperkt browserbronnen tot eigen scripts, noodzakelijke Google Fonts en OpenStreetMap-frame; de privacy-impact van externe font-/kaartverzoeken staat in `docs/LEGAL_AND_PRIVACY_DRAFT.md`. Live CSP-header is niet afzonderlijk via een toegestane headerinspectie geverifieerd.
 - ✅ Gebrande `404.html` toegevoegd. Externe Cloudflare-smoketest na staging-deployment **`54e62a6d`** bevestigt HTTP 404 voor onbekende URL's, 200 voor homepage, admin preview, JS, D1-config en health, en 503 voor admin API zonder Access.
 - ✅ **43/43 lokale tests groen** en GitHub kwaliteitscontrole voor de laatste codewijziging geslaagd, inclusief echte ondertekende test-JWT en onjuiste audience/e-mail.
-- ⛔ Geen publieke productie-uitrol, geen verandering van OVHcloud, geen echte Access-policy/login of complete D1-restore. Cloudflare-zone `mk38style.be` blijft Pending tot DNS-delegatie.
+- ⛔ Geen publieke productie-uitrol, geen verandering van OVHcloud, geen echte Access-policy/login of complete D1-restore. Cloudflare-zone `mkstyle.be` blijft Pending tot DNS-delegatie.
 
 ## Monitoring en release-controles — 19 november 2026
 - ✅ `/api/health` toegevoegd: **GET** doet een read-only controle op D1 `site_config`. Antwoord `200 {"status":"ok"}` of `503 {"status":"unavailable"}`, zonder bedrijfsgegevens, database-ID's of secrets terug te geven. `Cache-Control: no-store`, `X-Robots-Tag: noindex`.
@@ -32,7 +32,7 @@
 - ✅ 37/37 unit-/integratietests geslaagd, inclusief D1 gezondheidscontrole en fail-closed gedrag.
 - ✅ `npm run smoke:staging` test site, database en gescheiden beheerrechten; onderdeel van de handmatige staging-deployworkflow.
 - ✅ `npm run smoke:production` **voorbereid, nog NIET uitgevoerd**. Vereist na livegang: geldig HTTPS, de juiste bedrijfsgegevens, D1-read, health, sitemap, robots, `www`-redirect naar canonical apex en werkende admin-auth. **503 door ontbrekende Access blokkeert de go-live check**.
-- ⛔ DNS-zone `mk38style.be` blijft Pending tot OVHcloud-nameservers gewijzigd worden; productie niet live, geen merge naar `main`.
+- ⛔ DNS-zone `mkstyle.be` blijft Pending tot OVHcloud-nameservers gewijzigd worden; productie niet live, geen merge naar `main`.
 - ⛔ Echte Cloudflare Access-login, AI-secret/budget en bewaartermijnen, restore-test en finale fotorechten/privacy blijven open. Aegis vroeg goedkeuring voor de lokale backupmap, maar eigenaar zag geen aanvraag; beperkingen niet omzeild.
 
 ## Staging-verificatie en back-upblokkade — 19 november 2026
@@ -43,7 +43,7 @@
 - ⛔ Het project is **nog niet productie-live**: echte Cloudflare Access-login, hersteltest, fotorechten/privacy, DNS-overdracht en eindacceptatie blijven open.
 
 ## Huidige productievoorbereiding — 19 november 2026 (laatste verificatie)
-- ✅ **Cloudflare DNS-zone** `mk38style.be` bestaat bij OTHRYS; status **Pending** totdat de autoritatieve nameservers bij OVHcloud effectief naar `maya.ns.cloudflare.com` en `peter.ns.cloudflare.com` gaan. Pages Custom Domains weigert apex-koppeling tot Cloudflare DNS actief is.
+- ✅ **Cloudflare DNS-zone** `mkstyle.be` bestaat bij OTHRYS; status **Pending** totdat de autoritatieve nameservers bij OVHcloud effectief naar `maya.ns.cloudflare.com` en `peter.ns.cloudflare.com` gaan. Pages Custom Domains weigert apex-koppeling tot Cloudflare DNS actief is.
 - ✅ **EU D1-productiedatabase** `mk-style-production`: migratie `0001_schema.sql` uitgevoerd en seed met Murats bevestigde basisgegevens toegepast. Read-only SQL verifieerde `site_config` versie 1, `MK Style`, e-mailadres en **6 diensten**. Staging heeft een afzonderlijke database.
 - ✅ Extra in-memory D1-integratietest met werkelijk ondertekende test-JWT: beheerlogin, PATCH van een sluitingsdag, publieke read, versieconflict 409 en herstelactie succesvol. Geen wijzigingen in de echte databases tijdens deze test. Cloudflare Access op productie is nog niet geconfigureerd.
 - ✅ **Time Travel** op productiedatabase geeft een actuele herstelbookmark terug (Cloudflare voorziet herstelgeschiedenis). Dit is **geen uitgevoerde back-up-/restoretest**.
@@ -58,7 +58,7 @@
 - ✅ Beheeracties zijn **niet** publiek vrijgegeven: `/api/admin/*` blijft op serverniveau alleen toegankelijk na Cloudflare Access JWT en e-mailallowlist. Zonder ingestelde Access blijft het endpoint fail-closed.
 - ✅ Cloudflare Pages-preview opnieuw gedeployed naar `https://feat-production-readiness-20.mk-style.pages.dev`, deployment `9a9295ee`, 20/20 lokale tests groen. Externe anonieme HTTP-controle nog niet onafhankelijk bevestigd.
 - ⚠️ Het oude `STAGING_ACCESS_PASSWORD`-secret is niet meer functioneel nodig; geen rotatie vereist voor dit ontwikkelwachtwoord. Kan bij accountonderhoud verwijderd worden.
-- ⛔ Cloudflare-zone `mk38style.be` opnieuw aangevraagd via de T590, maar API gaf `403 com.cloudflare.api.account.zone.create`. Wrangler OAuth mist zone-create. Eenmalig via [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Add a domain/site** → `mk38style.be` → passend plan toevoegen; hierna kunnen wij de toegewezen nameservers uitlezen en de rest voorbereiden. OVHcloud nog niet wijzigen.
+- ⛔ Cloudflare-zone `mkstyle.be` opnieuw aangevraagd via de T590, maar API gaf `403 com.cloudflare.api.account.zone.create`. Wrangler OAuth mist zone-create. Eenmalig via [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Add a domain/site** → `mkstyle.be` → passend plan toevoegen; hierna kunnen wij de toegewezen nameservers uitlezen en de rest voorbereiden. OVHcloud nog niet wijzigen.
 - ⛔ Productie blijft geblokkeerd tot DNS, Access, tests, fotorechten, juridische goedkeuring en herstelprocedure rond zijn.
 
 ## Uitvoering na validatie — 18 november 2026
@@ -79,7 +79,7 @@
 - Read-only API `/api/config` is online in de preview en leest versie 1 uit D1; websitepagina's/assets en publieke read-API werken nu zonder extra previewlogin; dit is een bewuste wijziging van 19/11. Admin API blijft fail-closed.
 - Gebruikerslogin voor Murat (Cloudflare Access), eventuele AI-providersecret en de echte DNS-koppeling zijn **NIET** geconfigureerd. Admin API blijft server-side fail-closed.
 - Lokale regressietests: 12/12; preview smoke-tests voor homepage, admin, JS en API: ongeautoriseerd 401, geautoriseerd 200; noindex.
-- Het domein `mk38style.be` is nog niet verbonden. Murat hoeft nog geen NS aan te passen; Cloudflare-zone moet eerst toegevoegd en gecontroleerd worden. Eigenaar houdt OVHcloud-account.
+- Het domein `mkstyle.be` is nog niet verbonden. Murat hoeft nog geen NS aan te passen; Cloudflare-zone moet eerst toegevoegd en gecontroleerd worden. Eigenaar houdt OVHcloud-account.
 - Geen deploy/merge naar `main` of livegang voordat foto-/inhoudsrechten, Access-beveiliging, rollback, privacy, end-to-end testen en Murat's eindakkoord aanwezig zijn.
 
 # MK Style — Cloudflare Pages + D1 + Access (staging-first)

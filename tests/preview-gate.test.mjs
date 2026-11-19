@@ -23,7 +23,7 @@ test('developer preview loads without an extra password for pages, assets and pu
   }
 });
 test('production host is not altered by development preview middleware', async()=>{
-  const {response,nextCalls}=await request('/','mk38style.be');
+  const {response,nextCalls}=await request('/','mkstyle.be');
   assert.equal(response.status,200);
   assert.equal(nextCalls,1);
   assert.equal(response.headers.get('X-Robots-Tag'),null);
@@ -36,7 +36,7 @@ test('administrative API independently refuses access until Access is configured
 
 test('production custom domain blocks every admin page alias before Cloudflare Access setup',async()=>{
   for(const path of ['/admin.html','/admin','/admin/']){
-    const {response,nextCalls}=await request(path,'mk38style.be');
+    const {response,nextCalls}=await request(path,'mkstyle.be');
     assert.equal(response.status,503);
     assert.equal(nextCalls,0);
     assert.match(response.headers.get('Cache-Control'),/no-store/);
@@ -47,14 +47,14 @@ test('production custom domain requires an Access JWT even when policy variables
   const env={TEAM_DOMAIN:'https://mkstyle-test.cloudflareaccess.com',
     POLICY_AUD:'test-app-audience',ADMIN_EMAILS:'38mkstyle@gmail.com'};
   for(const path of ['/admin.html','/admin','/admin/']){
-    const {response,nextCalls}=await request(path,'mk38style.be',env);
+    const {response,nextCalls}=await request(path,'mkstyle.be',env);
     assert.equal(response.status,401);
     assert.equal(nextCalls,0);
   }
 });
 test('production public pages and public API are not gated by the admin middleware',async()=>{
   for(const path of ['/','/api/config','/assets/js/main.js']){
-    const {response,nextCalls}=await request(path,'mk38style.be');
+    const {response,nextCalls}=await request(path,'mkstyle.be');
     assert.equal(response.status,200);
     assert.equal(nextCalls,1);
   }
@@ -78,19 +78,19 @@ test('signed Access JWT is required and allowed for production admin page',async
     .sign(privateKey);
   const validJwt=await issue('38mkstyle@gmail.com');
   for(const path of ['/admin.html','/admin','/admin/']){
-    const valid=await request(path,'mk38style.be',env,
+    const valid=await request(path,'mkstyle.be',env,
       {'Cf-Access-Jwt-Assertion':validJwt});
     assert.equal(valid.response.status,200);
     assert.equal(valid.nextCalls,1);
     assert.match(valid.response.headers.get('cache-control'),/no-store/);
   }
 
-  const wrongEmail=await request('/admin.html','mk38style.be',env,
+  const wrongEmail=await request('/admin.html','mkstyle.be',env,
     {'Cf-Access-Jwt-Assertion':await issue('random@example.com')});
   assert.equal(wrongEmail.response.status,403);
   assert.equal(wrongEmail.nextCalls,0);
 
-  const wrongAudience=await request('/admin.html','mk38style.be',env,
+  const wrongAudience=await request('/admin.html','mkstyle.be',env,
     {'Cf-Access-Jwt-Assertion':await issue('38mkstyle@gmail.com','not-the-access-app')});
   assert.equal(wrongAudience.response.status,401);
   assert.equal(wrongAudience.nextCalls,0);

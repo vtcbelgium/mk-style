@@ -1,6 +1,6 @@
 // Read-only DNS check to prepare domain migration; does NOT change any records.
 import dns from 'node:dns/promises';
-const domain = 'mk38style.be';
+const domain = 'mkstyle.be';
 const target = process.env.MK_STYLE_EXPECTED_NS?.split(',').map(x=>x.trim().toLowerCase()).filter(Boolean)||[];
 async function lookup(label,fn) {
   try {

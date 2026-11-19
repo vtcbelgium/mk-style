@@ -1,4 +1,4 @@
-# MK Style (`mk38style.be`) — Super Makkelijke Gids voor Murat
+# MK Style (`mkstyle.be`) — Super Makkelijke Gids voor Murat
 
 **Doel:** Murat heeft weinig ervaring met computers. Daarom doen wij al het technische werk, en vragen we Murat maar **1 kort telefoontje/koffiemoment van 3 minuten** (of **5 simpele klikken**) + 1 kort akkoord over de tekst en foto's.
 **Veiligheidsregel:** Vraag **nooit** om Murats wachtwoord van OVHcloud of Gmail.
@@ -17,13 +17,13 @@ Als het voor jou past, stuur even een kort duimpje 👍 of antwoord op deze 2 di
    - De tekst "16+ jaar ervaring in Bilzen" en "gratis parkeren voor de deur"?
    - Mogen al die foto's (ook de jeugdfoto en foto met je eerste klant) op de site blijven staan?
 
-2) Domein mk38style.be koppelen (maar 2 minuten werk):
+2) Domein mkstyle.be koppelen (maar 2 minuten werk):
    Kies wat jij het makkelijkst vindt:
    - Optie A (makkelijkst): Ik bel je of spring even binnen met mijn laptop. Jij logt zelf 1 minuutje in bij OVHcloud op jouw scherm en ik wijs aan waar je 2 keer moet klikken. Klaar!
    - Optie B (als je het zelf wil aanklikken): Volg gewoon de 5 simpele stapjes hieronder — het is echt alleen kopiëren & plakken.
 
 Na livegang pas je straks openingsuren, verlof of prijzen gewoon vanaf je gsm aan:
-je gaat naar mk38style.be/admin, vult je e-mail in (38mkstyle@gmail.com), krijgt een 6-cijferige code in je Gmail, klaar — geen extra wachtwoord te onthouden!
+je gaat naar mkstyle.be/admin, vult je e-mail in (38mkstyle@gmail.com), krijgt een 6-cijferige code in je Gmail, klaar — geen extra wachtwoord te onthouden!
 ```
 
 ---
@@ -31,7 +31,7 @@ je gaat naar mk38style.be/admin, vult je e-mail in (38mkstyle@gmail.com), krijgt
 ## Optie A — 3-minuten koffie/telefoontje (Aanbevolen!)
 De allereenvoudigste route voor iemand met weinig computerervaring:
 1. Murat opent zelf `ovh.com` en logt in op zijn eigen gsm/laptop (hij typt zelf zijn eigen login, niemand vraagt zijn wachtwoord).
-2. Jeroen zegt exact waar te klikken (`Web Cloud` -> `Domain names` -> `mk38style.be` -> `DNS servers` -> `Modify`).
+2. Jeroen zegt exact waar te klikken (`Web Cloud` -> `Domain names` -> `mkstyle.be` -> `DNS servers` -> `Modify`).
 3. Murat kopieert de twee regels uit WhatsApp:
    - **Regel 1:** `maya.ns.cloudflare.com`
    - **Regel 2:** `peter.ns.cloudflare.com`
@@ -47,7 +47,7 @@ Je kan dit gerust als apart WhatsApp-berichtje sturen als Murat voor Optie B kie
 Super makkelijk — dit zijn de enige 5 stapjes bij OVHcloud:
 
 1. Ga naar https://www.ovh.com/manager/ en log in op je eigen account.
-2. Klik links op "Web Cloud" -> "Domain names" -> klik op "mk38style.be".
+2. Klik links op "Web Cloud" -> "Domain names" -> klik op "mkstyle.be".
 3. Klik bovenaan op het tabblad "DNS servers" (of "DNS-servers").
 4. Klik op "Modify DNS servers" / "DNS-servers wijzigen" en vervang wat er staat door deze 2 regels:
    Regel 1: maya.ns.cloudflare.com
@@ -61,7 +61,7 @@ Als het scherm er anders uitziet of je twijfelt ergens over: stuur gewoon een fo
 
 ## Hoe werkt zijn dagelijks beheer straks? (Super simpel uit te leggen)
 - Murat hoeft **geen nieuw wachtwoord** te onthouden en er is geen ingewikkelde app.
-- Hij opent op zijn gsm of tablet **`https://mk38style.be/admin`**.
+- Hij opent op zijn gsm of tablet **`https://mkstyle.be/admin`**.
 - Hij krijgt automatisch een **6-cijferige inlogcode** toegestuurd op **`38mkstyle@gmail.com`**, typt die code over, en is binnen.
 - Dan typt hij in gewoon Nederlands iets zoals:
   - *"Morgen woensdag gesloten wegens familiefeest"*

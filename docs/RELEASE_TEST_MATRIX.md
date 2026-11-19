@@ -1,6 +1,6 @@
 # MK Style — testmatrix en acceptatieprotocol
 
-**Status 19 november 2026:** geautomatiseerde tests, live Cloudflare Pages staging-smoke, Lighthouse-audits en een echte lokale D1-backup/restore-drill zijn uitgevoerd op branch `feat/production-readiness-2026-11` (`https://feat-production-readiness-20.mk-style.pages.dev/`). **Nog open voor livegang:** echte smartphone-/desktopbrowsertests, live Cloudflare Access-login (`38mkstyle@gmail.com`), OVHcloud DNS-omschakeling op `mk38style.be`, en schriftelijk akkoord van Murat.
+**Status 19 november 2026:** geautomatiseerde tests, live Cloudflare Pages staging-smoke, Lighthouse-audits en een echte lokale D1-backup/restore-drill zijn uitgevoerd op branch `feat/production-readiness-2026-11` (`https://feat-production-readiness-20.mk-style.pages.dev/`). **Nog open voor livegang:** echte smartphone-/desktopbrowsertests, live Cloudflare Access-login (`38mkstyle@gmail.com`), OVHcloud DNS-omschakeling op `mkstyle.be`, en schriftelijk akkoord van Murat.
 
 ## A. Basistests voor bezoekers
 | ID | Scenario | Verwacht resultaat | Resultaat |
@@ -37,11 +37,11 @@
 ## C. SEO, performance en juridische basis
 | ID | Scenario | Verwacht resultaat | Resultaat |
 |---|---|---|---|
-| SEO-01 | Canonical en Open Graph | Exact het klantdomein, foto werkt | DEELS (19/11/2026): `npm test` (`tests/local-seo.test.mjs`) + `smoke:staging`; live `mk38style.be`-check na DNS-cutover |
+| SEO-01 | Canonical en Open Graph | Exact het klantdomein, foto werkt | DEELS (19/11/2026): `npm test` (`tests/local-seo.test.mjs`) + `smoke:staging`; live `mkstyle.be`-check na DNS-cutover |
 | SEO-02 | HairSalon JSON-LD | Gevalideerd tegen bevestigde bedrijfsfeiten | PASS op staging/dist (19/11/2026): `tests/local-seo.test.mjs`, `smoke:staging` en `agents.seo_authorship_barrier` (`4` pagina's, `0` findings) |
 | SEO-03 | Sitemap / robots | Public URLs indexeerbaar, admin niet | PASS unit/dist (19/11/2026): `tests/local-seo.test.mjs` (`/privacy.html` in `sitemap.xml`, `/admin` geblokkeerd); live prodcheck na DNS |
 | SEO-04 | Google Bedrijfsprofiel/Search Console | Eigenaarsrechten, consistente openingstijden | OPEN — wacht op reactie Murat (Place ID `ChIJu8aXT6XgwEcRyp23QzZ2j2A` gevonden; nog geen Search Console-verificatie zonder DNS) |
-| SEO-05 | Lighthouse mobiel | Rapport en voornaamste verbeteringen | PASS staging (19/11/2026, `feat-production-readiness-20.mk-style.pages.dev`, Chrome headless): Mobiel Perf `99`, A11y `94`, Best Practices `100`, SEO `69` (`is-crawlable` bewust 0 door staging `X-Robots-Tag: noindex`), FCP `0.9s`, LCP `0.9s`, CLS `0`, TBT `0ms`, `0` third-party requests, `0` console errors; Desktop Perf `100`, A11y `94`, Best Practices `100`, SEO `69`, CLS `0.018`, `0` third-party requests, `0` console errors. Open A11y-punten: `color-contrast`, `heading-order`. Herhalen op `mk38style.be` na livegang |
+| SEO-05 | Lighthouse mobiel | Rapport en voornaamste verbeteringen | PASS staging (19/11/2026, `feat-production-readiness-20.mk-style.pages.dev`, Chrome headless): Mobiel Perf `99`, A11y `94`, Best Practices `100`, SEO `69` (`is-crawlable` bewust 0 door staging `X-Robots-Tag: noindex`), FCP `0.9s`, LCP `0.9s`, CLS `0`, TBT `0ms`, `0` third-party requests, `0` console errors; Desktop Perf `100`, A11y `94`, Best Practices `100`, SEO `69`, CLS `0.018`, `0` third-party requests, `0` console errors. Open A11y-punten: `color-contrast`, `heading-order`. Herhalen op `mkstyle.be` na livegang |
 | LEG-01 | Bedrijfsinfo | Volledig en correct volgens toepasselijke eisen | PASS unit/staging (19/11/2026): `tests/legal-meta.test.mjs` & `smoke:staging` (`MK Style CommV.`, `1004.134.102`, `BE1004.134.102`); wacht op eindakkoord Murat |
 | LEG-02 | Cookie/analytics audit | Verwerkingsinventaris en toestemming indien nodig | PASS staging (19/11/2026): `/privacy.html` `200 OK`, CSP `font-src 'self'`, Lighthouse `0` third-party requests bij laden; definitief na akkoord Murat |
 | LEG-03 | Rechten op foto's | Eigendom/toestemming schriftelijk bevestigd | OPEN — mail naar `38mkstyle@gmail.com` verstuurd op 19/11/2026; wacht op schriftelijk akkoord Murat |

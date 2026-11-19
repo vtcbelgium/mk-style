@@ -8,7 +8,7 @@
     "draft_pull_request": "https://github.com/vtcbelgium/mk-style/pull/44",
     "project_board": "https://github.com/vtcbelgium/mk-style/issues/43",
     "temporary_preview": "https://feat-production-readiness-20.mk-style.pages.dev/",
-    "target_site": "https://mk38style.be/",
+    "target_site": "https://mkstyle.be/",
     "production_status": "not_live",
     "planned_hosting": "Cloudflare Pages + Functions + D1",
     "hosting_status": "staging_preview_deployed_production_not_live",
@@ -51,7 +51,7 @@
     }
   },
   "domain": {
-    "name": "mk38style.be",
+    "name": "mkstyle.be",
     "registrar": "OVHcloud",
     "registrar_account_type": "Company / Commercial per owner's question",
     "registration_status": "owner_reports_active_at_OVHcloud_2026-11-18",

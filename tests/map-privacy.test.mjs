@@ -25,7 +25,7 @@ test('click adds one OpenStreetMap iframe without sending a referrer',()=>{
       getElementById(id){return id==='load-map-btn'?button:id==='map-container'?container:null;},
       createElement(tag){assert.equal(tag,'iframe');return {};}
     },
-    window:{location:{href:'https://mk38style.be/'}},
+    window:{location:{href:'https://mkstyle.be/'}},
     Date,Intl,URL,console,setInterval() {}
   });
   vm.runInContext(source,context);
@@ -44,7 +44,7 @@ test('map loader refuses third-party origins even if data attribute changes',()=
   const container={replaceChildren(){attached=true;}};
   const context=vm.createContext({
     document:{addEventListener(){},getElementById:id=>id==='load-map-btn'?button:container},
-    window:{location:{href:'https://mk38style.be/'}},Date,Intl,URL,console
+    window:{location:{href:'https://mkstyle.be/'}},Date,Intl,URL,console
   });
   vm.runInContext(source,context);
   vm.runInContext('setupMapOptIn()',context);

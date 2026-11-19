@@ -26,9 +26,9 @@ test('structured MK Style local business matches public company and address',()=
 });
 test('structured website and canonical are coherent, with no self-serving review claims',()=>{
  const site=nodes.find(x=>x['@type']==='WebSite');
- assert.equal(site.url,'https://mk38style.be/');
+ assert.equal(site.url,'https://mkstyle.be/');
  assert.equal(site.publisher['@id'],business['@id']);
- assert.ok(html.includes('<link rel="canonical" href="https://mk38style.be/"'));
+ assert.ok(html.includes('<link rel="canonical" href="https://mkstyle.be/"'));
  assert.equal(nodes.some(x=>x['@type']==='FAQPage'),false);
  assert.equal('aggregateRating' in business,false);
  assert.equal('review' in business,false);
@@ -39,7 +39,7 @@ test('public metadata and robots prevent admin URLs from being indexed',()=>{
  assert.ok(robots.includes('Disallow: /admin.html'));
  assert.ok(robots.includes('Disallow: /admin'));
  assert.ok(robots.includes('Disallow: /api/admin/'));
- assert.ok(sitemap.includes('<loc>https://mk38style.be/</loc>'));
+ assert.ok(sitemap.includes('<loc>https://mkstyle.be/</loc>'));
  assert.ok(sitemap.includes('<lastmod>2026-11-19</lastmod>'));
  assert.ok(html.includes('Google-beoordelingen'));
  assert.ok(!html.includes('<meta name="keywords"'));

@@ -4,4 +4,4 @@ Disallow: /admin.html
 Disallow: /admin
 Disallow: /api/admin/
 
-Sitemap: https://mk38style.be/sitemap.xml
+Sitemap: https://mkstyle.be/sitemap.xml
