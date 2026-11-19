@@ -14,7 +14,7 @@ async function request(path, hostname = 'feat-production-readiness-20.mk-style.p
   return { response, nextCalls };
 }
 test('developer preview loads without an extra password for pages, assets and public API', async()=>{
-  for(const path of ['/','/admin.html','/assets/js/admin-v2.js','/api/config']) {
+  for(const path of ['/','/admin.html','/admin','/assets/js/admin-v2.js','/api/config']) {
     const {response,nextCalls} = await request(path);
     assert.equal(response.status,200);
     assert.equal(nextCalls,1);
@@ -76,11 +76,14 @@ test('signed Access JWT is required and allowed for production admin page',async
     .setProtectedHeader({alg:'RS256',kid:'middleware-key'})
     .setIssuer(team).setAudience(audience).setIssuedAt().setExpirationTime('30m')
     .sign(privateKey);
-  const valid=await request('/admin.html','mk38style.be',env,
-    {'Cf-Access-Jwt-Assertion':await issue('38mkstyle@gmail.com')});
-  assert.equal(valid.response.status,200);
-  assert.equal(valid.nextCalls,1);
-  assert.match(valid.response.headers.get('cache-control'),/no-store/);
+  const validJwt=await issue('38mkstyle@gmail.com');
+  for(const path of ['/admin.html','/admin','/admin/']){
+    const valid=await request(path,'mk38style.be',env,
+      {'Cf-Access-Jwt-Assertion':validJwt});
+    assert.equal(valid.response.status,200);
+    assert.equal(valid.nextCalls,1);
+    assert.match(valid.response.headers.get('cache-control'),/no-store/);
+  }
 
   const wrongEmail=await request('/admin.html','mk38style.be',env,
     {'Cf-Access-Jwt-Assertion':await issue('random@example.com')});
