@@ -34,19 +34,23 @@ test('administrative API independently refuses access until Access is configured
   assert.ok(identity.error);
 });
 
-test('production custom domain blocks admin HTML before Cloudflare Access setup',async()=>{
-  const {response,nextCalls}=await request('/admin.html','mk38style.be');
-  assert.equal(response.status,503);
-  assert.equal(nextCalls,0);
-  assert.match(response.headers.get('Cache-Control'),/no-store/);
-  assert.match(response.headers.get('X-Robots-Tag'),/noindex/);
+test('production custom domain blocks every admin page alias before Cloudflare Access setup',async()=>{
+  for(const path of ['/admin.html','/admin','/admin/']){
+    const {response,nextCalls}=await request(path,'mk38style.be');
+    assert.equal(response.status,503);
+    assert.equal(nextCalls,0);
+    assert.match(response.headers.get('Cache-Control'),/no-store/);
+    assert.match(response.headers.get('X-Robots-Tag'),/noindex/);
+  }
 });
 test('production custom domain requires an Access JWT even when policy variables exist',async()=>{
   const env={TEAM_DOMAIN:'https://mkstyle-test.cloudflareaccess.com',
     POLICY_AUD:'test-app-audience',ADMIN_EMAILS:'38mkstyle@gmail.com'};
-  const {response,nextCalls}=await request('/admin.html','mk38style.be',env);
-  assert.equal(response.status,401);
-  assert.equal(nextCalls,0);
+  for(const path of ['/admin.html','/admin','/admin/']){
+    const {response,nextCalls}=await request(path,'mk38style.be',env);
+    assert.equal(response.status,401);
+    assert.equal(nextCalls,0);
+  }
 });
 test('production public pages and public API are not gated by the admin middleware',async()=>{
   for(const path of ['/','/api/config','/assets/js/main.js']){
