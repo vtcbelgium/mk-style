@@ -1,3 +1,12 @@
+## Nieuwe functies — 19 november 2026 (beheerhistoriek en privacykaart)
+- ✅ OpenStreetMap wordt **pas na expliciete klik op ‘Toon kaart’** geladen; een bezoeker die de pagina alleen bekijkt, veroorzaakt geen OpenStreetMap-iframeverzoek. De routeknoppen en het adres blijven zichtbaar. Geen wijzigingen aan Google Fonts; beoordeling van die externe fontverzoeken blijft een privacycheck.
+- ✅ Beveiligde owner-admin toont de **laatste tien wijzigingen** uit `GET /api/admin/history`: versienummer, bron, e-mail van uitvoerder en lokaal weergegeven tijdstip. De UI gebruikt uitsluitend DOM `textContent`; kwaadwillige actor-tekst wordt niet als HTML verwerkt.
+- ✅ Geschiedenis wordt na herladen, bevestigde publicatie en herstel opnieuw opgehaald. De Access JWT op de API blijft vereist; de dev-preview toont geen privégeschiedenis zonder de correcte login.
+- ✅ In-memory D1-integratietest controleert ook de geschiedenis na PATCH en undo, zonder `before_json`/`after_json` naar de browser te sturen.
+- ✅ **48/48 lokale tests geslaagd**, GitHub quality gate controleert de ontwikkelbranch; nieuw Cloudflare staging-deployment `bc2e2314.mk-style.pages.dev` geslaagd.
+- ✅ Live read-only staging-smoketest controleerde HTTP 200 voor pagina, dev admin, JS, D1-config en health; 404 voor onbekende URL, 503 voor onbevoegde beheerders (verwacht zolang Access ontbreekt).
+- ⛔ Nog niet productie-live; `mk38style.be` blijft Pending, geen OVHcloud-omschakeling; echte Cloudflare Access-login, hersteltest en foto-/privacygoedkeuring open.
+
 ## Verdere productieversteviging — 19 november 2026
 - ✅ Cloudflare Pages kan `/admin.html` als **`/admin`** serveren of ernaartoe redirecten; `functions/_middleware.js` blokkeert nu op custom domains **`/admin.html`, `/admin` en `/admin/`** zolang geldige Cloudflare Access-claims ontbreken. De `/api/admin/*` routes controleren hun JWT zelf.
 - ✅ Productie-smoketest verifieert vanaf nu beide beheer-URL's, ook zonder extensie. Cloudflare Access-opzet beschreven in `docs/CLOUDFLARE_ACCESS_SETUP.md`: **één toepassing en dezelfde AUD** voor adminpagina-aliassen en API. Externe login van Murat en runtime **Fail closed** nog configureren.
