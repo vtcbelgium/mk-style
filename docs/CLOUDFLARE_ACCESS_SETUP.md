@@ -31,6 +31,7 @@ Aanmaak zodra Cloudflare-zone **Active** is:
    - `ADMIN_EMAILS` = komma-gescheiden lijst van werkelijk toegelaten beheerders (minstens `38mkstyle@gmail.com`)
    - `DB` = **mk-style-production** D1-binding, niet staging
 8. Bevestig met een nieuwe Pages-production deployment dat de productievariabelen effectief aanwezig zijn. Leg geen Access JWT's, PIN-codes, OAuth-gegevens of secrets vast in GitHub, een screenshot of berichten.
+9. Controleer op Workers & Pages → mk-style → Settings → Runtime → **Fail open / closed** dat Pages Functions bij quota-/runtimefouten **fail closed** blijven. Als dit op het beschikbare plan instelbaar is, kies fail closed; documenteer de keuze. Anders niet live tot Cloudflare Access de adminroutes aantoonbaar zelfstandig afschermt.
 
 ## Applicatiebeveiliging als tweede laag
 De server valideert iedere beheer-API-call op **RS256-handtekening, issuer, Audience en e-mailadres**. Het productiedomein controleert ook `/admin.html`, `/admin` en `/admin/` op dezelfde identiteit in `functions/_middleware.js`. Zonder werkende Access-configuratie geeft de server een **503** en zonder geldige JWT een **401**. De ontwikkelpreview blijft op verzoek publiek toegankelijk, maar kan niets wijzigen zonder geldige Access-configuratie.
