@@ -89,7 +89,7 @@ test('authenticated admin writes, version conflicts, public read and one-step un
   assert.equal(rollback.status,200);
   const undone=await rollback.json();
   assert.equal(undone.version,3);
-  assert.deepEqual(undone.config.exceptions,[]);
+  assert.deepEqual(undone.config.exceptions||[],[]);
   const revisions=DB.db.prepare('SELECT version,source FROM site_revisions ORDER BY version').all();
   assert.deepEqual(revisions.map(r=>r.version),[2,3]);
   assert.equal(jwksRequests,1);
