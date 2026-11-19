@@ -29,7 +29,7 @@ expect(csp.includes("default-src 'self'")&&csp.includes("script-src 'self'")&&
   'Production CSP is missing or too permissive');
 expect(home.headers.get('x-content-type-options')==='nosniff',
   'Production X-Content-Type-Options is missing');
-const privacy=await request('/privacy.html');
+const privacy=await request('/privacy');
 ok(privacy,'privacy page');
 const privacyHtml=await privacy.text();
 expect(privacyHtml.includes('MK Style CommV.')&&privacyHtml.includes('BE1004.134.102')&&
@@ -37,6 +37,8 @@ expect(privacyHtml.includes('MK Style CommV.')&&privacyHtml.includes('BE1004.134
   'Production privacy page content invalid');
 expect(!/noindex/i.test(privacy.headers.get('x-robots-tag')||''),
   'Production privacy page is accidentally noindex');
+const privacyAlias=await request('/privacy.html',{redirect:'follow'});
+ok(privacyAlias,'privacy.html alias');
 const font=await request('/assets/fonts/outfit-latin.woff2');
 ok(font,'self-hosted font');
 const missing=await request('/nonexistent-mk-style-launch-check');
