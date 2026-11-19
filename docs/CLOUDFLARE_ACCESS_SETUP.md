@@ -5,8 +5,8 @@
 ## Doel
 Murat logt later op zijn eigen telefoon in met `38mkstyle@gmail.com` via een e-mailcode, zonder technisch Cloudflare-account of toegang tot de OTHRYS-hosting. Alleen goedgekeurde beheerders kunnen de website aanpassen. Publieke bezoekers lezen de gewone site zonder account.
 
-## Verplicht: één Access-toepassing met twee beschermde URL-paden
-Cloudflare Access geeft **per applicatie één Audience (AUD)** uit. De backend gebruikt één `POLICY_AUD` voor zowel `admin.html` als de API. **Maak daarom één self-hosted Access-app** met beide publieke bestemmingen onder hetzelfde domein en dezelfde policy:
+## Verplicht: één Access-toepassing met drie beschermde URL-paden
+Cloudflare Access geeft **per applicatie één Audience (AUD)** uit. De backend gebruikt één `POLICY_AUD` voor zowel `admin.html` als de API. **Maak daarom één self-hosted Access-app** met alle drie de publieke bestemmingen onder hetzelfde domein en dezelfde policy:
 
 | Public hostname | Path | Waarom |
 | --- | --- | --- |
@@ -15,12 +15,14 @@ Cloudflare Access geeft **per applicatie één Audience (AUD)** uit. De backend 
 
 **Gebruik niet twee aparte Access-apps zonder de code aan te passen:** hun verschillende AUD-tags laten `admin.html` en de API niet met dezelfde `POLICY_AUD` werken. De wildcard `/api/admin/*` dekt het parent-pad `/api/admin` niet; dat is geen bestaande Function-route. Leg geen Access-app op `mk38style.be/*` of `/` die de openbare website sluit.
 
+Cloudflare Pages serveert HTML ook op een **extensionless URL**; bescherm beide URL's en controleer desgewenst ook \`/admin/\` als extra alias in de Access-policy. De applicatiemiddleware weigert alle drie.
+
 Aanmaak zodra Cloudflare-zone **Active** is:
 1. OTHRYS Cloudflare Dashboard → **Zero Trust** → **Access controls** → **Applications** → **Create application** → **Self-hosted and private**.
 2. Applicatienaam: `MK Style Owner Admin`.
 3. Voeg beide **Public hostname** / **Path**-bestemmingen hierboven toe **binnen dezelfde applicatie**. Controleer exact of elke aangevraagde route matcht; neem geen Access-bypass policy op.
 4. Access policy: **Allow → Emails → `38mkstyle@gmail.com`**, en optioneel het uitdrukkelijk bevoegde OTHRYS-beheeradres voor technische ondersteuning. Geen `Everyone`, brede e-maildomeinen, of `Bypass`. Zet default deny aan (Access doet dit standaard).
-5. Identiteit: Cloudflare **One-time PIN** per e-mail. Murat krijgt een code in Gmail, wij krijgen geen Gmail-toegang. Stel een beperkte sessieduur in (bv. één dag); op een eigen toestel hoeft Murat alleen periodiek opnieuw te bevestigen.
+5. Identiteit: zorg eerst dat **One-time PIN** als loginmethode actief is in Cloudflare Zero Trust (nieuwe accounts gebruiken mogelijk een andere standaardlogin). Selecteer die methode voor deze applicatie. Cloudflare **One-time PIN** per e-mail. Murat krijgt een code in Gmail, wij krijgen geen Gmail-toegang. Stel een beperkte sessieduur in (bv. één dag); op een eigen toestel hoeft Murat alleen periodiek opnieuw te bevestigen.
 6. Na Create: kopieer de **Application Audience (AUD)** uit Additional settings, en de eigen Zero Trust team domain (`https://<team>.cloudflareaccess.com`).
 7. Op **Cloudflare Pages → mk-style → Settings → Variables and Secrets → Production** (niet in Git) instellen:
    - `TEAM_DOMAIN` = exacte team-URL inclusief `https://`
