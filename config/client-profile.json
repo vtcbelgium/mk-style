@@ -64,7 +64,7 @@
     "registry_or_dns_verification": "Cloudflare zone confirmed active 2026-11-19",
     "cloudflare_zone_status": "active",
     "cloudflare_zone_added_at": "2026-11-19",
-    "cloudflare_zone_id": "80f9e59bdd828f13d26596650ef7c5c7",
+    "cloudflare_zone_id": "45de4af2adc2cf48547343767e14c36c",
     "cloudflare_assigned_nameservers": [
       "maya.ns.cloudflare.com",
       "peter.ns.cloudflare.com"

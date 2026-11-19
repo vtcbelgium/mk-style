@@ -16,3 +16,8 @@ export async function onRequestGet({ env }) {
     return json({ status: 'unavailable' }, 503, headers);
   }
 }
+
+export async function onRequestHead(context) {
+  const res = await onRequestGet(context);
+  return new Response(null, { status: res.status, headers: res.headers });
+}

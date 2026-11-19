@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { onRequestGet } from '../functions/api/health.js';
+import { onRequestGet, onRequestHead } from '../functions/api/health.js';
 import { readFileSync } from 'node:fs';
 
 const config=JSON.parse(readFileSync(new URL('../data/site-config.json',import.meta.url),'utf8'));
@@ -24,4 +24,13 @@ test('monitoring endpoint fails closed and does not disclose DB or client record
     assert.equal(response.status,503);
     assert.deepEqual(await response.json(),{status:'unavailable'});
   }
+});
+test('monitoring HEAD probe mirrors GET status with empty body',async()=>{
+  const okRes=await onRequestHead({env:{DB:fakeDb({version:1,config_json:JSON.stringify(config)})}});
+  assert.equal(okRes.status,200);
+  assert.equal(await okRes.text(),'');
+  assert.match(okRes.headers.get('cache-control'),/no-store/);
+  const errRes=await onRequestHead({env:{}});
+  assert.equal(errRes.status,503);
+  assert.equal(await errRes.text(),'');
 });

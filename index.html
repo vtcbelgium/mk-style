@@ -10,9 +10,11 @@
   <meta name="geo.placename" content="Beverst, Bilzen-Hoeselt" />
   <meta name="geo.position" content="50.891159;5.474476" />
   <meta name="ICBM" content="50.891159, 5.474476" />
+  <meta name="theme-color" content="#08090b" />
 
   <link rel="canonical" href="https://mkstyle.be/" />
   <link rel="icon" type="image/jpeg" href="./assets/images/logo-circle.jpg" />
+  <link rel="apple-touch-icon" href="./assets/images/logo-circle.jpg" />
 
   <!-- Open Graph / WhatsApp / Facebook Preview -->
   <meta property="og:type" content="website" />
@@ -22,15 +24,23 @@
   <meta property="og:description" content="Spring gewoon binnen zonder afspraak bij Murat op Sint-Gertrudisplein 24, Beverst (Bilzen-Hoeselt). Heren- &amp; kindersnit en baardverzorging met 16+ jaar vakmanschap." />
   <meta property="og:url" content="https://mkstyle.be/" />
   <meta property="og:image" content="https://mkstyle.be/assets/images/interior-hex-lights.jpg" />
+  <meta property="og:image:width" content="360" />
+  <meta property="og:image:height" content="640" />
   <meta property="og:image:alt" content="Interieur van het MK Style herenkapsalon in Beverst" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MK Style | Herenkapper &amp; Barbier Bilzen-Hoeselt — Zonder Afspraak" />
+  <meta name="twitter:description" content="Spring gewoon binnen zonder afspraak bij Murat op Sint-Gertrudisplein 24, Beverst (Bilzen-Hoeselt). Heren- &amp; kindersnit en baardverzorging met 16+ jaar vakmanschap." />
+  <meta name="twitter:image" content="https://mkstyle.be/assets/images/interior-hex-lights.jpg" />
+  <meta name="twitter:image:alt" content="Interieur van het MK Style herenkapsalon in Beverst" />
 
   <!-- Fonts (self-hosted, zero third-party requests) -->
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/outfit-latin.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/plus-jakarta-sans-latin.woff2" crossorigin />
   <link rel="stylesheet" href="./assets/css/fonts.css" />
 
   <link rel="stylesheet" href="./assets/css/styles.css" />
 
-  <!-- Local SEO Schema.org Structured Data (HairSalon + FAQPage) -->
+  <!-- Local SEO Schema.org Structured Data (HairSalon + LocalBusiness + WebSite) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -46,10 +56,25 @@
           "MK 38 Style",
           "Herenkapper MK Style Beverst"
         ],
-        "description": "Moderne herenkapper en barbier in Beverst (Bilzen-Hoeselt) met meer dan 16 jaar ervaring in Bilzen. 100% zonder afspraak voor heren- en kindersnit en baard scheren.",
+        "slogan": "Strak in stijl. 100% Zonder Afspraak.",
+        "description": "Moderne herenkapper en barbier in Beverst (Bilzen-Hoeselt) met meer dan 16 jaar ervaring in Bilzen. 100% zonder afspraak voor heren- en kindersnit, strak opscheren, fades en baard scheren.",
         "url": "https://mkstyle.be/",
+        "publishingPrinciples": "https://mkstyle.be/privacy",
+        "knowsLanguage": [
+          "nl-BE",
+          "nl"
+        ],
         "telephone": "+32484073908",
         "email": "38mkstyle@gmail.com",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+32484073908",
+          "contactType": "customer service",
+          "availableLanguage": [
+            "nl"
+          ],
+          "areaServed": "BE"
+        },
         "currenciesAccepted": "EUR",
         "image": [
           "https://mkstyle.be/assets/images/interior-hex-lights.jpg",
@@ -93,11 +118,35 @@
           },
           {
             "@type": "City",
+            "name": "Eigenbilzen"
+          },
+          {
+            "@type": "City",
+            "name": "Schoonbeek"
+          },
+          {
+            "@type": "City",
+            "name": "Waltwilder"
+          },
+          {
+            "@type": "City",
             "name": "Diepenbeek"
           },
           {
             "@type": "City",
             "name": "Genk"
+          }
+        ],
+        "amenityFeature": [
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "Gratis parking voor de deur",
+            "value": true
+          },
+          {
+            "@type": "LocationFeatureSpecification",
+            "name": "100% zonder afspraak (walk-in)",
+            "value": true
           }
         ],
         "sameAs": [
@@ -134,6 +183,72 @@
             "closes": "17:00"
           }
         ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Diensten & Tarieven — MK Style",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "price": "25.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Herenknipbeurt",
+                "description": "Persoonlijk advies, strakke fade of klassieke snit, inclusief afwerking & styling."
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "40.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Knippen & Baard",
+                "description": "Volledige verzorging: strakke snit gecombineerd met baard trimmen en scherp aflijnen."
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "15.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Baard Scheren / Trimmen",
+                "description": "Vakkundig modelleren, contouren scheren met mes en verzorgende baardolie."
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "20.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Kindersnit (t/m 12 jaar)",
+                "description": "Geduldig en vlot geknipt voor jongens t/m 12 jaar — altijd welkom zonder afspraak."
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "20.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Tondeusesnit / Bros",
+                "description": "Strakke buzzcut of bros op één of meerdere lengtes, netjes afgelijnd in de nek."
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "30.00",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Knippen, Wassen & Stylen",
+                "description": "Verfrissende wasbeurt, hoofdhuidmassage, knipbeurt en premium afwerking."
+              }
+            }
+          ]
+        },
         "legalName": "MK Style CommV.",
         "taxID": "1004.134.102",
         "vatID": "BE1004.134.102",
@@ -168,7 +283,7 @@
   <!-- Navigation -->
   <header class="navbar">
     <div class="container nav-inner">
-      <a href="#top" class="brand" aria-label="MK Style Startpagina">
+      <a href="#top" class="brand">
         <img src="./assets/images/logo-white.png" alt="MK 38 Style Logo" class="brand-logo" width="48" height="48" />
         <div class="brand-text">
           <span class="brand-title">MK Style</span>
@@ -274,6 +389,7 @@
 
     <!-- 4 Key Pillars -->
     <section class="pillars" aria-label="Onze troeven">
+      <h2 class="sr-only">Waarom kiezen voor MK Style in Beverst</h2>
       <div class="container pillars-grid">
         <div class="pillar-item">
           <div class="pillar-icon" aria-hidden="true">
@@ -301,7 +417,7 @@
           </div>
           <div>
             <h3>Heren, Kids &amp; Baard</h3>
-            <p>Van moderne skin fades en klassieke snit tot strakke baardcontouren.</p>
+            <p>Van strak opscheren en moderne skin fades tot klassieke snit en strakke baardcontouren.</p>
           </div>
         </div>
 
@@ -588,6 +704,20 @@
             <summary>Hoe zie ik of de zaak open is op een feestdag of tijdens verlof?</summary>
             <div class="faq-answer">
               Bovenaan deze website zie je altijd onze live status én eventuele speciale sluitingsdagen of verlofmeldingen. We plaatsen updates ook op onze Instagram (<a href="https://www.instagram.com/mkstyle.38/" target="_blank" rel="noopener noreferrer" style="color: var(--gold-bright);">@mkstyle.38</a>) en Facebookpagina.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Wat kost een herenknipbeurt, opscheren of baard trimmen?</summary>
+            <div class="faq-answer">
+              Een herenknipbeurt (inclusief opscheren of fade) kost <strong>&euro;25</strong>. Voor knippen &amp; baard betaal je <strong>&euro;40</strong>, baard scheren of trimmen kost <strong>&euro;15</strong>, een kindersnit (t/m 12 jaar) of tondeusesnit kost <strong>&euro;20</strong> en knippen, wassen &amp; stylen kost <strong>&euro;30</strong>. Alle actuele richtprijzen vind je altijd onder <a href="#diensten" style="color: var(--gold-bright);">Diensten &amp; Tarieven</a>.
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary>Is er een middagpauze of kan ik op zaterdag doorlopend langskomen?</summary>
+            <div class="faq-answer">
+              Van dinsdag t/m vrijdag knippen we van <strong>09:30 tot 13:00</strong> en van <strong>13:30 tot 18:30</strong>, met een korte middagpauze van 13:00 tot 13:30. Op zaterdag zijn we <strong>doorlopend open van 09:00 tot 17:00</strong> zonder middagpauze. Op maandag en zondag is het salon gesloten.
             </div>
           </details>
         </div>

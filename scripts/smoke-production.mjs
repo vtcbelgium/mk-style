@@ -21,6 +21,8 @@ expect(html.includes('MK Style CommV.')&&html.includes('38mkstyle@gmail.com'),
   'Public legal/contact footer is missing');
 expect(!html.includes('fonts.googleapis.com')&&!html.includes('fonts.gstatic.com')&&html.includes('privacy.html'),
   'Homepage leaks external Google Fonts or misses privacy link');
+expect(html.includes('hasOfferCatalog'),
+  'Homepage JSON-LD OfferCatalog is missing');
 expect(!/noindex/i.test(home.headers.get('x-robots-tag')||''),
   'Production homepage is accidentally noindex');
 const csp=home.headers.get('content-security-policy')||'';
@@ -29,6 +31,8 @@ expect(csp.includes("default-src 'self'")&&csp.includes("script-src 'self'")&&
   'Production CSP is missing or too permissive');
 expect(home.headers.get('x-content-type-options')==='nosniff',
   'Production X-Content-Type-Options is missing');
+expect(Boolean(home.headers.get('strict-transport-security')),
+  'Production Strict-Transport-Security header is missing');
 const privacy=await request('/privacy');
 ok(privacy,'privacy page');
 const privacyHtml=await privacy.text();
@@ -41,6 +45,8 @@ const privacyAlias=await request('/privacy.html',{redirect:'follow'});
 ok(privacyAlias,'privacy.html alias');
 const font=await request('/assets/fonts/outfit-latin.woff2');
 ok(font,'self-hosted font');
+expect((font.headers.get('cache-control')||'').includes('max-age=31536000'),
+  'Self-hosted font immutable cache-control missing');
 const missing=await request('/nonexistent-mk-style-launch-check');
 expect(missing.status===404,'Unknown production URL must return HTTP 404');
 
@@ -54,6 +60,8 @@ expect(Array.isArray(data.config.services)&&data.config.services.length===6,
 const health=await request('/api/health');
 ok(health,'health');
 expect((await health.json()).status==='ok','Production D1 health check failed');
+const healthHead=await request('/api/health',{method:'HEAD'});
+ok(healthHead,'health HEAD');
 for(const path of ['/robots.txt','/sitemap.xml']){
  const r=await request(path);ok(r,path);
 }
