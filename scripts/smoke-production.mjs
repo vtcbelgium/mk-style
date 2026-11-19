@@ -29,7 +29,7 @@ expect((await health.json()).status==='ok','Production D1 health check failed');
 for(const path of ['/robots.txt','/sitemap.xml']){
  const r=await request(path);ok(r,path);
 }
-for(const path of ['/api/admin/config','/api/admin/history']){
+for(const path of ['/admin.html','/api/admin/config','/api/admin/history']){
  const res=await request(path);
  // 503 means the Access policy is still unconfigured; that must BLOCK launch.
  const redirect=res.headers.get('location')||'';
