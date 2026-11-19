@@ -327,22 +327,35 @@ a {
   font-size: 0.86rem;
 }
 
+/* Sticky Viewport Hex Ceiling Background */
+.page-hex-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
   padding: 52px 0 64px;
-  overflow: hidden;
 }
 
 .hero-hex-3d {
   position: absolute;
-  top: -12px;
+  top: 48px;
   right: -8px;
   width: 940px;
   height: 480px;
   opacity: 0.56;
   pointer-events: none;
-  z-index: 0;
 }
 
 .hero-hex-3d svg {
@@ -518,7 +531,7 @@ a {
   padding: 36px 0;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
+  background: rgba(17, 19, 24, 0.72);
 }
 
 .pillars-grid {
@@ -563,7 +576,7 @@ a {
 }
 
 .section-alt {
-  background: var(--bg-surface);
+  background: rgba(17, 19, 24, 0.72);
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
 }
@@ -1013,7 +1026,7 @@ a {
 .footer {
   padding: 52px 0 96px;
   border-top: 1px solid var(--border-subtle);
-  background: #060709;
+  background: rgba(6, 7, 9, 0.88);
 }
 
 .footer .brand-logo {
@@ -1187,7 +1200,7 @@ a {
     padding: 28px 0 44px;
   }
   .hero-hex-3d {
-    top: -18px;
+    top: 38px;
     right: -36px;
     width: 480px;
     height: 250px;
