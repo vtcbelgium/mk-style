@@ -22,6 +22,7 @@ const requireStatus = async(path,statuses,checks={})=>{
 };
 await requireStatus('/',[200],{noindex:true});
 await requireStatus('/admin.html',[200],{noindex:true});
+await requireStatus('/nonexistent-mk-style-health-check-page',[404],{noindex:true});
 await requireStatus('/assets/js/main.js',[200],{noindex:true});
 await requireStatus('/api/config',[200],{noindex:true,json:true});
 await requireStatus('/api/health',[200],{noindex:true,health:true});
