@@ -7,6 +7,7 @@ import {onRequestGet as getAdmin,onRequestPatch as patchAdmin} from '../function
 import {onRequestPost as undoAdmin} from '../functions/api/admin/undo.js';
 import {onRequestGet as getPublic} from '../functions/api/config.js';
 import {onRequestGet as getHistory} from '../functions/api/admin/history.js';
+import {onRequestPost as socialDraft} from '../functions/api/admin/social-draft.js';
 
 // In-memory SQL engine implements the exact statements used by Cloudflare D1,
 // with the same .prepare/.bind/.first/.run/.batch calling pattern. No cloud writes.
@@ -100,5 +101,25 @@ test('authenticated admin writes, version conflicts, public read and one-step un
   assert.deepEqual(audit.history.map(entry=>entry.version),[3,2]);
   assert.ok(audit.history.every(entry=>entry.actor==='38mkstyle@gmail.com'));
   assert.ok(audit.history.every(entry=>!('before_json' in entry)&&!('after_json' in entry)));
+
+  // Drafting content must never mutate site_config or site_revisions.
+  const templateResponse=await socialDraft({request:request('POST','/api/admin/social-draft',{
+    platform:'facebook',topic:'service',serviceId:'knip',expectedVersion:3,mode:'template'
+  }),env});
+  assert.equal(templateResponse.status,200);
+  const draft=await templateResponse.json();
+  assert.equal(draft.posted,false);
+  assert.equal(draft.requiresApproval,true);
+  assert.equal(draft.mode,'template');
+  assert.match(draft.caption,/€25/);
+  const afterDraft=DB.db.prepare('SELECT version FROM site_config WHERE id=?').get('main');
+  assert.equal(afterDraft.version,3);
+  assert.equal(DB.db.prepare('SELECT COUNT(*) AS count FROM site_revisions').get().count,2);
+
+  const invalidDraft=await socialDraft({request:request('POST','/api/admin/social-draft',{
+    platform:'facebook',topic:'special_hours',date:'2026-12-25',expectedVersion:3
+  }),env});
+  assert.equal(invalidDraft.status,400);
+
   assert.equal(jwksRequests,1);
 });
