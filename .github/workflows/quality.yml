@@ -42,6 +42,7 @@ jobs:
           fi
           test -f dist/index.html
           test -f dist/admin.html
+          test -f dist/404.html
           test ! -e dist/assets/js/admin.js
           test ! -d dist/migrations
           test ! -e dist/config/client-profile.json
