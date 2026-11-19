@@ -16,6 +16,8 @@ jobs:
           cache: 'npm'
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
+      - name: Audit production dependencies (high and critical)
+        run: npm audit --omit=dev --audit-level=high
       - name: Validate JavaScript syntax
         run: |
           for f in assets/js/main.js assets/js/admin-v2.js functions/_middleware.js functions/_lib/*.js functions/api/*.js functions/api/admin/*.js scripts/*.mjs; do
