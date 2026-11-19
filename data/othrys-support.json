@@ -7,7 +7,11 @@
   "lifecycleStage": "live",
   "domainPolicy": {
     "owner": "client",
-    "dnsDelegation": "othrys_technical_access"
+    "dnsDelegation": "othrys_technical_access",
+    "registrar": "OVH",
+    "registeredDate": "2026-11-18",
+    "renewalDate": "2027-11-18",
+    "reminderThresholdDate": "2027-10-19"
   },
   "commercialGuard": {
     "billingValve": "closed_dormant",
