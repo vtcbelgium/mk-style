@@ -9,6 +9,10 @@ const requireStatus = async(path,statuses,checks={})=>{
   if(!statuses.includes(status))throw new Error(path+': unexpected HTTP '+status);
   const robots=response.headers.get('x-robots-tag')||'';
   if(checks.noindex&&!/noindex/i.test(robots))throw new Error(path+': missing staging noindex header');
+  if(checks.health){
+    const payload=await response.json();
+    if(payload?.status!=='ok'||Object.keys(payload).length!==1) throw new Error(path+': unhealthy or over-sharing status');
+  }
   if(checks.json){
     const payload=await response.json();
     if(payload?.config?.shopName!=='MK Style'||!Number.isSafeInteger(payload.version))
@@ -20,6 +24,7 @@ await requireStatus('/',[200],{noindex:true});
 await requireStatus('/admin.html',[200],{noindex:true});
 await requireStatus('/assets/js/main.js',[200],{noindex:true});
 await requireStatus('/api/config',[200],{noindex:true,json:true});
+await requireStatus('/api/health',[200],{noindex:true,health:true});
 // No credentials, even from environment: all administrative endpoints must fail closed.
 await requireStatus('/api/admin/config',[401,403,503],{noindex:true});
 await requireStatus('/api/admin/history',[401,403,503],{noindex:true});
