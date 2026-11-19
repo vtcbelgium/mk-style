@@ -1,0 +1,43 @@
+// Read-only production acceptance gate.
+// Run only AFTER Cloudflare zone activation, SSL and custom domain setup.
+// It never logs in, reads secrets, changes D1, or publishes anything.
+const origin='https://mk38style.be';
+const request=async(path,options={})=>fetch(origin+path,{
+  redirect:options.redirect||'manual',
+  signal:AbortSignal.timeout(12000)
+});
+function expect(ok,message){if(!ok)throw new Error(message);}
+function ok(response,path){expect(response.status===200,path+' returned HTTP '+response.status);}
+const home=await request('/');
+ok(home,'homepage');
+const html=await home.text();
+expect(/<title>MK Style/.test(html),'Unexpected home page title');
+expect(html.includes('MK Style CommV.')&&html.includes('38mkstyle@gmail.com'),
+  'Public legal/contact footer is missing');
+expect(!/noindex/i.test(home.headers.get('x-robots-tag')||''),
+  'Production homepage is accidentally noindex');
+const api=await request('/api/config');
+ok(api,'public config');
+const data=await api.json();
+expect(data.config?.shopName==='MK Style'&&data.config?.legalName==='MK Style CommV.',
+  'Public API does not return MK Style business identity');
+expect(Array.isArray(data.config.services)&&data.config.services.length===6,
+  'Expected six MK Style services in production D1');
+const health=await request('/api/health');
+ok(health,'health');
+expect((await health.json()).status==='ok','Production D1 health check failed');
+for(const path of ['/robots.txt','/sitemap.xml']){
+ const r=await request(path);ok(r,path);
+}
+for(const path of ['/api/admin/config','/api/admin/history']){
+ const res=await request(path);
+ expect([401,403,503].includes(res.status)||(
+   [301,302,303,307,308].includes(res.status) &&
+   /cloudflareaccess\.com/.test(res.headers.get('location')||'')
+ ),'Unauthorized admin endpoint not denied: '+path+' => '+res.status);
+}
+const www=await fetch('https://www.mk38style.be/',{redirect:'manual',signal:AbortSignal.timeout(12000)});
+expect([301,302,307,308].includes(www.status),'www must redirect to canonical apex');
+const location=new URL(www.headers.get('location')||'/', 'https://www.mk38style.be');
+expect(location.origin===origin,'www redirect targets an unexpected host');
+console.log('MK Style production acceptance checks passed (read-only).');
