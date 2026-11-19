@@ -20,9 +20,9 @@
 1. Murat opent de officiële [OVHcloud Control Panel](https://www.ovh.com/manager/) en meldt zichzelf aan.
 2. `Web Cloud` → `Domain names / Domains & DNS` → `mk38style.be`.
 3. Open `DNS servers` en kies `Modify DNS servers` / `Edit DNS servers`.
-4. Stel de exacte twee door Cloudflare toegewezen nameservers in. **OTHRYS levert pas later de echte waarden:**
-   - NS1: `<WORDT_DOOR_CLOUDFLARE_TOEGEWEZEN>`
-   - NS2: `<WORDT_DOOR_CLOUDFLARE_TOEGEWEZEN>`
+4. Stel de exacte twee door Cloudflare toegewezen nameservers in:
+   - NS1: `maya.ns.cloudflare.com`
+   - NS2: `peter.ns.cloudflare.com`
 5. Sla op. OTHRYS controleert daarna DNS-propagatie (mogelijk tot 48 uur) en HTTPS/website. Murat hoeft de website niet zelf in te stellen.
 
 **Belangrijk:** alleen de **autoritatieve nameservers** aanpassen; dit is iets anders dan NS-regels toevoegen in de oude OVHcloud-DNS-zone. DNSSEC/DS-records en eventuele huidige diensten eerst controleren.

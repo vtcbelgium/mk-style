@@ -26,13 +26,14 @@ Ondernemingsnummer en juridische naam zijn door Murat gedeeld en komen overeen m
 9. **Beheer en AI:** beknopte verklaring dat beheerinstructies door AI worden verwerkt; geen klantgegevens of gevoelige inhoud delen met model; menselijke goedkeuring vereist voor publiceren.
 10. **Laatste actualisatiedatum:** invullen bij formele publicatie.
 
-## Vastgestelde externe bronnen (technische audit 19/11/2026)
-Bij het openen van de publieke voorbeeldwebsite worden rechtstreeks van andere partijen geladen:
-- **Google Fonts**: CSS op `fonts.googleapis.com` en lettertypebestanden op `fonts.gstatic.com`. Beoordeel of zelf hosten of een alternatief font nodig is om externe verzoeken te verminderen. Leg in de definitieve privacyverklaring de werkelijk gebruikte dienstverlening vast.
-- **OpenStreetMap**: de externe kaart wordt sinds 19/11 **pas geladen na een expliciete klik op ‘Toon kaart’**. Daarvoor maakt de pagina geen kaart-iframe aan. De kaart deelt bij openen mogelijk netwerkgegevens met OpenStreetMap; dit moet nog worden vermeld in de definitieve privacyverklaring. De aparte Google Maps/Waze-links blijven bruikbaar zonder de kaart te laden.
-- **Facebook, Instagram, WhatsApp, Waze en Google Maps** worden als links gebruikt: daadwerkelijke gegevensuitwisseling door die verwijzingen start normaal pas bij aanklikken, behalve wanneer later extra widgets/scripts toegevoegd worden.
-- Nieuwe statische **Content-Security-Policy** beperkt uitvoering van scripts tot eigen bestanden en staat enkel de nodige font- en kaartbronnen toe. Dit is een beveiligingsmaatregel, **geen vervanging van privacy-informatie of toestemming**.
-- Geen Analytics- of advertentiepixel is in de door ons gecontroleerde `index.html` en `admin.html` opgenomen. Verifieer vóór livegang nog de werkelijk gedeployde scripts, Cloudflare-loginstellingen, eventuele cookies en derde partijen.
+## Vastgestelde externe bronnen (bijgewerkt na audit 19/11/2026)
+Alle lettertypes staan nu **lokaal gehost** onder `assets/fonts/` (geen verzoeken meer aan Google Fonts):
+- **Lettertypes (self-hosted):** `Outfit`, `Plus Jakarta Sans` en `JetBrains Mono` worden rechtstreeks vanaf de eigen server geladen via `assets/css/fonts.css`.
+- **Privacyverklaring gepubliceerd in `privacy.html`:** gelinkt vanuit de footer van `index.html`, `404.html` en `admin.html` en opgenomen in `sitemap.xml` (bevat bedrijfsgegevens, cookievrije status, OpenStreetMap-melding, EU AI Act art. 50-verklaring en GBA-klachtrecht).
+- **OpenStreetMap**: de externe kaart wordt sinds 19/11 **pas geladen na een expliciete klik op ‘Toon kaart’**. Daarvoor maakt de pagina geen kaart-iframe aan. De kaart deelt bij openen netwerkgegevens met OpenStreetMap (vermeld in `privacy.html`). De aparte Google Maps/Waze-links blijven bruikbaar zonder de kaart te laden.
+- **Facebook, Instagram, WhatsApp, Waze en Google Maps** worden als links gebruikt: daadwerkelijke gegevensuitwisseling door die verwijzingen start normaal pas bij aanklikken.
+- Statische **Content-Security-Policy** (`_headers`) beperkt uitvoering van scripts en fonts tot `'self'`, en staat voor frames enkel `https://www.openstreetmap.org` toe.
+- Geen Analytics- of advertentiepixel is in de gecontroleerde `index.html`, `privacy.html` en `admin.html` opgenomen. Bepaal samen met Murat definitief de D1-bewaartermijn (standaard laatste 30 revisies in `site_revisions`) en een eventueel privacycontact.
 
 - **Beheerwijzigingen/audit:** in de beveiligde beheerpagina worden de tien recentste wijzigingsrecords (versie, actor-e-mailadres, tijdstip, bron) getoond; deze worden gelezen via een met Cloudflare Access beveiligde API. Bepaal vóór lancering de bewaartermijn en het privacycontact voor deze auditgegevens.
 

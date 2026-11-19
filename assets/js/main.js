@@ -176,7 +176,7 @@ function renderHours(config, now = getBrusselsNow()) {
     if (d.closed || !d.shifts || d.shifts.length === 0) {
       timeHtml = `<span class="hours-closed">Gesloten${d.note ? ` (${escapeHtml(d.note)})` : ''}</span>`;
     } else {
-      const formattedShifts = d.shifts.map(([s, e]) => `${s} – ${e}`).join(' &amp; ');
+      const formattedShifts = d.shifts.map(([s, e]) => `${escapeHtml(s)} – ${escapeHtml(e)}`).join(' &amp; ');
       timeHtml = `${formattedShifts}${d.note ? `<br><small>${escapeHtml(d.note)}</small>` : ''}`;
     }
 
@@ -197,7 +197,8 @@ function escapeHtml(str) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 let lastValidConfig = null;
