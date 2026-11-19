@@ -48,3 +48,7 @@ jobs:
           --branch feat/production-readiness-2026-11
           --commit-hash "${{ github.sha }}"
           --commit-message "CI validated staging build"
+      - name: Verify preview site and API availability
+        env:
+          MK_STYLE_STAGING_URL: https://feat-production-readiness-20.mk-style.pages.dev/
+        run: npm run smoke:staging
