@@ -4,7 +4,7 @@ const root=new URL('../',import.meta.url);
 const dist=new URL('../dist/',import.meta.url);
 rmSync(dist,{recursive:true,force:true});mkdirSync(dist,{recursive:true});
 for(const path of [
-  'index.html','admin.html','assets/css','assets/images',
+  'index.html','admin.html','404.html','assets/css','assets/images',
   'assets/js/main.js','assets/js/admin-v2.js',
   'data/site-config.json','robots.txt','sitemap.xml','_headers'
 ]){
