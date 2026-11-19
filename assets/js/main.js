@@ -229,7 +229,26 @@ function applyAll(config) {
   renderHours(config);
 }
 
+function setupMapOptIn() {
+  const button = document.getElementById('load-map-btn');
+  const container = document.getElementById('map-container');
+  if (!button || !container) return;
+  button.addEventListener('click', () => {
+    // The third-party request starts only after this explicit visitor action.
+    const target = new URL(button.dataset.mapSrc || '', window.location.href);
+    if (target.origin !== 'https://www.openstreetmap.org' ||
+        target.pathname !== '/export/embed.html') return;
+    const frame = document.createElement('iframe');
+    frame.title = 'Kaart van MK Style, Sint-Gertrudisplein 24 in Beverst';
+    frame.loading = 'eager';
+    frame.referrerPolicy = 'no-referrer';
+    frame.src = target.href;
+    container.replaceChildren(frame);
+  }, { once: true });
+}
+
 async function init() {
+  setupMapOptIn();
   const refresh = async () => {
     const config = await loadConfig();
     if (config) applyAll(config);
