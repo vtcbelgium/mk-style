@@ -76,6 +76,30 @@ function render() {
     label.htmlFor='hours-'+day;input.id='hours-'+day;
     row.append(label,input);editor.append(row);
   }
+  const socialService=$('social-service');
+  if (socialService) {
+    const previousId=socialService.value;
+    socialService.replaceChildren();
+    for(const item of current.services){
+      const option=document.createElement('option');
+      option.value=item.id;
+      option.textContent=item.name+' · '+item.price;
+      socialService.appendChild(option);
+    }
+    if(current.services.some(item=>item.id===previousId))socialService.value=previousId;
+  }
+  const socialDate=$('social-date');
+  if(socialDate){
+    const oldDate=socialDate.value;
+    socialDate.replaceChildren();
+    for(const exception of (current.exceptions||[]).slice().sort((a,b)=>a.date.localeCompare(b.date))){
+      const option=document.createElement('option');
+      option.value=exception.date;
+      option.textContent=exception.date+' · '+(exception.closed?'Gesloten':'Aangepaste uren');
+      socialDate.appendChild(option);
+    }
+    if((current.exceptions||[]).some(e=>e.date===oldDate))socialDate.value=oldDate;
+  }
   const service=$('price-service');service.replaceChildren();
   for(const s of current.services) {
     const option=document.createElement('option');option.value=s.id;
@@ -188,7 +212,49 @@ async function deleteException(date) {
   try { await publish({exceptions:(current.exceptions||[]).filter(e=>e.date!==date)}); }
   catch(e){toast(e.message);}
 }
+function showSocialOptions(){
+  const topic=$('social-topic').value;
+  $('social-service-row').style.display=topic==='service'?'block':'none';
+  $('social-date-row').style.display=topic==='special_hours'?'block':'none';
+}
+async function generateSocialDraft(mode){
+  if(!current||!Number.isSafeInteger(version))throw new Error('Laad eerst de actuele sitegegevens');
+  const topic=$('social-topic').value;
+  const payload={
+    platform:$('social-platform').value,
+    topic,mode,expectedVersion:version,
+    brief:$('social-brief').value.trim()
+  };
+  if(topic==='service')payload.serviceId=$('social-service').value;
+  if(topic==='special_hours')payload.date=$('social-date').value;
+  const result=await api('/api/admin/social-draft','POST',payload);
+  if(result.status!=='draft'||result.posted!==false||result.requiresApproval!==true)
+    throw new Error('Server bevestigde niet dat dit alleen een concept is');
+  $('social-caption').value=result.caption;
+  const labels={instagram:'Instagram',facebook:'Facebook',google:'Google Bedrijfsprofiel'};
+  $('social-draft-status').textContent=
+    (result.mode==='ai'?'AI-concept':'Gratis sjabloon')+' voor '+
+    (labels[result.platform]||result.platform)+
+    '. Nog niet geplaatst. Controleer ook de rechten op de gekozen foto.';
+  toast('Tekstconcept klaar om te controleren en te kopiëren');
+}
+function setupSocialStudio(){
+  $('social-topic').addEventListener('change',showSocialOptions);
+  showSocialOptions();
+  for(const [id,mode] of [['social-template-btn','template'],['social-ai-btn','ai']]){
+    const button=$(id);
+    button.addEventListener('click',async()=>{
+      button.disabled=true;
+      try{await generateSocialDraft(mode);}
+      catch(e){
+        $('social-draft-status').textContent='Geen concept gegenereerd: '+e.message;
+        toast(e.message);
+      }finally{button.disabled=false;}
+    });
+  }
+}
 function wire() {
+  setupSocialStudio();
   $('reset-all-btn').addEventListener('click',()=>reload().catch(e=>toast(e.message)));
   $('run-ai-btn').addEventListener('click',async()=>{
     const prompt=$('ai-prompt').value.trim();if(!prompt){toast('Geef eerst een opdracht.');return;}
