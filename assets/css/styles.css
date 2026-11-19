@@ -174,6 +174,7 @@ a {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
 .brand-sub {
@@ -195,6 +196,7 @@ a {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--text-secondary);
+  white-space: nowrap;
   transition: color 0.18s ease;
 }
 
@@ -1050,8 +1052,31 @@ a {
 }
 
 /* Responsive */
+@media (max-width: 1060px) {
+  .navbar .container {
+    padding: 0 20px;
+  }
+  .nav-inner {
+    gap: 14px;
+  }
+  .nav-links {
+    gap: 18px;
+  }
+  .nav-links a {
+    font-size: 0.82rem;
+  }
+  .nav-actions {
+    gap: 12px;
+  }
+  .status-pill {
+    font-size: 0.74rem;
+  }
+  .nav-phone {
+    font-size: 0.8rem;
+  }
+}
+
 @media (max-width: 980px) {
-  .nav-links { display: none; }
   .hero-grid, .story-grid, .location-grid {
     grid-template-columns: 1fr;
     gap: 36px;
@@ -1067,10 +1092,41 @@ a {
   }
 }
 
-@media (max-width: 640px) {
-  .container {
+@media (max-width: 860px) {
+  .navbar .container {
     padding: 0 16px;
   }
+  .nav-inner {
+    gap: 12px;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .nav-links {
+    gap: 14px;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+  }
+  .nav-divider {
+    display: none;
+  }
+  .nav-phone {
+    padding: 4px;
+  }
+  .nav-phone span {
+    display: none;
+  }
+  .nav-actions {
+    gap: 10px;
+  }
+  .status-pill {
+    font-size: 0.72rem;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 700px) {
   .nav-inner {
     height: 56px;
     gap: 10px;
@@ -1083,21 +1139,23 @@ a {
     font-size: 0.86rem;
     letter-spacing: 0.1em;
   }
-  .nav-divider, .nav-phone, .nav-actions .btn-gold {
+  .nav-links, .nav-divider, .nav-phone, .nav-actions .btn-gold {
     display: none;
   }
-  .status-pill {
-    font-size: 0.72rem;
-    gap: 6px;
+  .mobile-bar {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 16px;
   }
   .pillars-grid, .address-details, .story-photos {
     grid-template-columns: 1fr;
   }
   .bento-span-7, .bento-span-5, .bento-span-4 {
     grid-column: span 12;
-  }
-  .mobile-bar {
-    display: flex;
   }
   .hero {
     padding: 28px 0 44px;
