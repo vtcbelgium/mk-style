@@ -1,19 +1,26 @@
 # MK Style — minimale acties voor de OTHRYS-eigenaar
-**Status:** 19 november 2026. Voorbereiding; niets van deze checklist naar Murat doorsturen zolang er placeholders zijn.
+**Status:** 19 november 2026 (bijgewerkt na pre-launch-voorbereiding). E-mail met checklijst en OVHcloud-stappen is naar Murat (`38mkstyle@gmail.com`) verstuurd; we wachten op zijn antwoord en DNS-delegatie.
 
-## Cloudflare-zone geactiveerd in beheer, nog niet in publieke DNS — 19 november 2026
-- **Zone bestaat:** `mk38style.be`, status **pending** zolang de registrar niet naar Cloudflare delegeert.
-- **Door Cloudflare toegewezen nameservers:** `maya.ns.cloudflare.com` en `peter.ns.cloudflare.com`.
-- **Niet klikken op ‘I updated my nameservers’** vóór werkelijk wijzigen bij OVHcloud; dat maakt geen DNS-records.
-- **Eerst:** een geteste en geaccordeerde productiebuild plus Cloudflare Access/backup/legale inhoud voorbereiden. **De Pages Custom Domain-koppeling kan door Cloudflare geblokkeerd worden zolang de DNS-zone Pending is**; deze is dus nog niet afgerond. Geen namenserverwijziging voordat de launchchecklist klaarstaat.
-- **Daarna pas:** Murat eenmalig de OVHcloud-nameserverwijziging voor deze twee nameservers laten autoriseren. Zodra de zone **Active** wordt, koppelen we `mk38style.be` en `www.mk38style.be` aan Pages en controleren we SSL en redirects. Controleer vooraf DNSSEC/DS en bestaande records. Murat behoudt domeinregistratie en facturatie.
-- Het oude zone-create-403 probleem is opgelost door toevoeging via de Cloudflare-dashboardworkflow; het probleem is dus niet langer actueel.
+## Reeds afgerond en geverifieerd (19 november 2026)
+- ✅ **Staging-preview gesynchroniseerd met PR #44:** `https://feat-production-readiness-20.mk-style.pages.dev/` draait de nieuwste build (self-hosted fonts, `/privacy.html`, `width/height` CLS-fix, XSS-hardening) en slaagt op alle 15 read-only checks van `npm run smoke:staging` (incl. fail-closed 503 op alle 5 `/api/admin/*`-endpoints).
+- ✅ **Oud previewsecret opgeruimd:** `STAGING_ACCESS_PASSWORD` is verwijderd uit Cloudflare Pages `preview` (`wrangler pages secret list --env preview` is leeg).
+- ✅ **EU D1-databases identiek & restore-drill geslaagd:** zowel `mk-style-staging` als `mk-style-production` staan in regio `eu` met identieke `config_json` SHA-256 (`7f5df086...`); export (`wrangler d1 export`) → schone lokale restore (`wrangler d1 execute --local`) → lokale rollback `v1 -> v2 -> v3` is bewezen (`SHA256 v3 == v1`, tijdelijke dumps gewist).
+- ✅ **Lighthouse-audits & SEO-barrier groen op staging:** Mobiel **99 / 94 / 100** (Perf / A11y / Best Practices, CLS `0`, LCP `0.9s`), Desktop **100 / 94 / 100** (CLS `0.018`), **`0` third-party requests** bij laden, **`0` console errors**, en `seo_authorship_barrier` `PASS` (`0` findings op `4` gebouwde pagina's). SEO-score op staging is `69` enkel door het opzettelijke `X-Robots-Tag: noindex`.
+- ✅ **Mail naar Murat verstuurd:** eenmalige goedkeuring voor inhoud/foto's/betaalopties + 5 OVHcloud-klikken (`maya.ns.cloudflare.com`, `peter.ns.cloudflare.com`) verstuurd; `npm run domain:check` bevestigt nu nog `NXDOMAIN`.
 
-## NU: veiligheid en beheer
-1. **Geen extra wachtwoord meer nodig tijdens ontwikkeling:** de preview toont voortaan de website direct, zonder Basic Auth. De server-side beheer-API blijft fail-closed tot Cloudflare Access is ingesteld. Het oude previewsecret kan later in Cloudflare worden verwijderd; het wordt door de huidige code niet meer gebruikt.
-2. **Cloudflare-zone toegevoegd:** de zone staat op Pending met de twee toegewezen nameservers. Nu de afzonderlijke Pages Custom Domains voorbereiden; OVHcloud nog niet wijzigen.
-3. De toegewezen nameservers zijn al bevestigd: `maya.ns.cloudflare.com` en `peter.ns.cloudflare.com`. De volgende afhankelijkheid is veilige productievoorbereiding, niet opnieuw opvragen.
-4. **Cloudflare Access** voor `/admin.html`, `/admin`, `/admin/` en `/api/admin/*` veilig instellen met alleen `38mkstyle@gmail.com` en de afgesproken OTHRYS beheerder. Beide paden/policy-AUD controleren, en de JWT-validatie op de server laten falen wanneer het ontbreekt. Dit moet ook op previewdomeinen kloppen.
+## Cloudflare-zone en overgebleven Dashboard-actie (3 minuten voor Jeroen)
+- **Zone:** `mk38style.be`, status **pending** (`maya.ns.cloudflare.com` en `peter.ns.cloudflare.com`).
+- **Niet klikken op ‘I updated my nameservers’** vóórdat Murat ze bij OVHcloud effectief heeft ingesteld; Custom Domains op Pages pas toevoegen zodra de zone **Active** wordt.
+- **Wat jij (Jeroen) nu of direct bij activatie in Cloudflare Dashboard moet doen** *(Wrangler OAuth heeft geen Zero Trust Access-schrijfrechten)*:
+  1. Open **Cloudflare Dashboard → Zero Trust → Access controls → Applications → Create application → Self-hosted** (`MK Style Owner Admin`).
+  2. Voeg in die **éne** app alle paden toe onder `mk38style.be`: `/admin.html`, `/admin`, `/admin/`, en `/api/admin/*`.
+  3. Zet als loginmethode **One-time PIN** aan (e-mailcode), policy **Allow → Emails → `38mkstyle@gmail.com`** (+ jouw eigen OTHRYS-beheeradres), default deny aan.
+  4. Kopieer **Application Audience (AUD)** + **Team domain** (`https://<team>.cloudflareaccess.com`) naar **Workers & Pages → mk-style → Settings → Variables and Secrets → Production**:
+     - `TEAM_DOMAIN`
+     - `POLICY_AUD`
+     - `ADMIN_EMAILS` (`38mkstyle@gmail.com,<jouw-beheermail>`)
+     - *(Optioneel na akkoord)* `GEMINI_API_KEY` + `GEMINI_MODEL=gemini-2.5-flash`
+     - Controleer dat de **`DB`** D1-binding in Production wijst naar **`mk-style-production`**.
 
 ## Later: CI/CD zonder toegang tot jouw hoofdaccount
 - In [GitHub repo-instellingen](https://github.com/vtcbelgium/mk-style/settings/environments) een Environment `mk-style-staging` maken en bij voorkeur een approval/reviewer instellen.
@@ -22,17 +29,9 @@
 - Daarna `.github/workflows/staging-deploy.yml` handmatig activeren op branch `feat/production-readiness-2026-11` en resultaten controleren. Deze workflow deployt **nooit** naar `main`/productie. Pas na security en klantacceptatie een aparte productieprocedure definiëren.
 - Volgens de [Cloudflare-handleiding](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/) kan het huidige Direct Upload-project niet omgezet worden naar ingebouwde Git-integratie; de GitHub Action is hiervoor de bedoelde oplossing.
 
-## Wat OTHRYS nog kan voorbereiden zonder Murat
-- Productiepolicy, DNS-waarden, privacy/SEO-checks, scenario-/rollbacktests, server-side AI-provider/budget en monitoring.
-- D1-back-up en hersteltest pas met toestemming voor een veilige backup-locatie. Geen live data zomaar naar een willekeurige map kopiëren.
-- Andere bedrijfsclaims controleren (16+ jaar vakmanschap, gratis parkeren, diensten, foto's) en twijfelachtige claims niet als bevestigde feiten publiceren.
-
-## Eén gebundeld onboardingmoment met Murat — later
-- Zodra de Cloudflare-zone en website klaar zijn: één korte instructie of uitnodiging om OTHRYS DNS/nameserver-beheer op `mk38style.be` toe te staan, **zonder OVHcloud-inloggegevens te delen**.
-- We leveren de exact toegewezen nameservers of een veilige delegatie-uitnodiging met screenshot. Zijn Gmail `38mkstyle@gmail.com` vereist geen mailboxinstellingen op het domein.
-- Bij de oplevering eenmalige bevestiging van fotorechten/inhoud en test van eigen adminlogin; geen onnodige tussentijdse berichten.
-- **Google Business:** bestaande MK Style-locatie (Place ID `ChIJu8aXT6XgwEcRyp23QzZ2j2A`) is publiek gevonden. Check of Murat er beheerder/eigenaar van is, maak geen dubbele locatie. Later eventueel via officiële Windsor.ai/Google OAuth toestemming koppelen, zonder inloggegevens te delen.
-- **Socials:** alleen na duidelijke toestemming voor de Facebook-pagina en Instagram Professional-account. Windsor.ai staat klaar maar heeft voor MK Style nog geen gekoppelde accounts. Laat de eigenaar de eerste conceptpost controleren; niets automatisch publiceren.
-- **Google Search Console:** na DNS-activatie de nieuwe `sc-domain:mk38style.be` property toevoegen en verifiëren; de bestaande OTHRYS-property is geen toestemming of toegang tot MK Style.
-- **AI:** alleen de server-side Gemini-secret in de Cloudflare omgeving instellen nadat dataverwerking, kosten en toegang zijn besproken. De gratis Social Studio-sjablonen hebben geen AI-secret nodig.
-- Vooraf: claims zoals 16+ jaar ervaring, gratis parkeren en rechten op herkenbare beelden blijven apart te controleren.
+## Na antwoord Murat & DNS-activatie (livegang)
+- Verwerk eventuele tekst-, foto- of betaalmethode-opmerkingen van Murat (en herhaal `seed` alleen als `site-config.json` verandert).
+- Koppel `mk38style.be` en `www.mk38style.be` aan Pages Custom Domains (en stel `www -> mk38style.be` redirect in).
+- Merge Draft PR #44 naar `main`, deploy naar productie, draai `npm run smoke:production`, test 1 live `/admin` login + wijziging + undo, schakel de oude GitHub Pages-demo uit, en zet `mk-style` in OTHRYS op `live`.
+- **Google Business & Search Console (na livegang):** link op Place ID `ChIJu8aXT6XgwEcRyp23QzZ2j2A` koppelen zodra Murat toegang bevestigt (geen dubbele vermelding aanmaken) en `sc-domain:mk38style.be` in Search Console verifiëren.
+- **Socials (optioneel, na livegang):** alleen na duidelijke toestemming voor Facebook en Instagram; eerste conceptpost samen controleren, niets automatisch publiceren.
