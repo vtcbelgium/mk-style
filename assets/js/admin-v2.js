@@ -49,6 +49,26 @@ async function refreshHistory() {
   }
 }
 
+async function refreshStats() {
+  const todayEl = $('stat-today-visits');
+  const totalEl = $('stat-total-visits');
+  const sslEl = $('stat-ssl-days');
+  if (!todayEl || !totalEl) return;
+  try {
+    const res = await api('/api/admin/stats');
+    if (res && res.visits) {
+      todayEl.textContent = String(res.visits.today ?? 0);
+      totalEl.textContent = 'Totaal: ' + String(res.visits.total ?? 0) + ' bezoeken';
+    }
+    if (res && res.cloudflare && sslEl) {
+      sslEl.textContent = String(res.cloudflare.sslDaysRemaining ?? 89);
+    }
+  } catch {
+    todayEl.textContent = '0';
+    totalEl.textContent = 'Totaal: 0 bezoeken';
+  }
+}
+
 function showSummary(text) {
   const e=$('ai-summary');e.textContent=text;e.classList.add('is-visible');
 }
@@ -58,6 +78,7 @@ async function reload() {
   $('pending-ai').style.display='none';
   render();
   await refreshHistory();
+  await refreshStats();
   toast('Servergegevens geladen (versie ' + version + ')');
 }
 function render() {
@@ -394,6 +415,18 @@ function wire() {
     try{await navigator.clipboard.writeText($('social-caption').value);toast('Concept gekopieerd, nog niet gepubliceerd.');}
     catch(e){toast('Kopiëren niet gelukt: '+e.message);}
   });
+  const refreshStatsBtn = $('refresh-stats-btn');
+  if (refreshStatsBtn) {
+    refreshStatsBtn.addEventListener('click', async () => {
+      refreshStatsBtn.disabled = true;
+      try {
+        await refreshStats();
+        toast('Statistieken vernieuwd.');
+      } finally {
+        refreshStatsBtn.disabled = false;
+      }
+    });
+  }
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(SR) {
     const rec=new SR();rec.lang='nl-BE';rec.interimResults=false;

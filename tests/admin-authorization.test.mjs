@@ -5,6 +5,7 @@ import {onRequestGet as history} from '../functions/api/admin/history.js';
 import {onRequestPost as propose} from '../functions/api/admin/propose.js';
 import {onRequestPost as undo} from '../functions/api/admin/undo.js';
 import {onRequestPost as socialDraft} from '../functions/api/admin/social-draft.js';
+import {onRequestGet as stats} from '../functions/api/admin/stats.js';
 
 const routes=[
  ['GET','/api/admin/config',readAdmin],
@@ -12,7 +13,8 @@ const routes=[
  ['GET','/api/admin/history',history],
  ['POST','/api/admin/propose',propose],
  ['POST','/api/admin/undo',undo],
- ['POST','/api/admin/social-draft',socialDraft]
+ ['POST','/api/admin/social-draft',socialDraft],
+ ['GET','/api/admin/stats',stats]
 ];
 for (const [method,path,handler] of routes) {
  test(method+' '+path+' rejects preview visitors without configured Access',async()=>{

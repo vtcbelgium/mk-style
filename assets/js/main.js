@@ -250,6 +250,13 @@ function setupMapOptIn() {
 
 async function init() {
   setupMapOptIn();
+  // Cookieless, privacy-preserving session visit counter (EU D1)
+  try {
+    if (!sessionStorage.getItem('mk_visit_ping')) {
+      sessionStorage.setItem('mk_visit_ping', '1');
+      fetch('/api/visit', { method: 'POST', keepalive: true }).catch(() => {});
+    }
+  } catch (_) {}
   const refresh = async () => {
     const config = await loadConfig();
     if (config) applyAll(config);
