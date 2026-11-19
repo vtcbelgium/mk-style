@@ -94,6 +94,12 @@ export function applyAiOperation(base, operation) {
     const current = Array.isArray(base.exceptions) ? base.exceptions.filter(e => e.date !== op.date) : [];
     return { exceptions: [...current, { date:op.date, closed:op.closed, shifts:op.shifts || [], note:op.note || '' }] };
   }
+  if (op.action === 'remove_exception') {
+    if (!isIsoDate(op.date)) fail('AI geeft ongeldige datum');
+    const current = Array.isArray(base.exceptions) ? base.exceptions : [];
+    if (!current.some(e => e.date === op.date)) fail('Geen uitzondering gevonden op ' + op.date);
+    return { exceptions: current.filter(e => e.date !== op.date) };
+  }
   if (op.action === 'set_exception_range') {
     if (op.closed !== true || !text(op.note ?? '', 80)) fail('Onveilige verlofperiode');
     const days = datesInRange(op.startDate, op.endDate);

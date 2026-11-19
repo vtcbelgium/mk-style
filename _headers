@@ -16,8 +16,11 @@
 /assets/css/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
-/assets/js/*
+/assets/js/main.js
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/assets/js/admin-v2.js
+  Cache-Control: no-store
 
 /admin.html
   Cache-Control: no-store

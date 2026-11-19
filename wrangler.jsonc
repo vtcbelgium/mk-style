@@ -6,6 +6,9 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  "ai": {
+    "binding": "AI"
+  },
   "d1_databases": [
     {
       "binding": "DB",
@@ -15,6 +18,9 @@
   ],
   "env": {
     "preview": {
+      "ai": {
+        "binding": "AI"
+      },
       "d1_databases": [
         {
           "binding": "DB",
@@ -24,6 +30,9 @@
       ]
     },
     "production": {
+      "ai": {
+        "binding": "AI"
+      },
       "d1_databases": [
         {
           "binding": "DB",

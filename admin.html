@@ -284,25 +284,31 @@
         <section class="panel panel-gold">
           <h2>&#10024; Praat tegen je MK Style AI Assistent</h2>
           <p class="panel-sub">
-            Geef één duidelijke opdracht tegelijk: een sluitingsdag met exacte datum (JJJJ-MM-DD), een melding of een prijswijziging. Voor vaste weekuren gebruik je de handmatige editor. De AI maakt alleen een voorstel; pas na jouw bevestiging wordt iets gewijzigd.
+            Typ of spreek één duidelijke opdracht: een sluitingsdag (<em>&ldquo;morgen gesloten&rdquo;</em> of datum), vakantieperiode, aangepaste uren, melding of prijswijziging. De assistent maakt altijd eerst een controleerbaar voorstel; pas na jouw klik op goedkeuren gaat iets live.
           </p>
 
           <div class="prompt-box">
-            <textarea id="ai-prompt" class="prompt-textarea" placeholder="Bijv: 'Op 2026-12-25 zijn we gesloten wegens feestdag.'"></textarea>
+            <textarea id="ai-prompt" class="prompt-textarea" placeholder="Bijv: 'Morgen gesloten wegens familiedag' of 'Verlof van 10 augustus tot 20 augustus'"></textarea>
             <button id="mic-btn" type="button" class="mic-btn" title="Spreek in (Nederlands)">&#127908;</button>
           </div>
 
           <div class="chips-wrap">
-            <button type="button" class="chip-btn" data-prompt="Op JJJJ-MM-DD zijn we uitzonderlijk gesloten wegens een feestdag. Vervang JJJJ-MM-DD door de juiste datum.">
-              &#128197; Sluit één datum
+            <button type="button" class="chip-btn" data-prompt="Morgen gesloten wegens familiedag">
+              &#128197; Morgen gesloten
             </button>
-            <button type="button" class="chip-btn" data-prompt="Verander de prijs van de herenknipbeurt naar €27. Dit is enkel een voorbeeld; pas het bedrag aan voor je een voorstel aanvraagt.">
+            <button type="button" class="chip-btn" data-prompt="Verlof van 10 augustus tot 20 augustus">
+              &#127958;&#65039; Verlofperiode
+            </button>
+            <button type="button" class="chip-btn" data-prompt="Morgen open van 10:00 tot 14:00 wegens aangepaste uren">
+              &#128338; Aangepaste uren
+            </button>
+            <button type="button" class="chip-btn" data-prompt="Verander de prijs van de herenknipbeurt naar €27">
               &#128176; Prijsvoorstel
             </button>
-            <button type="button" class="chip-btn" data-prompt="Toon een algemene melding bovenaan de website: [vul hier de exacte tekst in].">
+            <button type="button" class="chip-btn" data-prompt="Toon melding: Zaterdag doorlopend open van 09:00 tot 17:00 zonder afspraak">
               &#128227; Melding op website
             </button>
-            <button type="button" class="chip-btn" data-prompt="Verberg de huidige melding bovenaan de website.">
+            <button type="button" class="chip-btn" data-prompt="Verberg de melding bovenaan de website">
               &#10006;&#65039; Melding verbergen
             </button>
           </div>
@@ -389,7 +395,7 @@
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px">
             <button id="social-template-btn" type="button" class="btn btn-gold btn-sm">Maak gratis tekstconcept</button>
-            <button id="social-ai-btn" type="button" class="btn btn-outline btn-sm">Verfijn met AI (indien actief)</button>
+            <button id="social-ai-btn" type="button" class="btn btn-outline btn-sm">&#10024; Verfijn met AI</button>
           </div>
           <p id="social-draft-status" class="panel-sub" role="status">Nog niets verstuurd of gepubliceerd.</p>
 
@@ -440,6 +446,6 @@ Spring van dinsdag t/m zaterdag gewoon binnen ZONDER AFSPRAAK in ons vernieuwd k
 
   <div id="toast" class="toast" role="status"></div>
 
-  <script src="./assets/js/admin-v2.js"></script>
+  <script src="./assets/js/admin-v2.js?v=20261119-ai"></script>
 </body>
 </html>

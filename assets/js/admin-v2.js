@@ -135,13 +135,65 @@ async function publish(changes,source='manual') {
   showSummary('✓ Server heeft versie '+version+' opgeslagen en teruggelezen. Controleer de openbare website op een ander toestel.');
   toast('Wijziging centraal opgeslagen, versie '+version);
 }
+function formatProposalDiff(base,changes){
+  const lines=[];
+  if(!changes||typeof changes!=='object')return lines;
+  if('exceptions' in changes && Array.isArray(changes.exceptions)){
+    const beforeMap=new Map((base?.exceptions||[]).map(e=>[e.date,e]));
+    const afterMap=new Map(changes.exceptions.map(e=>[e.date,e]));
+    for(const [date,e] of afterMap){
+      const prev=beforeMap.get(date);
+      const nextDesc=e.closed?'Gesloten'+(e.note?' ('+e.note+')':''):e.shifts.map(s=>s.join('–')).join(', ')+(e.note?' ('+e.note+')':'');
+      if(!prev) lines.push('+ '+date+': '+nextDesc);
+      else if(JSON.stringify(prev)!==JSON.stringify(e)) lines.push('~ '+date+': '+nextDesc);
+    }
+    for(const date of beforeMap.keys()){
+      if(!afterMap.has(date)) lines.push('− '+date+': uitzondering verwijderd (normale weekuren)');
+    }
+  }
+  if('services' in changes && Array.isArray(changes.services)){
+    const beforePrices=new Map((base?.services||[]).map(s=>[s.id,s.price]));
+    for(const s of changes.services){
+      if(beforePrices.get(s.id)!==s.price) lines.push(s.name+': '+beforePrices.get(s.id)+' → '+s.price);
+    }
+  }
+  if('announcement' in changes && changes.announcement){
+    const a=changes.announcement;
+    lines.push(a.active?'Melding ('+a.type+'): "'+a.text+'"':'Melding bovenaan verborgen');
+  }
+  return lines;
+}
+function engineLabel(data){
+  if(data?.provider==='local-parser') return 'Snelle parser (lokaal · 0 ms)';
+  if(data?.provider==='cloudflare-ai') return 'Cloudflare AI'+(data.model?' · '+data.model.split('/').pop():'');
+  if(data?.provider==='pollinations' || data?.provider==='pollinations-free') return 'Pollinations'+(data.model?' · '+data.model:'');
+  if(data?.provider==='gemini') return 'Gemini'+(data.model?' · '+data.model:'');
+  return 'AI-voorstel';
+}
 function showProposal(data) {
   pending=data;
   const box=$('pending-ai');box.replaceChildren();box.style.display='block';
+  const head=document.createElement('div');head.style.cssText='display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px';
   const title=document.createElement('h3');title.textContent='Controleer het AI-voorstel';
+  const badge=document.createElement('span');
+  badge.textContent=engineLabel(data);
+  badge.style.cssText='font-size:0.72rem;color:var(--gold-bright);border:1px solid var(--border-gold);padding:2px 8px;border-radius:999px';
+  head.append(title,badge);
   const p=document.createElement('p');p.textContent=data.summary||'Is dit correct?';
+  const diffLines=formatProposalDiff(current,data.changes);
+  let diffList=null;
+  if(diffLines.length){
+    diffList=document.createElement('ul');
+    diffList.style.cssText='margin:10px 0 12px 18px;font-size:0.86rem;color:var(--text-secondary);line-height:1.6';
+    for(const line of diffLines.slice(0,12)){
+      const li=document.createElement('li');li.textContent=line;diffList.append(li);
+    }
+    if(diffLines.length>12){
+      const more=document.createElement('li');more.textContent='... en nog '+(diffLines.length-12)+' andere dag(en)';diffList.append(more);
+    }
+  }
   const details=document.createElement('details'),summary=document.createElement('summary');
-  summary.textContent='Toon alle gewijzigde gegevens';
+  summary.textContent='Toon technische gegevens (JSON)';
   const pre=document.createElement('pre');pre.style.cssText='max-height:240px;overflow:auto;white-space:pre-wrap;font-size:12px';
   pre.textContent=JSON.stringify(data.changes,null,2);
   details.append(summary,pre);
@@ -154,7 +206,10 @@ function showProposal(data) {
     catch(e){toast('Niet gepubliceerd: '+e.message);}finally{confirm.disabled=false;}
   });
   cancel.addEventListener('click',()=>{pending=null;box.style.display='none';toast('Voorstel geannuleerd; niets gewijzigd.');});
-  controls.append(confirm,cancel);box.append(title,p,details,controls);
+  controls.append(confirm,cancel);
+  box.append(head,p);
+  if(diffList) box.append(diffList);
+  box.append(details,controls);
 }
 function datesForPeriod(startDate,endDate) {
   if(!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !/^\d{4}-\d{2}-\d{2}$/.test(endDate)) {
@@ -232,9 +287,10 @@ async function generateSocialDraft(mode){
     throw new Error('Server bevestigde niet dat dit alleen een concept is');
   $('social-caption').value=result.caption;
   const labels={instagram:'Instagram',facebook:'Facebook',google:'Google Bedrijfsprofiel'};
+  const via=result.mode==='ai'?' ('+(result.provider||'AI')+')':'';
   $('social-draft-status').textContent=
     (result.mode==='ai'?'AI-concept':'Gratis sjabloon')+' voor '+
-    (labels[result.platform]||result.platform)+
+    (labels[result.platform]||result.platform)+via+
     '. Nog niet geplaatst. Controleer ook de rechten op de gekozen foto.';
   toast('Tekstconcept klaar om te controleren en te kopiëren');
 }
