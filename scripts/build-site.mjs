@@ -6,7 +6,7 @@ rmSync(dist,{recursive:true,force:true});mkdirSync(dist,{recursive:true});
 for(const path of [
   'index.html','admin.html','privacy.html','404.html','assets/css','assets/fonts','assets/images',
   'assets/js/main.js','assets/js/admin-v2.js',
-  'data/site-config.json','robots.txt','sitemap.xml','_headers'
+  'data/site-config.json','robots.txt','sitemap.xml','llms.txt','agents.txt','.well-known/agents.txt','_headers'
 ]){
   const src=new URL('../'+path,import.meta.url),dest=new URL('../dist/'+path,import.meta.url);
   if (!existsSync(src)) throw new Error('Missing asset: '+path);

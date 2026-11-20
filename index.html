@@ -13,6 +13,7 @@
   <meta name="theme-color" content="#08090b" />
 
   <link rel="canonical" href="https://mkstyle.be/" />
+  <link rel="alternate" type="text/plain" title="LLMs.txt — AI overzicht van MK Style" href="https://mkstyle.be/llms.txt" />
   <link rel="icon" type="image/jpeg" href="./assets/images/logo-circle.jpg" />
   <link rel="apple-touch-icon" href="./assets/images/logo-circle.jpg" />
 
@@ -40,7 +41,7 @@
 
   <link rel="stylesheet" href="./assets/css/styles.css?v=20261119-d" />
 
-  <!-- Local SEO Schema.org Structured Data (HairSalon + LocalBusiness + WebSite) -->
+  <!-- Local SEO Schema.org Structured Data (HairSalon + LocalBusiness + WebSite + WebPage + BreadcrumbList) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -56,13 +57,32 @@
           "MK 38 Style",
           "Herenkapper MK Style Beverst"
         ],
+        "brand": {
+          "@type": "Brand",
+          "name": "MK Style",
+          "alternateName": "MK 38 Style",
+          "logo": "https://mkstyle.be/assets/images/logo-circle.jpg"
+        },
         "slogan": "Strak in stijl. 100% Zonder Afspraak.",
         "description": "Moderne herenkapper en barbier in Beverst (Bilzen-Hoeselt) met meer dan 16 jaar ervaring in Bilzen. 100% zonder afspraak voor heren- en kindersnit, strak opscheren, fades en baard scheren.",
         "url": "https://mkstyle.be/",
+        "mainEntityOfPage": {
+          "@id": "https://mkstyle.be/#webpage"
+        },
         "publishingPrinciples": "https://mkstyle.be/privacy",
         "knowsLanguage": [
           "nl-BE",
           "nl"
+        ],
+        "knowsAbout": [
+          "Herenkapper",
+          "Barbier",
+          "Herenknipbeurt",
+          "Skin fade",
+          "Opscheren",
+          "Baard scheren en trimmen",
+          "Kindersnit",
+          "Zonder afspraak"
         ],
         "telephone": "+32484073908",
         "email": "38mkstyle@gmail.com",
@@ -191,6 +211,8 @@
               "@type": "Offer",
               "price": "25.00",
               "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStoreOnly",
+              "url": "https://mkstyle.be/#diensten",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Herenknipbeurt",
@@ -201,6 +223,8 @@
               "@type": "Offer",
               "price": "40.00",
               "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStoreOnly",
+              "url": "https://mkstyle.be/#diensten",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Knippen & Baard",
@@ -211,6 +235,8 @@
               "@type": "Offer",
               "price": "15.00",
               "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStoreOnly",
+              "url": "https://mkstyle.be/#diensten",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Baard Scheren / Trimmen",
@@ -221,6 +247,8 @@
               "@type": "Offer",
               "price": "20.00",
               "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStoreOnly",
+              "url": "https://mkstyle.be/#diensten",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Kindersnit (t/m 12 jaar)",
@@ -231,6 +259,8 @@
               "@type": "Offer",
               "price": "20.00",
               "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStoreOnly",
+              "url": "https://mkstyle.be/#diensten",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Tondeusesnit / Bros",
@@ -241,6 +271,8 @@
               "@type": "Offer",
               "price": "30.00",
               "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStoreOnly",
+              "url": "https://mkstyle.be/#diensten",
               "itemOffered": {
                 "@type": "Service",
                 "name": "Knippen, Wassen & Stylen",
@@ -258,11 +290,51 @@
         "@type": "WebSite",
         "@id": "https://mkstyle.be/#website",
         "name": "MK Style",
+        "description": "Officiële website van MK Style — herenkapper en barbier in Beverst (Bilzen-Hoeselt), 100% zonder afspraak.",
         "url": "https://mkstyle.be/",
         "inLanguage": "nl-BE",
+        "about": {
+          "@id": "https://mkstyle.be/#barbershop"
+        },
         "publisher": {
           "@id": "https://mkstyle.be/#barbershop"
         }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://mkstyle.be/#webpage",
+        "url": "https://mkstyle.be/",
+        "name": "Herenkapper Beverst zonder afspraak | MK Style Bilzen-Hoeselt",
+        "description": "MK Style: herenkapper en barbier in Beverst, Bilzen-Hoeselt. Zonder afspraak. Bekijk prijzen, actuele openingsuren en route naar Sint-Gertrudisplein 24.",
+        "inLanguage": "nl-BE",
+        "isPartOf": {
+          "@id": "https://mkstyle.be/#website"
+        },
+        "about": {
+          "@id": "https://mkstyle.be/#barbershop"
+        },
+        "mainEntity": {
+          "@id": "https://mkstyle.be/#barbershop"
+        },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://mkstyle.be/assets/images/interior-hex-lights.jpg"
+        },
+        "breadcrumb": {
+          "@id": "https://mkstyle.be/#breadcrumb"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://mkstyle.be/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Startpagina",
+            "item": "https://mkstyle.be/"
+          }
+        ]
       }
     ]
   }
@@ -1030,8 +1102,8 @@
       <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
         <span class="footer-meta">&copy; 2026 MK Style. Alle rechten voorbehouden.</span>
         <a href="./privacy.html" class="admin-link">Privacy &amp; Wettelijk</a>
-        <a href="./admin.html" class="admin-link" title="Beheer voor de eigenaar, aanmelden vereist">
-          &#128274; AI Beheer
+        <a href="./admin.html" class="admin-link" rel="nofollow" title="Beheer voor de eigenaar, aanmelden vereist">
+          &#128274; Beheer
         </a>
       </div>
     </div>

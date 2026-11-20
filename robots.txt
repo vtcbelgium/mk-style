@@ -1,4 +1,38 @@
+# Robots & AI scanner policy for https://mkstyle.be
+# Curated LLM overview: https://mkstyle.be/llms.txt
+# Agent capabilities: https://mkstyle.be/.well-known/agents.txt
+
 User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /api/admin/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /api/admin/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /api/admin/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /api/admin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin
+Disallow: /api/admin/
+
+User-agent: Google-Extended
 Allow: /
 Disallow: /admin.html
 Disallow: /admin

@@ -1,0 +1,37 @@
+# agents.txt — MK Style (https://mkstyle.be)
+# Machine-readable capability and discovery file for AI agents and web scanners.
+# Companion Markdown overview for LLMs: https://mkstyle.be/llms.txt
+
+Name: MK Style
+URL: https://mkstyle.be
+Description: Herenkapper en barbier in Beverst (Bilzen-Hoeselt), Belgie. 100% zonder afspraak (walk-in). Publieke, read-only informatie over actuele openingsuren, uitzonderingen, tarieven en locatie.
+
+# Capabilities & Protocols
+Capability: Public HTML and Schema.org JSON-LD reading
+Capability: Live opening hours, exceptions and services JSON (GET /api/config)
+Capability: Curated LLM overview (GET /llms.txt)
+Protocol: HTTPS
+Protocol: REST (read-only)
+Protocol: Schema.org JSON-LD
+
+# Public Machine-Readable Endpoints
+LLMs-Txt: https://mkstyle.be/llms.txt
+Public-Config-API: https://mkstyle.be/api/config
+Health-Endpoint: https://mkstyle.be/api/health
+Sitemap: https://mkstyle.be/sitemap.xml
+Privacy-Policy: https://mkstyle.be/privacy
+
+# Access & Policy
+Agent: *
+Allow: /
+Allow: /privacy
+Allow: /llms.txt
+Allow: /agents.txt
+Allow: /.well-known/agents.txt
+Allow: /api/config
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/admin/
+Auth-Method: None (public read-only endpoints only)
+Rate-Limit: 60/minute
+Appointment-Booking: Not supported (100% walk-in / zonder afspraak)

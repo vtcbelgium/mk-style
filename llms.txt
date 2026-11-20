@@ -1,0 +1,43 @@
+# MK Style — Herenkapper & Barbier (Beverst, Bilzen-Hoeselt)
+
+> MK Style (MK Style CommV.) is een herenkapper en barbier op Sint-Gertrudisplein 24, 3740 Beverst (Bilzen-Hoeselt), België. Het salon werkt 100% zonder afspraak (walk-in), heeft meer dan 16 jaar ervaring in Bilzen en biedt gratis parking recht voor de deur.
+
+Bedrijfsgegevens:
+- Handelsnaam: MK Style (ook bekend als MK 38 Style)
+- Juridische naam: MK Style CommV.
+- Ondernemingsnummer: 1004.134.102 | BTW: BE1004.134.102
+- Adres: Sint-Gertrudisplein 24, 3740 Beverst (Bilzen-Hoeselt), Limburg, België (50.8911586, 5.4744756)
+- Telefoon: +32 484 07 39 08 (0484 07 39 08)
+- E-mail: 38mkstyle@gmail.com
+- Werkwijze: 100% zonder afspraak (walk-in). Online afspraken boeken is niet nodig en niet ondersteund.
+
+Reguliere openingsuren (Europe/Brussels):
+- Maandag: Gesloten
+- Dinsdag t/m vrijdag: 09:30 – 13:00 & 13:30 – 18:30
+- Zaterdag: 09:00 – 17:00 (doorlopend open)
+- Zondag: Gesloten
+- Live status & uitzonderingen (feestdagen/verlof): raadpleeg altijd https://mkstyle.be/api/config voor actuele uitzonderingsdagen, meldingen en prijzen.
+
+Diensten & richtprijzen (EUR):
+- Herenknipbeurt (€25): Persoonlijk advies, strakke fade of klassieke snit, inclusief afwerking & styling.
+- Knippen & Baard (€40): Volledige verzorging: strakke snit gecombineerd met baard trimmen en scherp aflijnen.
+- Baard Scheren / Trimmen (€15): Vakkundig modelleren, contouren scheren met mes en verzorgende baardolie.
+- Kindersnit (t/m 12 jaar) (€20): Geduldig en vlot geknipt voor jongens t/m 12 jaar — altijd welkom zonder afspraak.
+- Tondeusesnit / Bros (€20): Strakke buzzcut of bros op één of meerdere lengtes, netjes afgelijnd in de nek.
+- Knippen, Wassen & Stylen (€30): Verfrissende wasbeurt, hoofdhuidmassage, knipbeurt en premium afwerking.
+
+## Belangrijkste pagina's
+- [Startpagina](https://mkstyle.be/): Volledig overzicht van tarieven, openingsuren, verhaal, locatie, route en veelgestelde vragen.
+- [Privacy & Wettelijke Informatie](https://mkstyle.be/privacy): Bedrijfsgegevens (MK Style CommV.), GDPR, cookievrije werking en EU AI Act-transparantie.
+
+## Machine-leesbare bronnen & AI-discovery
+- [Live Configuratie API (JSON)](https://mkstyle.be/api/config): Publieke read-only JSON met actuele openingsuren, uitzonderingsdagen, meldingen en diensten/prijzen.
+- [Agents Discovery (agents.txt)](https://mkstyle.be/agents.txt): Overzicht van ondersteunde protocollen, read-only endpoints en toegangsregels voor AI-agents.
+- [Well-Known Agents Discovery](https://mkstyle.be/.well-known/agents.txt): Zelfde agent-declaratie op het standaard /.well-known/-pad.
+- [Sitemap (XML)](https://mkstyle.be/sitemap.xml): Overzicht van publiek indexeerbare pagina's.
+- [Robots.txt](https://mkstyle.be/robots.txt): Crawl- en toegangsregels voor zoekmachines en AI-scanners.
+
+## Optional
+- [Instagram (@mkstyle.38)](https://www.instagram.com/mkstyle.38/): Actuele updates, foto's en verlofmeldingen.
+- [Facebook (MK Style)](https://www.facebook.com/p/MK-Style-61588435168843/): Officiële Facebookpagina van MK Style.
+- [Google Maps](https://www.google.com/maps/search/?api=1&query=MK%20Style%20Sint-Gertrudisplein%2024%20Beverst%20Belgium&query_place_id=ChIJu8aXT6XgwEcRyp23QzZ2j2A): Locatie, route en Google-beoordelingen.
